@@ -5,45 +5,44 @@ use Illuminate\Support\Str;
 if (!function_exists('all')) {
     function all($moduleName)
     {
-        $content = <<<'EOD'
+        $content = <<<"EOD"
         <?php
 
-        namespace App\Modules\{moduleName}\Actions;
+        namespace App\\Modules\\{$moduleName}\\Actions;
 
         class All
         {
-            static $model = \App\Modules\{moduleName}\Model::class;
+            static \$model = \App\Modules\\{$moduleName}\\Model::class;
 
             public static function execute()
             {
                 try {
                     // dd(request()->all());
-                    $offset = request()->input('offset') ?? 10;
-                    $condition = [];
-                    $with = [];
-                    $data = self::$model::query();
+                    \$offset = request()->input('offset') ?? 10;
+                    \$condition = [];
+                    \$with = [];
+                    \$data = self::\$model::query();
                     if (request()->has('status') && request()->input('status')) {
-                        $condition['status'] = request()->input('status');
+                        \$condition['status'] = request()->input('status');
                     }
 
                     if (request()->has('search') && request()->input('search')) {
-                        $data = $data->where('title', 'like', '%' . request()->input('search') . '%');
+                        \$data = \$data->where('title', 'like', '%' . request()->input('search') . '%');
                     }
 
                     if (request()->has('get_all') && (int)request()->input('get_all') === 1) {
-                        $data = $data->with($with)->where($condition)->latest()->get();
+                        \$data = \$data->with(\$with)->where(\$condition)->latest()->get();
                     } else {
-                        $data = $data->with($with)->where($condition)->latest()->paginate($offset);
+                        \$data = \$data->with(\$with)->where(\$condition)->latest()->paginate(\$offset);
                     }
-                    return entityResponse($data);
-                } catch (\Exception $e) {
-                    return messageResponse($e->getMessage(), 500, 'server_error');
+                    return entityResponse(\$data);
+                } catch (\Exception \$e) {
+                    return messageResponse(\$e->getMessage(), 500, 'server_error');
                 }
             }
         }
         EOD;
 
-        $content = str_replace('{moduleName}', $moduleName, $content);
         return $content;
     }
 }
@@ -54,31 +53,31 @@ if (!function_exists('all')) {
 if (!function_exists('store')) {
     function store($moduleName)
     {
-        $content = <<<'EOD'
+        $content = <<<"EOD"
             <?php
 
-            namespace App\Modules\{moduleName}\Actions;
+            namespace App\\Modules\\{$moduleName}\\Actions;
 
-            use App\Modules\{moduleName}\Actions\Validation;
+            use App\\Modules\\{$moduleName}\\Actions\\Validation;
             use Illuminate\Support\Facades\Hash;
 
             class Store
             {
-                static $model = \App\Modules\{moduleName}\Model::class;
+                static \$model = \App\\Modules\\{$moduleName}\\Model::class;
 
-                public static function execute(Validation $request)
+                public static function execute(Validation \$request)
                 {
                     try {
-                        if (self::$model::query()->create($request->validated())) {
+                        if (self::\$model::query()->create(\$request->validated())) {
                             return messageResponse('Item added successfully', 201);
                         }
-                    } catch (\Exception $e) {
-                        return messageResponse($e->getMessage(), 500, 'server_error');
+                    } catch (\Exception \$e) {
+                        return messageResponse(\$e->getMessage(), 500, 'server_error');
                     }
                 }
             }
             EOD;
-        $content = str_replace('{moduleName}', $moduleName, $content);
+        // $content = str_replace('{moduleName}', $moduleName, $content);
         return $content;
     }
 }
@@ -86,32 +85,32 @@ if (!function_exists('store')) {
 if (!function_exists('update')) {
     function update($moduleName)
     {
-        $content = <<<'EOD'
+        $content = <<<"EOD"
             <?php
 
-            namespace App\Modules\{moduleName}\Actions;
+            namespace App\\Modules\\{$moduleName}\\Actions;
 
-            use App\Modules\{moduleName}\Actions\Validation;
+            use App\\Modules\\{$moduleName}\\Actions\\Validation;
 
             class Update
             {
-                static $model = \App\Modules\{moduleName}\Model::class;
+                static \$model = \App\\Modules\\{$moduleName}\\Model::class;
 
-                public static function execute(Validation $request,$id)
+                public static function execute(Validation \$request,\$id)
                 {
                     try {
-                        if (!$data = self::$model::query()->where('id', $id)->first()) {
+                        if (!\$data = self::\$model::query()->where('id', \$id)->first()) {
                             return messageResponse('Data not found...', 404, 'error');
                         }
-                        $data->update($request->validated());
+                        \$data->update(\$request->validated());
                         return messageResponse('Item updated successfully');
-                    } catch (\Exception $e) {
-                        return messageResponse($e->getMessage(), 500, 'server_error');
+                    } catch (\Exception \$e) {
+                        return messageResponse(\$e->getMessage(), 500, 'server_error');
                     }
                 }
             }
             EOD;
-        $content = str_replace('{moduleName}', $moduleName, $content);
+        // $content = str_replace('{moduleName}', $moduleName, $content);
         return $content;
     }
 }
@@ -119,33 +118,33 @@ if (!function_exists('update')) {
 if (!function_exists('show')) {
     function show($moduleName)
     {
-        $content = <<<'EOD'
+        $content = <<<"EOD"
             <?php
 
-            namespace App\Modules\{moduleName}\Actions;
+            namespace App\\Modules\\{$moduleName}\\Actions;
 
-            use App\Modules\{moduleName}\Actions\Validation;
+            use App\\Modules\\{$moduleName}\\Actions\\Validation;
             use Illuminate\Support\Facades\Hash;
 
             class Show
             {
-                static $model = \App\Modules\{moduleName}\Model::class;
+                static \$model = \App\\Modules\\{$moduleName}\\Model::class;
 
-                public static function execute($id)
+                public static function execute(\$id)
                 {
                     try {
-                        $with = [];
-                        if (!$data = self::$model::query()->with($with)->where('id', $id)->first()) {
+                        \$with = [];
+                        if (!\$data = self::\$model::query()->with(\$with)->where('id', \$id)->first()) {
                             return messageResponse('Data not found...', 404, 'error');
                         }
-                        return entityResponse($data);
-                    } catch (\Exception $e) {
-                        return messageResponse($e->getMessage(), 500, 'server_error');
+                        return entityResponse(\$data);
+                    } catch (\Exception \$e) {
+                        return messageResponse(\$e->getMessage(), 500, 'server_error');
                     }
                 }
             }
             EOD;
-        $content = str_replace('{moduleName}', $moduleName, $content);
+        // $content = str_replace('{moduleName}', $moduleName, $content);
         return $content;
     }
 }
@@ -153,24 +152,24 @@ if (!function_exists('show')) {
 if (!function_exists('delete')) {
     function delete($moduleName)
     {
-        $content = <<<'EOD'
+        $content = <<<"EOD"
             <?php
 
-            namespace App\Modules\{moduleName}\Actions;
+            namespace App\\Modules\\{$moduleName}\\Actions;
 
             class Delete
             {
-                static $model = \App\Modules\{moduleName}\Model::class;
+                static \$model = \App\\Modules\\{$moduleName}\\Model::class;
 
-                public static function execute($id)
+                public static function execute(\$id)
                 {
                     try {
-                        if (!$data=self::$model::find($id)) {
+                        if (!\$data=self::\$model::find(\$id)) {
                             return messageResponse('Data not found...', 404, 'error');
                         }
-                        $data->delete();
-                    } catch (\Exception $e) {
-                        return messageResponse($e->getMessage(), 500, 'server_error');
+                        \$data->delete();
+                    } catch (\Exception \$e) {
+                        return messageResponse(\$e->getMessage(), 500, 'server_error');
                     }
                 }
             }
@@ -183,10 +182,10 @@ if (!function_exists('delete')) {
 if (!function_exists('validation')) {
     function validation($moduleName)
     {
-        $content = <<<'EOD'
+        $content = <<<"EOD"
             <?php
 
-            namespace App\Modules\{moduleName}\Actions;
+            namespace App\\Modules\\{$moduleName}\\Actions;
 
             use Illuminate\Contracts\Validation\Validator;
             use Illuminate\Foundation\Http\FormRequest;
@@ -205,10 +204,10 @@ if (!function_exists('validation')) {
                 /**
                  * validateError to make this request.
                  */
-                public function validateError($data)
+                public function validateError(\$data)
                 {
-                    $errorPayload =  $data->getMessages();
-                    return response(['status' => 'validation_error', 'errors' => $errorPayload], 422);
+                    \$errorPayload =  \$data->getMessages();
+                    return response(['status' => 'validation_error', 'errors' => \$errorPayload], 422);
                 }
 
                 /**
@@ -224,32 +223,33 @@ if (!function_exists('validation')) {
                     ];
                 }
 
-                protected function failedValidation(Validator $validator)
+                protected function failedValidation(Validator \$validator)
                 {
-                    throw new HttpResponseException($this->validateError($validator->errors()));
-                    if ($this->wantsJson() || $this->ajax()) {
-                        throw new HttpResponseException($this->validateError($validator->errors()));
+                    throw new HttpResponseException(\$this->validateError(\$validator->errors()));
+                    if (\$this->wantsJson() || \$this->ajax()) {
+                        throw new HttpResponseException(\$this->validateError(\$validator->errors()));
                     }
-                    parent::failedValidation($validator);
+                    parent::failedValidation(\$validator);
                 }
             }
             EOD;
-        $content = str_replace('{moduleName}', $moduleName, $content);
+        // $content = str_replace('{moduleName}', $moduleName, $content);
         return $content;
     }
 }
 if (!function_exists('Modules')) {
     function api($moduleName)
     {
-        $content = <<<'EOD'
+        $route_name = Str::plural((Str::kebab($moduleName)));
+        $content = <<<"EOD"
         @protocol = http://
         # @hostname = qbank.techparkit.org
         @hostname = 127.0.0.1:8000
-        @endpoint = api/v1/{route_name}
+        @endpoint = api/v1/{$route_name}
         @url = {{protocol}}{{hostname}}/{{endpoint}}
         @token = Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YTFjMWRmZC04MWU3LTQ1ODgtYjVhMi0xOTA1ODNiNjZhNmUiLCJqdGkiOiIyYWIxMTMzZjJkMDE3YmE0ZDNmZDk3NzI3NWJlZDY5YjUyMjk1N2M3OGFlYzIxNTA2NTQ5NTUyYTA1M2ZmNzEyMDM4NzU2N2U3ZTRkMzlkNiIsImlhdCI6MTY5NDU3NjcyOC4xOTQ4OTgsIm5iZiI6MTY5NDU3NjcyOC4xOTQ5LCJleHAiOjE3MjYxOTkxMjguMTg2ODc2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.gJZW7MbPkwIdJw7kXhPuRK6bMkuiSTPhFXxzoXxcBzX2cT9Nj7ozj7oZXQG_9cDdKe1LIQFxr2DvapUqGMvBfenrhifvWTU0_wrNIhbBQCsS3gaWWfxuvoKkCrQwKqm7wJSB5yN2LszrdqWPgMR9EBpNiUjhXxgrZUdzskjiqG35FZzZkoHOvPxV5LP2QKtekiUv_ekQoMHxeOwOC43XXiLk9cH_XNvyRjSGibh3hZHUvtLEZ0NAfWL1eZlbge8GoQYMJxN-LO72HYCSnrG2bEmWT624iAU13U-t_cEyVDb-HFPaIXOAjOnKwNUJqfwwC1lVBvd6hNyJwODZ6iZevvwUScW3_UuoUnww46Td_A6CI7QfFywQdFolu0vDkHgQMmSmPu-QNDG8HrvSh5W1d4ve-wPaNauISsvVCVXPgdDWW9n4aKI8qAv_RCEZZYa3s9zmRdjweDxG0VeISlaPg6hLzlpO1He83onbjoPSzEWJWC7bb2nUR57zppDHgKKSBP-WW_OHH7fruavkG44_7NuNmvrTFtDclGe4E3XuqZFvno154daJpKKRPzUkbeCp6Cc3X2Qp5k-ORq1cx1NfFYmpM6ZmzFZ3bNV8IV3Cp2HgZMRKHfXWRlxiVAL73sLnSBmvn1iRswMXftl2cm9xiUMQnpJKBq_MDUilRlBTiWE
-        @createdAt = {{$timestamp}}
-        # @modifiedBy = {{$processEnv {moduleName}NAME}}
+        @createdAt = {{\$timestamp}}
+        # @modifiedBy = {{\$processEnv {$moduleName}NAME}}
 
         #                                               #
         #------------------ Modules TESTING ----------------#
@@ -316,46 +316,45 @@ if (!function_exists('Modules')) {
             "id": "{{id}}"
         }
         EOD;
-        $route = Str::plural((Str::kebab($moduleName)));
-        $content = str_replace('{route_name}', $route, $content);
+        // $route = Str::plural((Str::kebab($moduleName)));
+        // $content = str_replace('{route_name}', $route, $content);
         return $content;
     }
 }
 if (!function_exists('model')) {
     function model($moduleName)
     {
-        $content = <<<'EOD'
+        $table_name = Str::plural((Str::snake($moduleName)));
+        $content = <<<"EOD"
             <?php
 
-            namespace App\Modules\{moduleName};
+            namespace App\\Modules\\{$moduleName};
 
             use Illuminate\Database\Eloquent\Model as EloquentModel;
             use Illuminate\Support\Str;
 
             class Model extends EloquentModel
             {
-                protected $table = "{table_name}";
-                protected $guarded = [];
+                protected \$table = "{$table_name}";
+                protected \$guarded = [];
 
                 protected static function booted()
                 {
-                    static::created(function ($data) {
-                        $random_no = random_int(100, 999) . $data->id . random_int(100, 999);
-                        $slug = $data->title . " " . $random_no;
-                        $data->slug = Str::slug($slug);
-                        $data->save();
+                    static::created(function (\$data) {
+                        \$random_no = random_int(100, 999) . \$data->id . random_int(100, 999);
+                        \$slug = \$data->title . " " . \$random_no;
+                        \$data->slug = Str::slug(\$slug);
+                        \$data->save();
                     });
                 }
 
-                public function scopeActive($q)
+                public function scopeActive(\$q)
                 {
-                    return $q->where('status', 'active');
+                    return \$q->where('status', 'active');
                 }
             }
             EOD;
-        $content = str_replace('{moduleName}', $moduleName, $content);
-        $route = Str::plural((Str::snake($moduleName)));
-        $content = str_replace('{table_name}', $route, $content);
+
         return $content;
     }
 }
@@ -363,7 +362,8 @@ if (!function_exists('model')) {
 if (!function_exists('migration')) {
     function migration($moduleName)
     {
-        $content = <<<'EOD'
+        $table_name = Str::plural((Str::snake($moduleName)));
+        $content = <<<"EOD"
         <?php
 
         use Illuminate\Database\Migrations\Migration;
@@ -377,14 +377,14 @@ if (!function_exists('migration')) {
              */
             public function up(): void
             {
-                Schema::create('{table_name}', function (Blueprint $table) {
-                    $table->id();
-                    $table->string('title')->nullable();
+                Schema::create('{$table_name}', function (Blueprint \$table) {
+                    \$table->id();
+                    \$table->string('title')->nullable();
 
-                    $table->bigInteger('creator')->unsigned()->nullable();
-                    $table->string('slug', 50)->nullable();
-                    $table->enum('status', ['active', 'inactive'])->default('active');
-                    $table->timestamps();
+                    \$table->bigInteger('creator')->unsigned()->nullable();
+                    \$table->string('slug', 50)->nullable();
+                    \$table->enum('status', ['active', 'inactive'])->default('active');
+                    \$table->timestamps();
                 });
             }
 
@@ -397,8 +397,7 @@ if (!function_exists('migration')) {
             }
         };
         EOD;
-        $tableName = Str::plural((Str::snake($moduleName)));
-        $content = str_replace('{table_name}', $tableName, $content);
+        
         return $content;
     }
 }
@@ -406,17 +405,17 @@ if (!function_exists('migration')) {
 if (!function_exists('controller')) {
     function controller($moduleName)
     {
-        $content = <<<'EOD'
+        $content = <<<"EOD"
         <?php
 
-        namespace App\Modules\{moduleName};
+        namespace App\\Modules\\{$moduleName};
 
-        use App\Modules\{moduleName}\Actions\All;
-        use App\Modules\{moduleName}\Actions\Delete;
-        use App\Modules\{moduleName}\Actions\Show;
-        use App\Modules\{moduleName}\Actions\Store;
-        use App\Modules\{moduleName}\Actions\Update;
-        use App\Modules\{moduleName}\Actions\Validation;
+        use App\\Modules\\{$moduleName}\\Actions\All;
+        use App\\Modules\\{$moduleName}\\Actions\Delete;
+        use App\\Modules\\{$moduleName}\\Actions\Show;
+        use App\\Modules\\{$moduleName}\\Actions\Store;
+        use App\\Modules\\{$moduleName}\\Actions\Update;
+        use App\\Modules\\{$moduleName}\\Actions\Validation;
         use App\Http\Controllers\Controller as ControllersController;
 
 
@@ -425,55 +424,55 @@ if (!function_exists('controller')) {
 
             public function index()
             {
-                $data = All::execute();
-                return $data;
+                \$data = All::execute();
+                return \$data;
             }
 
-            public function store(Validation $request)
+            public function store(Validation \$request)
             {
-                $data = Store::execute($request);
-                return $data;
+                \$data = Store::execute(\$request);
+                return \$data;
             }
 
-            public function show($id)
+            public function show(\$id)
             {
-                $data = Show::execute($id);
-                return $data;
+                \$data = Show::execute(\$id);
+                return \$data;
             }
 
-            public function update($request, $id)
+            public function update(Validation \$request, \$id)
             {
-                $data = Update::execute(Validation $request, $id);
-                return $data;
+                \$data = Update::execute(\$request, \$id);
+                return \$data;
             }
 
-            public function destroy($id)
+            public function destroy(\$id)
             {
-                $data = Delete::execute($id);
-                return $data;
+                \$data = Delete::execute(\$id);
+                return \$data;
             }
         }
         EOD;
-        $content = str_replace('{moduleName}', $moduleName, $content);
         return $content;
     }
 }
 if (!function_exists('routeContent')) {
     function routeContent($moduleName)
     {
-        $content = <<<'EOD'
+        $route_name = Str::plural((Str::kebab($moduleName)));
+        $content = <<<"EOD"
             <?php
 
-            use App\Modules\{moduleName}\Controller;
+            use App\\Modules\\{$moduleName}\\Controller;
             use Illuminate\Support\Facades\Route;
 
             Route::prefix('v1')->group(function () {
-                Route::apiResource('{route_name}', Controller::class);
+                Route::apiResource('{$route_name}', Controller::class);
             });
             EOD;
-        $content = str_replace('{moduleName}', $moduleName, $content);
-        $route = Str::plural((Str::kebab($moduleName)));
-        $content = str_replace('{route_name}', $route, $content);
+        // $content = str_replace('{moduleName}', $moduleName, $content);
+        
+        // $content = str_replace('{route_name}', $route, $content);
         return $content;
     }
 }

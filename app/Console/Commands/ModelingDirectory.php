@@ -22,6 +22,12 @@ class ModelingDirectory extends Command
         $table = Str::plural((Str::snake($this->argument('module_name'))));
 
         $baseDirectory = app_path("Modules/" . $moduleName);
+
+        // $format_dir = explode('/', $moduleName);
+        // dd($format_dir);
+
+
+
         $actionsDirectory = $baseDirectory . '/Actions';
         if (!File::isDirectory($baseDirectory)) {
             File::makeDirectory($baseDirectory);
