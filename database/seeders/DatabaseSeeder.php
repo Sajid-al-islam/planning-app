@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Modules\Central\yearly_plan\Seeder as Yearly_planSeeder;
+use App\Modules\Central\yearly_plan_details\Seeder as Yearly_plan_detailsSeeder;
 use App\Modules\User\UserSeeder;
 use Illuminate\Database\Seeder;
 
@@ -24,7 +25,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             Yearly_planSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            Yearly_plan_detailsSeeder::class
         ]);
     }
 }

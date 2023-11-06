@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Modules\Central\yearly_plan_details;
+
+use App\Modules\Central\yearly_plan\Model as Yearly_planModel;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Support\Str;
+
+class Model extends EloquentModel
+{
+    protected $table = "yearly_plan_details";
+    protected $guarded = [];
+
+    protected static function booted()
+    {
+        static::created(function ($data) {
+            $random_no = random_int(100, 999) . $data->id . random_int(100, 999);
+            $slug = $data->title . " " . $random_no;
+            $data->slug = Str::slug($slug);
+            $data->save();
+        });
+    }
+
+    public function plan() {
+        return $this->belongsTo(Yearly_planModel::class, 'central_yearly_plan_id');
+    }
+
+    public function scopeActive($q)
+    {
+        return $q->where('status', 'active');
+    }
+}
