@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Modules\Cental\YearlyPlan\Actions;
+namespace App\Modules\Central\yearly_plan\Actions;
 
+use App\Modules\Central\yearly_plan\Actions\Validation;
 
 class Update
 {
-    static $model = \App\Modules\YearlyPlan\Model::class;
+    static $model = \App\Modules\Central\yearly_plan\Model::class;
 
     public static function execute(Validation $request,$id)
     {

@@ -28,3 +28,7 @@ Route::get('/logout', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('test', function () {
+    mkdir(app_path("t/t/t"), 0777, true); 
+});

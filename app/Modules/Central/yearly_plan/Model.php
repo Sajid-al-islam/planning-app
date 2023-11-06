@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Central\YearlyPlan;
+namespace App\Modules\Central\yearly_plan;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\tests;
+namespace App\Modules\Central\yearly_plan;
 
-use App\Modules\tests\Actions\All;
-use App\Modules\tests\Actions\Delete;
-use App\Modules\tests\Actions\Show;
-use App\Modules\tests\Actions\Store;
-use App\Modules\tests\Actions\Update;
-use App\Modules\tests\Actions\Validation;
+use App\Modules\Central\yearly_plan\Actions\All;
+use App\Modules\Central\yearly_plan\Actions\Delete;
+use App\Modules\Central\yearly_plan\Actions\Show;
+use App\Modules\Central\yearly_plan\Actions\Store;
+use App\Modules\Central\yearly_plan\Actions\Update;
+use App\Modules\Central\yearly_plan\Actions\Validation;
 use App\Http\Controllers\Controller as ControllersController;
 
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\Central\YearlyPlanDetail\Actions;
+namespace App\Modules\Central\yearly_plan\Actions;
 
-use App\Modules\Central\YearlyPlanDetail\Actions\Validation;
+use App\Modules\Central\yearly_plan\Actions\Validation;
 use Illuminate\Support\Facades\Hash;
 
 class Store
 {
-    static $model = \App\Modules\Central\YearlyPlanDetail\Model::class;
+    static $model = \App\Modules\Central\yearly_plan\Model::class;
 
     public static function execute(Validation $request)
     {

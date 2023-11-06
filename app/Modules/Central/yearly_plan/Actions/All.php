@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\tests\Actions;
+namespace App\Modules\Central\yearly_plan\Actions;
 
 class All
 {
-    static $model = \App\Modules\tests\Model::class;
+    static $model = \App\Modules\Central\yearly_plan\Model::class;
 
     public static function execute()
     {

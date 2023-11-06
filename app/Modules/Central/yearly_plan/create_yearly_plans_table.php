@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('yearly_plan_details', function (Blueprint $table) {
+        Schema::create('yearly_plans', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-
+            $table->date('session')->nullable();
             $table->bigInteger('creator')->unsigned()->nullable();
             $table->string('slug', 50)->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('yearly_plan_details');
+        Schema::dropIfExists('yearly_plans');
     }
 };

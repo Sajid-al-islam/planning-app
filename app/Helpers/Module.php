@@ -5,6 +5,17 @@ use Illuminate\Support\Str;
 if (!function_exists('all')) {
     function all($moduleName)
     {
+
+        $formated_module = explode('/', $moduleName);
+
+        if (count($formated_module) > 1) {
+            array_pop($formated_module);
+            $moduleName = implode('/', $formated_module);
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        } else {
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }
+
         $content = <<<"EOD"
         <?php
 
@@ -53,6 +64,16 @@ if (!function_exists('all')) {
 if (!function_exists('store')) {
     function store($moduleName)
     {
+        $formated_module = explode('/', $moduleName);
+
+        if (count($formated_module) > 1) {
+            array_pop($formated_module);
+            $moduleName = implode('/', $formated_module);
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        } else {
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }
+
         $content = <<<"EOD"
             <?php
 
@@ -85,6 +106,16 @@ if (!function_exists('store')) {
 if (!function_exists('update')) {
     function update($moduleName)
     {
+        $formated_module = explode('/', $moduleName);
+
+        if (count($formated_module) > 1) {
+            array_pop($formated_module);
+            $moduleName = implode('/', $formated_module);
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        } else {
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }
+
         $content = <<<"EOD"
             <?php
 
@@ -118,6 +149,16 @@ if (!function_exists('update')) {
 if (!function_exists('show')) {
     function show($moduleName)
     {
+        $formated_module = explode('/', $moduleName);
+
+        if (count($formated_module) > 1) {
+            array_pop($formated_module);
+            $moduleName = implode('/', $formated_module);
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        } else {
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }
+
         $content = <<<"EOD"
             <?php
 
@@ -152,6 +193,16 @@ if (!function_exists('show')) {
 if (!function_exists('delete')) {
     function delete($moduleName)
     {
+        $formated_module = explode('/', $moduleName);
+
+        if (count($formated_module) > 1) {
+            array_pop($formated_module);
+            $moduleName = implode('/', $formated_module);
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        } else {
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }
+
         $content = <<<"EOD"
             <?php
 
@@ -168,13 +219,13 @@ if (!function_exists('delete')) {
                             return messageResponse('Data not found...', 404, 'error');
                         }
                         \$data->delete();
+                        return messageResponse('Item Successfully deleted', 200, 'success');
                     } catch (\Exception \$e) {
                         return messageResponse(\$e->getMessage(), 500, 'server_error');
                     }
                 }
             }
             EOD;
-        $content = str_replace('{moduleName}', $moduleName, $content);
         return $content;
     }
 }
@@ -182,6 +233,16 @@ if (!function_exists('delete')) {
 if (!function_exists('validation')) {
     function validation($moduleName)
     {
+        $formated_module = explode('/', $moduleName);
+
+        if (count($formated_module) > 1) {
+            array_pop($formated_module);
+            $moduleName = implode('/', $formated_module);
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        } else {
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }
+
         $content = <<<"EOD"
             <?php
 
@@ -241,6 +302,7 @@ if (!function_exists('Modules')) {
     function api($moduleName)
     {
         $route_name = Str::plural((Str::kebab($moduleName)));
+
         $content = <<<"EOD"
         @protocol = http://
         # @hostname = qbank.techparkit.org
@@ -322,9 +384,23 @@ if (!function_exists('Modules')) {
     }
 }
 if (!function_exists('model')) {
-    function model($moduleName)
+    function model($moduleName, $class_name)
     {
-        $table_name = Str::plural((Str::snake($moduleName)));
+
+        $formated_module = explode('/', $moduleName);
+
+        if(count($formated_module) > 1) {
+            array_pop($formated_module);
+            $moduleName = implode('/', $formated_module);
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }else {
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }
+
+        $table_name = Str::plural((Str::snake($class_name)));
+        
+
+
         $content = <<<"EOD"
             <?php
 
@@ -363,6 +439,7 @@ if (!function_exists('migration')) {
     function migration($moduleName)
     {
         $table_name = Str::plural((Str::snake($moduleName)));
+
         $content = <<<"EOD"
         <?php
 
@@ -393,11 +470,49 @@ if (!function_exists('migration')) {
              */
             public function down(): void
             {
-                Schema::dropIfExists('{table_name}');
+                Schema::dropIfExists('{$table_name}');
             }
         };
         EOD;
+
+        return $content;
+    }
+}
+
+if(!function_exists('seeder')) {
+    function seeder($moduleName, $class_name) {
+        $formated_module = explode('/', $moduleName);
+
+        if(count($formated_module) > 1) {
+            array_pop($formated_module);
+            $moduleName = implode('/', $formated_module);
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }else {
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }
+
+        $content = <<<"EOD"
+        <?php
+        namespace App\\Modules\\{$moduleName};
         
+        use Illuminate\Database\Seeder as SeedersSeeder;
+        
+        class Seeder extends SeedersSeeder
+        {
+            /**
+             * Run the database seeds.
+             */
+            static \$model = \App\\Modules\\{$moduleName}\\Model::class;
+            public function run(): void
+            {
+                self::\$model::truncate();
+                self::\$model::create([
+                    "title" => " ",
+                ]);
+            }
+        }
+        EOD;
+
         return $content;
     }
 }
@@ -405,6 +520,16 @@ if (!function_exists('migration')) {
 if (!function_exists('controller')) {
     function controller($moduleName)
     {
+        $formated_module = explode('/', $moduleName);
+
+        if (count($formated_module) > 1) {
+            array_pop($formated_module);
+            $moduleName = implode('/', $formated_module);
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        } else {
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }
+
         $content = <<<"EOD"
         <?php
 
@@ -457,9 +582,22 @@ if (!function_exists('controller')) {
     }
 }
 if (!function_exists('routeContent')) {
-    function routeContent($moduleName)
+    function routeContent($moduleName, $class_name)
     {
-        $route_name = Str::plural((Str::kebab($moduleName)));
+
+        $formated_module = explode('/', $moduleName);
+        
+        if(count($formated_module) > 1) {
+            array_pop($formated_module);
+            $moduleName = implode('/', $formated_module);
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }else {
+            $moduleName = Str::replace("/", "\\", $moduleName);
+        }
+        
+        $route_name = Str::plural((Str::kebab($class_name)));
+        
+
         $content = <<<"EOD"
             <?php
 
@@ -471,7 +609,7 @@ if (!function_exists('routeContent')) {
             });
             EOD;
         // $content = str_replace('{moduleName}', $moduleName, $content);
-        
+
         // $content = str_replace('{route_name}', $route, $content);
         return $content;
     }

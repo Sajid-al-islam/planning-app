@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\Cental\YearlyPlan\Actions;
+namespace App\Modules\Central\yearly_plan\Actions;
 
-use App\Modules\YearlyPlan\Actions\Validation;
+use App\Modules\Central\yearly_plan\Actions\Validation;
 use Illuminate\Support\Facades\Hash;
 
 class Show
 {
-    static $model = \App\Modules\YearlyPlan\Model::class;
+    static $model = \App\Modules\Central\yearly_plan\Model::class;
 
     public static function execute($id)
     {

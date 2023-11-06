@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Cental\YearlyPlan\Actions;
+namespace App\Modules\Central\yearly_plan\Actions;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
