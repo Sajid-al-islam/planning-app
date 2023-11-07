@@ -10,3 +10,4 @@ include_once  base_path("app/Modules/UserRole/Route.php");
 
 include_once  base_path("app/Modules/Central/yearly_plan/Route.php");
 include_once  base_path("app/Modules/Central/yearly_plan_details/Route.php");
+include_once  base_path("app/Modules/Dofa/Route.php");

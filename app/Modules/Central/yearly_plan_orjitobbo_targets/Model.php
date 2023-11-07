@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Modules\Dofa;
+namespace App\Modules\Central\yearly_plan_orjitobbo_targets;
 
-use App\Modules\Central\yearly_plan_details\Model as Yearly_plan_detailsModel;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 
 class Model extends EloquentModel
 {
-    protected $table = "dofas";
+    protected $table = "yearly_plan_orjitobbo_targets";
     protected $guarded = [];
 
     protected static function booted()
@@ -19,10 +18,6 @@ class Model extends EloquentModel
             $data->slug = Str::slug($slug);
             $data->save();
         });
-    }
-
-    public function plan_details() {
-        return $this->belongsTo(Yearly_plan_detailsModel::class, 'yealy_plan_details_id');
     }
 
     public function scopeActive($q)

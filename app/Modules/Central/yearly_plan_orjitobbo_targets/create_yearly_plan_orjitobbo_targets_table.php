@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dofas', function (Blueprint $table) {
+        Schema::create('yearly_plan_orjitobbo_targets', function (Blueprint $table) {
             $table->id();
             $table->integer('serial')->nullable();
-            $table->string('title')->nullable();
-            $table->bigInteger('yealy_plan_id')->nullable();
-            $table->bigInteger('yealy_plan_details_id')->nullable();
+            $table->string('title',100)->nullable();
+            $table->integer('amount' )->nullable();
             $table->bigInteger('creator')->unsigned()->nullable();
             $table->string('slug', 50)->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dofas');
+        Schema::dropIfExists('yearly_plan_orjitobbo_targets');
     }
 };

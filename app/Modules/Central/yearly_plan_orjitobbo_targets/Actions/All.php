@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Dofa\Actions;
+namespace App\Modules\Central\yearly_plan_orjitobbo_targets\Actions;
 
 class All
 {
-    static $model = \App\Modules\Dofa\Model::class;
+    static $model = \App\Modules\Central\yearly_plan_orjitobbo_targets\Model::class;
 
     public static function execute()
     {
@@ -12,7 +12,7 @@ class All
             // dd(request()->all());
             $offset = request()->input('offset') ?? 10;
             $condition = [];
-            $with = ['plan_details'];
+            $with = [];
             $data = self::$model::query();
             if (request()->has('status') && request()->input('status')) {
                 $condition['status'] = request()->input('status');
