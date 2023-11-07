@@ -21,10 +21,6 @@ class Model extends EloquentModel
         });
     }
 
-    public function plan_details() {
-        return $this->belongsTo(Yearly_plan_detailsModel::class, 'yealy_plan_details_id');
-    }
-
     public function scopeActive($q)
     {
         return $q->where('status', 'active');
