@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('yearly_plan_orjitobbo_targets', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('yealy_plan_id')->nullable();
+            $table->bigInteger('yealy_plan_details_id')->nullable();
             $table->integer('serial')->nullable();
             $table->string('title',100)->nullable();
             $table->integer('amount' )->nullable();

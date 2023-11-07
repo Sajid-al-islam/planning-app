@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->integer('serial')->nullable();
             $table->string('title')->nullable();
-            $table->bigInteger('yealy_plan_id')->nullable();
-            $table->bigInteger('yealy_plan_details_id')->nullable();
             $table->bigInteger('creator')->unsigned()->nullable();
             $table->string('slug', 50)->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');

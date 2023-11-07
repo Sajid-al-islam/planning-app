@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
 
         $user_role = new UserRole();
         $user_role->id = 40;
-        $user_role->name = 'user';
+        $user_role->name = 'division';
         $user_role->role_serial = 4;
         $user_role->save();
 
