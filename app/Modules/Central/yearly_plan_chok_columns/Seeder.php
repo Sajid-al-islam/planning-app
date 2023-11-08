@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Dofa;
+namespace App\Modules\Central\yearly_plan_chok_columns;
 
 use Illuminate\Database\Seeder as SeedersSeeder;
 
@@ -8,14 +8,12 @@ class Seeder extends SeedersSeeder
     /**
      * Run the database seeds.
      */
-    static $model = \App\Modules\Dofa\Model::class;
+    static $model = \App\Modules\Central\yearly_plan_chok_columns\Model::class;
     public function run(): void
     {
         self::$model::truncate();
         self::$model::create([
-            "serial" => 1,
-            "title" => "দাওয়াত"
+            "title" => " ",
         ]);
-        
     }
 }

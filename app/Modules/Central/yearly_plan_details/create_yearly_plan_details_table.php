@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('central_yearly_plan_id')->nullable();
             $table->integer('serial')->unsigned()->nullable();
             $table->string('plan_title',100)->nullable();
-            $table->bigInteger(' ')->unsigned()->nullable();
+            $table->bigInteger('dofa_id')->unsigned()->nullable();
             $table->bigInteger('how_much_was_incomplete')->unsigned()->nullable();
             $table->float('ratings')->unsigned()->nullable();
             $table->integer('is_approved')->unsigned()->default(1);
