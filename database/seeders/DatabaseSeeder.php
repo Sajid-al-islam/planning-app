@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Modules\Central\yearly_plan\Seeder as Yearly_planSeeder;
 use App\Modules\Central\yearly_plan_details\Seeder as Yearly_plan_detailsSeeder;
 use App\Modules\Central\yearly_plan_orjitobbo_targets\Seeder as Yearly_plan_orjitobbo_targetsSeeder;
+use App\Modules\Central\yearly_plan_suggestions\Seeder as Yearly_plan_suggestionsSeeder;
 use App\Modules\Dofa\Seeder as DofaSeeder;
 use App\Modules\User\UserSeeder;
 use Illuminate\Database\Seeder;
@@ -30,7 +31,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             Yearly_plan_detailsSeeder::class,
             DofaSeeder::class,
-            Yearly_plan_orjitobbo_targetsSeeder::class
+            Yearly_plan_orjitobbo_targetsSeeder::class,
+            Yearly_plan_suggestionsSeeder::class
         ]);
     }
 }

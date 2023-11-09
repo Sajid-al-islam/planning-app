@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('yearly_plan_hide_for_users', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
+            $table->bigInteger('user_id')->nullable();
+
+            $table->bigInteger('yearly_plan_id')->nullable();
+            $table->bigInteger('yearly_plan_details_id')->nullable();
 
             $table->bigInteger('creator')->unsigned()->nullable();
             $table->string('slug', 50)->nullable();

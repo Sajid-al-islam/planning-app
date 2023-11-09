@@ -27,6 +27,20 @@ return new class extends Migration
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
+
+        Schema::create('yearly_plan_detail_yearly_plan_hide_for_user', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('yearly_plan_details_id')->nullable();
+            $table->bigInteger('yearly_plan_hide_for_users_id')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('yearly_plan_detail_yearly_plan_complete_by_division', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('yearly_plan_details_id')->nullable();
+            $table->bigInteger('yearly_plan_complete_by_divisions_id')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -35,5 +49,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('yearly_plan_details');
+        Schema::dropIfExists('yearly_plan_detail_yearly_plan_hide_for_user');
+        Schema::dropIfExists('yearly_plan_detail_yearly_plan_complete_by_division');
     }
 };

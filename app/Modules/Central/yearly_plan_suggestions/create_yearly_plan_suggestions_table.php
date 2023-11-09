@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('yearly_plan_orjitobbo_targets', function (Blueprint $table) {
+        Schema::create('yearly_plan_suggestions', function (Blueprint $table) {
             $table->id();
+            // $table->string('title')->nullable();
             $table->bigInteger('yearly_plan_id')->nullable();
             $table->bigInteger('yearly_plan_details_id')->nullable();
-            $table->integer('serial')->nullable();
-            $table->string('title',100)->nullable();
-            $table->integer('amount' )->nullable();
+            $table->text('suggestion')->nullable();
+            $table->bigInteger('user_id')->nullable();
             $table->bigInteger('creator')->unsigned()->nullable();
             $table->string('slug', 50)->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('yearly_plan_orjitobbo_targets');
+        Schema::dropIfExists('yearly_plan_suggestions');
     }
 };

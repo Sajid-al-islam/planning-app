@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('yearly_plan_details_edit_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
+
+            $table->text('column_name')->nullable();
+            $table->text('column_value')->nullable();
+            $table->bigInteger('edit_by_user')->nullable();
+
+            $table->bigInteger('yearly_plan_id')->nullable();
+            $table->bigInteger('yearly_plan_details_id')->nullable();
 
             $table->bigInteger('creator')->unsigned()->nullable();
             $table->string('slug', 50)->nullable();

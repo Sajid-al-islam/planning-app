@@ -17,7 +17,7 @@ class Seeder extends SeedersSeeder
             "title" => "scholarship program",
             "amount" => 10,
             "yearly_plan_id" => 1,
-            "yealy_plan_details_id" => 1,
+            "yearly_plan_details_id" => 1,
         ]);
     }
 }

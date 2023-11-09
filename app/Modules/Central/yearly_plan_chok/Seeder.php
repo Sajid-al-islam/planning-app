@@ -11,9 +11,9 @@ class Seeder extends SeedersSeeder
     static $model = \App\Modules\Central\yearly_plan_chok\Model::class;
     public function run(): void
     {
-        self::$model::truncate();
-        self::$model::create([
-            "title" => " ",
-        ]);
+        // self::$model::truncate();
+        // self::$model::create([
+        //     "chok_title" => "Sport's Club",
+        // ]);
     }
 }

@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('yearly_plan_details_chok_values', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
+            $table->integer('serial')->nullable();
+            $table->string('value')->nullable();
+
+            $table->bigInteger('yearly_plan_id')->nullable();
+            $table->bigInteger('yearly_plan_details_id')->nullable();
+            $table->bigInteger('yearly_plan_details_chok_id')->nullable();
+            $table->bigInteger('yearly_plan_details_chok_column_id')->nullable();
 
             $table->bigInteger('creator')->unsigned()->nullable();
             $table->string('slug', 50)->nullable();
