@@ -4,6 +4,7 @@ namespace App\Modules\Central\yearly_plan_details;
 
 use App\Modules\Central\yearly_plan\Model as Yearly_planModel;
 use App\Modules\Central\yearly_plan_complete_by_divisions\Model as Yearly_plan_complete_by_divisionsModel;
+use App\Modules\Central\yearly_plan_details_completion_time\Model as Yearly_plan_details_completion_timeModel;
 use App\Modules\Central\yearly_plan_hide_for_users\Model as Yearly_plan_hide_for_usersModel;
 use App\Modules\Responsibles\Model as ResponsiblesModel;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
@@ -43,6 +44,10 @@ class Model extends EloquentModel
 
     public function responsibles() {
         return $this->belongsToMany(ResponsiblesModel::class);
+    }
+
+    public function completion_time() {
+        return $this->hasOne(Yearly_plan_details_completion_timeModel::class, 'yearly_plan_details_id');
     }
 
 }

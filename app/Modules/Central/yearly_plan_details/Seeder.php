@@ -1,6 +1,8 @@
 <?php
 namespace App\Modules\Central\yearly_plan_details;
 
+use App\Modules\Central\yearly_plan_details_completion_time\Model as CompletionModel;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder as SeedersSeeder;
 
 class Seeder extends SeedersSeeder
@@ -24,6 +26,13 @@ class Seeder extends SeedersSeeder
             "creator" => 1
         ]);
 
+        $completion = new CompletionModel();
+        $completion->start_date = Carbon::today()->toDateString();
+        $completion->end_date = Carbon::today()->addDays(90)->toDateString();
+        $completion->yearly_plan_details_id = 1;
+        $completion->yearly_plan_id = 1;
+        $completion->save();
+
         self::$model::create([
             "serial" => 1,
             "central_yearly_plan_id" => 1,
@@ -36,6 +45,14 @@ class Seeder extends SeedersSeeder
             "creator" => 1
         ]);
 
+        $completion = new CompletionModel();
+        $completion->start_date = Carbon::today()->toDateString();
+        $completion->end_date = Carbon::today()->addDays(90)->toDateString();
+        $completion->yearly_plan_details_id = 2;
+        $completion->yearly_plan_id = 1;
+        $completion->save();
+
+
         self::$model::create([
             "serial" => 1,
             "central_yearly_plan_id" => 1,
@@ -47,5 +64,12 @@ class Seeder extends SeedersSeeder
             "is_public" => 'yes',
             "creator" => 1
         ]);
+
+        $completion = new CompletionModel();
+        $completion->start_date = Carbon::today()->toDateString();
+        $completion->end_date = Carbon::today()->addDays(90)->toDateString();
+        $completion->yearly_plan_details_id = 3;
+        $completion->yearly_plan_id = 1;
+        $completion->save();
     }
 }
