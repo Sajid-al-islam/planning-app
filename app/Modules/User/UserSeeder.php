@@ -50,8 +50,14 @@ class UserSeeder extends Seeder
 
         $user_role = new UserRole();
         $user_role->id = 41;
-        $user_role->name = 'visitor';
+        $user_role->name = 'branch';
         $user_role->role_serial = 5;
+        $user_role->save();
+
+        $user_role = new UserRole();
+        $user_role->id = 42;
+        $user_role->name = 'visitor';
+        $user_role->role_serial = 6;
         $user_role->save();
 
 

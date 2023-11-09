@@ -32,14 +32,18 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('yearly_plan_details_id')->nullable();
             $table->bigInteger('yearly_plan_hide_for_users_id')->nullable();
-            $table->timestamps();
         });
 
         Schema::create('yearly_plan_detail_yearly_plan_complete_by_division', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('yearly_plan_details_id')->nullable();
             $table->bigInteger('yearly_plan_complete_by_divisions_id')->nullable();
-            $table->timestamps();
+        });
+
+        Schema::create('yearly_plan_detail_responsible', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('responsible_id')->nullable();
+            $table->bigInteger('yearly_plan_details_id')->nullable();
         });
     }
 
@@ -51,5 +55,6 @@ return new class extends Migration
         Schema::dropIfExists('yearly_plan_details');
         Schema::dropIfExists('yearly_plan_detail_yearly_plan_hide_for_user');
         Schema::dropIfExists('yearly_plan_detail_yearly_plan_complete_by_division');
+        Schema::dropIfExists('yearly_plan_detail_responsible');
     }
 };

@@ -15,7 +15,31 @@ class Seeder extends SeedersSeeder
         self::$model::create([
             "serial" => 1,
             "central_yearly_plan_id" => 1,
-            "plan_title" => "Half yealry plan",
+            "plan_title" => "১. প্রতিটি ওয়ার্ড ও উপশাখায় প্রতি ৩ জনে একটা দাওয়াতি গ্রুপ গঠন নিশ্চিত করা।",
+            "dofa_id" => 1,
+            "how_much_was_incomplete" => 30,
+            "ratings" => 4.5,
+            "is_approved" => 1,
+            "is_public" => 'yes',
+            "creator" => 1
+        ]);
+
+        self::$model::create([
+            "serial" => 1,
+            "central_yearly_plan_id" => 1,
+            "plan_title" => "সকল জনশক্তিকে দাওয়াতি কাজে অভ্যস্ত করতে দায়িত্বশীলগণ প্রোগ্রামসমূহে তত্ত্বাবধান করবেন। পাশাপাশি পারস্পরিক যোগাযোগের সময়ে সকল জনশক্তি ব্যক্তিগত দাওয়াতি কাজের ব্যাপারে একে অপরের খোঁজখবর নেবেন।",
+            "dofa_id" => 1,
+            "how_much_was_incomplete" => 30,
+            "ratings" => 4.5,
+            "is_approved" => 1,
+            "is_public" => 'yes',
+            "creator" => 1
+        ]);
+
+        self::$model::create([
+            "serial" => 1,
+            "central_yearly_plan_id" => 1,
+            "plan_title" => "দাওয়াতি কাজে উদ্বুদ্ধকরণে দায়িত্বশীলগণ পরিকল্পিতভাবে জনশক্তিদেরকে সাথে নিয়ে দাওয়াতি কাজ করবেন।",
             "dofa_id" => 1,
             "how_much_was_incomplete" => 30,
             "ratings" => 4.5,
