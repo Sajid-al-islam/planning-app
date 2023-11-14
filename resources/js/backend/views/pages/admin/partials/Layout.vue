@@ -20,8 +20,23 @@ import Header from "./Header.vue"
 
 export default {
     components: { Sidebar, Header },
-
+    data: () => ({
+        offset: "",
+        search_data: "",
+    }),
+    created: async function () {
+    },
+    methods: {
+        
+    },
+    computed: {
+    },
+    watch: {
+        
+    },
 }
 </script>
+
+
 
 <style></style>

@@ -21,6 +21,7 @@ Route::prefix("v1")->middleware('guest:api')->group(function () {
     Route::post('/api-login', [ApiLoginController::class, 'login']);
     Route::post('/api-register', [ApiLoginController::class, 'register']);
     Route::get('/auth-check', [ApiLoginController::class, 'auth_check']);
+    Route::get('/auth-role-check', [ApiLoginController::class, 'check_auth']);
     Route::post('/forget-mail', [ApiLoginController::class, 'forget_mail']);
     Route::post('/check-code', [ApiLoginController::class, 'check_code']);
     Route::post('/logout-from-all-devices', [ApiLoginController::class, 'logout_from_all_devices']);

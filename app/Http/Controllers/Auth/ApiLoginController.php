@@ -29,12 +29,13 @@ class ApiLoginController extends Controller
     public function auth_check()
     {
         if (Auth::check()) {
+            
             return response()->json([
                 "auth_status" => true,
                 "auth_information" => Auth::user(),
             ], 200);
         } else {
-            return response()->json(0, 200);
+            return response()->json(["unauthenticated"], 400);
         }
     }
 
