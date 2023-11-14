@@ -17,8 +17,18 @@
             </li>
 
             <li class="my-2 d-flex align-items-center gap-2">
-                <i class="icon-desktop"></i>
+                <i class="icon-light-bulb"></i>
                 <router-link :to="{ name: `AllPlan` }" class="d-flex align-items-center" href="">Plan</router-link>
+            </li>
+
+            <li class="my-2 d-flex align-items-center gap-2">
+                <i class="icon-list"></i>
+                <router-link :to="{ name: `AllDofa` }" class="d-flex align-items-center" href="javascript:void(0)">Dofa</router-link>
+            </li>
+
+            <li class="my-2 d-flex align-items-center gap-2">
+                <i class="icon-info-alt"></i>
+                <router-link :to="{ name: `AllDofa` }" class="d-flex align-items-center" href="javascript:void(0)">Suggestions</router-link>
             </li>
         </div>
     </div>

@@ -21,8 +21,15 @@ class Model extends EloquentModel
         });
     }
 
+
+    
+
     public function scopeActive($q)
     {
         return $q->where('status', 'active');
+    }
+
+    public function plan_details() {
+        return $this->belongsTo(Yearly_plan_detailsModel::class,'id','dofa_id');   
     }
 }
