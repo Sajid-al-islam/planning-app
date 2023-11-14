@@ -1,6 +1,6 @@
 import Layout from "./Layout.vue";
-import All from "../All.vue";
-import Create from "../Create.vue";
+import AllDofa from "../All.vue";
+import CreateDofa from "../Create.vue";
 
 const routes = {
     path: 'dofa',
@@ -9,12 +9,12 @@ const routes = {
         {
             path: '',
             name: "AllDofa",
-            component: All
+            component: AllDofa
         },
         {
             path: 'create',
             name: "CreateDofa",
-            component: Create
+            component: CreateDofa
         },
     ]
 }

@@ -2,6 +2,7 @@
 
 namespace App\Modules\Central\yearly_plan_suggestions;
 
+use App\Modules\User\Model as UserModel;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 
@@ -18,6 +19,10 @@ class Model extends EloquentModel
             $data->slug = Str::slug($slug);
             $data->save();
         });
+    }
+
+    public function user() {
+        return $this->belongsTo(UserModel::class, 'user_id');
     }
 
     public function scopeActive($q)
