@@ -1,20 +1,20 @@
 import Layout from "./Layout.vue";
-import AllTarget from "../All.vue";
-import CreateTarget from "../Create.vue";
+import AllChokColumn from "../All.vue";
+import CreateChokColumn from "../Create.vue";
 
 const routes = {
-    path: 'target',
+    path: 'chok-column',
     component: Layout,
     children: [
         {
             path: '',
-            name: "AllTarget",
-            component: AllTarget
+            name: "AllChokColumn",
+            component: AllChokColumn
         },
         {
             path: 'create',
-            name: "CreateTarget",
-            component: CreateTarget
+            name: "CreateChokColumn",
+            component: CreateChokColumn
         },
     ]
 }

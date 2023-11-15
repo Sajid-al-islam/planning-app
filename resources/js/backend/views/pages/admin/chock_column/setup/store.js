@@ -4,7 +4,7 @@ export const plan_setup_store = defineStore("plan_setup_store", {
     state: () => ({
         all_data: {},
         single_data: {},
-        url: "yearly-plan-orjitobbo-targets"
+        url: "yearly-plan-chok-columns"
     }),
     getters: {
         doubleCount: (state) => state.count * 2,

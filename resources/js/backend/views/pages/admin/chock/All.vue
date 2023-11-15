@@ -8,6 +8,18 @@
                     </div>
                     <div class="col-lg-6 text-end">
                         <span>
+                            <router-link :to="{ name: `AllChokColumn` }" class="btn rounded-pill btn-outline-info me-2">
+                                <i class="fa fa-list me-5px"></i>
+                                Chok columns
+                            </router-link>
+                        </span>
+                        <span>
+                            <router-link :to="{ name: `AllChokColumn` }" class="btn rounded-pill btn-outline-info me-2">
+                                <i class="fa fa-list me-5px"></i>
+                                Chok Values
+                            </router-link>
+                        </span>
+                        <span>
                             <router-link :to="{ name: `CreateChok` }" class="btn rounded-pill btn-outline-info">
                                 <i class="fa fa-pencil me-5px"></i>
                                 Create

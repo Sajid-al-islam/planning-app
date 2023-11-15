@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-lg-6 text-end">
                             <div class="btns">
-                                <router-link :to="{ name: `AllTarget` }"
+                                <router-link :to="{ name: `AllChokColumn` }"
                                     class="btn rounded-pill btn-outline-warning router-link-active"><i
                                         class="fa fa-arrow-left me-5px"></i>
                                     Back
@@ -56,7 +56,7 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import form_fields from "./setup/form_fields.js";
-import { plan_setup_store } from "./setup/store";
+import { plan_setup_store as chok_column_store } from "./setup/store";
 export default {
     data: () => ({
         form_fields,
@@ -85,7 +85,7 @@ export default {
     },
 
     methods: {
-        ...mapActions(plan_setup_store, {
+        ...mapActions(chok_column_store, {
             user_update: "update",
             user_get: "get",
             user_store: "store",
@@ -98,13 +98,13 @@ export default {
                 let response = await this.user_store($event.target);
                 if (response.data.status === "success") {
                     window.s_alert("Data successcully created");
-                    this.$router.push({ name: `AllTarget` });
+                    this.$router.push({ name: `AllChokColumn` });
                 }
             }
         },
     },
     computed: {
-        ...mapState(plan_setup_store, {
+        ...mapState(chok_column_store, {
             single_user: "single_data",
         }),
     },
