@@ -4,11 +4,11 @@
             <div class="page-header my-2">
                 <div class="row align-items-center rounded-2">
                     <div class="col-lg-6">
-                        <h5 class="m-0">Target Management</h5>
+                        <h5 class="m-0">ChokColumnValue Management</h5>
                     </div>
                     <div class="col-lg-6 text-end">
                         <span>
-                            <router-link :to="{ name: `CreateTarget` }" class="btn rounded-pill btn-outline-info">
+                            <router-link :to="{ name: `CreateChokColumnValue` }" class="btn rounded-pill btn-outline-info">
                                 <i class="fa fa-pencil me-5px"></i>
                                 Create
                             </router-link>
@@ -20,7 +20,7 @@
                 <div class="card list_card">
                     <div class="card-header align-items-center">
                         <h6>
-                            All Targets
+                            All ChokColumnValues
                             <!---->
                         </h6>
                         <div class="search">
@@ -69,14 +69,11 @@
                                         <!---->
                                     </th>
                                     <th class="cursor_n_resize">
-                                        Serial
+                                        Plan Details
                                     </th>
                                     
                                     <th class="cursor_n_resize">
-                                        Title
-                                    </th>
-                                    <th class="cursor_n_resize">
-                                        Amount
+                                        Value
                                     </th>
                                     <th class="cursor_n_resize">
                                         Status
@@ -86,16 +83,11 @@
                             </thead>
 
                             <tbody class="table-border-bottom-0">
-                                <tr v-for="(item, index) in all_targets.data" :key="index">
+                                <tr v-for="(item, index) in all_chok_column_values.data" :key="index">
                                     <td>
                                         <input type="checkbox" class="form-check-input" />
                                     </td>
                                     <td>{{ item.id }}</td>
-                                    <td>
-                                        <span class="text-primary">
-                                            {{ item.serial }}
-                                        </span>
-                                    </td>
 
                                     <td>
                                         <span class="text-warning cursor_pointer">
@@ -105,7 +97,7 @@
 
                                     <td>
                                         <span class="text-warning cursor_pointer">
-                                            {{ item.amount }}
+                                            {{ item.value }}
                                         </span>
                                     </td>
 
@@ -142,7 +134,7 @@
                                                 <li>
                                                     <span>
                                                         <router-link :to="{
-                                                            name: 'CreateTarget',
+                                                            name: 'CreateChokColumnValue',
                                                             query: {
                                                                 id: item.id,
                                                             },
@@ -156,7 +148,7 @@
                                                 <li>
                                                     <span>
                                                         <a @click.prevent="
-                                                            target_delete(
+                                                            chok_column_value_delete(
                                                                 item.id
                                                             )
                                                             " href="#" class="">
@@ -173,7 +165,7 @@
                         </table>
                     </div>
                     <div class="card-footer py-1 border-top-0 d-flex justify-content-between border border-1">
-                        <pagination :data="all_targets" :method="target_get_all" />
+                        <pagination :data="all_chok_column_values" :method="chok_column_value_get_all" />
                         <div class="float-right">
                             <div class="show-limit d-inline-block">
                                 <span>Limit:</span>
@@ -187,7 +179,7 @@
                             </div>
                             <div class="show-limit d-inline-block">
                                 <span>Total:</span>
-                                <span>{{ all_targets.total }}</span>
+                                <span>{{ all_chok_column_values.total }}</span>
                             </div>
                         </div>
                     </div>
@@ -221,7 +213,7 @@
 
 <script>
 import { mapActions, mapState } from "pinia";
-import { plan_setup_store } from "./setup/store";
+import { plan_setup_store as chok_value_store } from "./setup/store";
 import debounce from 'debounce';
 export default {
     data: () => ({
@@ -229,26 +221,26 @@ export default {
         search_data: "",
     }),
     created: async function () {
-        await this.target_get_all("yearly-plan-orjitobbo-targets");
+        await this.chok_column_value_get_all("yearly-plan-details-chok-values");
     },
     methods: {
-        ...mapActions(plan_setup_store, {
-            target_get_all: "all",
-            target_delete: "delete",
+        ...mapActions(chok_value_store, {
+            chok_column_value_get_all: "all",
+            chok_column_value_delete: "delete",
         }),
     },
     computed: {
-        ...mapState(plan_setup_store, {
-            all_targets: "all_data",
+        ...mapState(chok_value_store, {
+            all_chok_column_values: "all_data",
         }),
     },
     watch: {
         offset: async function (newOffset, oldOffset) {
-            await this.target_get_all("yearly-plan-orjitobbo-targets");
+            await this.chok_column_value_get_all("yearly-plan-details-chok-values");
         },
         search_data: debounce(async function (newSearchData, oldSearchData) {
                 
-            await this.target_get_all("yearly-plan-orjitobbo-targets?search="+newSearchData);
+            await this.chok_column_value_get_all("yearly-plan-details-chok-values?search="+newSearchData);
         }, 500),
     },
 };

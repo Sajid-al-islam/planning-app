@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\ApiLoginController;
 use App\Http\Controllers\HomeController;
+use App\Modules\Central\yearly_plan_details\Controller as YearlyPlanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,4 @@ Route::prefix("v1")->middleware('guest:api')->group(function () {
     Route::post('/check-code', [ApiLoginController::class, 'check_code']);
     Route::post('/logout-from-all-devices', [ApiLoginController::class, 'logout_from_all_devices']);
 });
+

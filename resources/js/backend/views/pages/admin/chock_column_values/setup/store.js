@@ -4,7 +4,8 @@ export const plan_setup_store = defineStore("plan_setup_store", {
     state: () => ({
         all_data: {},
         single_data: {},
-        url: "yearly-plan-orjitobbo-targets"
+        url: "yearly-plan-details-chok-values",
+        plan_details: {}
     }),
     getters: {
         doubleCount: (state) => state.count * 2,
@@ -27,6 +28,16 @@ export const plan_setup_store = defineStore("plan_setup_store", {
             }
 
             this.all_data = response.data.data;
+        },
+        get_plan_details: async function() {
+            await axios.get('get_all_plan_details').then((response) => {
+                
+                this.plan_details = response.data;
+            })
+            .catch((e) => {
+                
+                console.log(e.response);
+            });
         },
         get: async function (id) {
             let response = await axios.get(this.url + '/' + id);

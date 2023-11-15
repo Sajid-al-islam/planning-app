@@ -20,6 +20,12 @@ class Controller extends ControllersController
         return $data;
     }
 
+
+    public function all_yearly_plans() {
+        $data = Model::where('status', 'active')->get();
+        return response()->json($data);
+    }
+
     public function store(Validation $request)
     {
         $data = Store::execute($request);

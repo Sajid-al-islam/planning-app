@@ -3,22 +3,9 @@
 export default [
     
     {
-        name: "serial",
-        label: "Enter serial",
-        type: "number",
-        value: "",
-    },
-    {
-        name: "title",
-        label: "Enter title",
+        name: "value",
+        label: "Enter value",
         type: "text",
-        value: "",
-    },
-
-    {
-        name: "amount",
-        label: "Amount",
-        type: "number",
         value: "",
     },
 

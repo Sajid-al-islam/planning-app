@@ -7,6 +7,7 @@ import suggestion_routes from "../suggestions/setup/routes"
 import target_routes from "../targets/setup/routes"
 import chok_routes from "../chock/setup/routes"
 import chok_column_routes from "../chock_column/setup/routes"
+import chok_column_value_routes from "../chock_column_values/setup/routes"
 
 const routes =
 {
@@ -24,7 +25,8 @@ const routes =
         suggestion_routes,
         target_routes,
         chok_routes,
-        chok_column_routes
+        chok_column_routes,
+        chok_column_value_routes
     ]
 };
 

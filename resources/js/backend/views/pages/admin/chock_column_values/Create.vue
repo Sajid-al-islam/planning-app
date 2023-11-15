@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-lg-6 text-end">
                             <div class="btns">
-                                <router-link :to="{ name: `AllTarget` }"
+                                <router-link :to="{ name: `AllChokColumnValue` }"
                                     class="btn rounded-pill btn-outline-warning router-link-active"><i
                                         class="fa fa-arrow-left me-5px"></i>
                                     Back
@@ -34,9 +34,19 @@
                                                 :value="form_field.value" :data_list="form_field.data_list
                                                     " />
                                         </template>
-                                        
+                                        <div class="form-group">
+                                            <label for="select_plan">Select plan</label>
+                                            <div class="mt-1 mb-3">
+                                                <select name="yearly_plan_details_id" class="form-control" id="select_plan">
+                                                    <option v-for="(plan_detail, index) in plan_details" :key="index"
+                                                        :value="plan_detail.id">
+                                                        {{ plan_detail.plan_title }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -56,7 +66,7 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import form_fields from "./setup/form_fields.js";
-import { plan_setup_store } from "./setup/store";
+import { plan_setup_store as chok_value_store } from "./setup/store";
 export default {
     data: () => ({
         form_fields,
@@ -82,13 +92,15 @@ export default {
                 item.value = "";
             });
         }
+        this.get_plan_details();
     },
 
     methods: {
-        ...mapActions(plan_setup_store, {
+        ...mapActions(chok_value_store, {
             user_update: "update",
             user_get: "get",
             user_store: "store",
+            get_plan_details: "get_plan_details"
         }),
 
         submitHandler: async function ($event) {
@@ -98,14 +110,15 @@ export default {
                 let response = await this.user_store($event.target);
                 if (response.data.status === "success") {
                     window.s_alert("Data successcully created");
-                    this.$router.push({ name: `AllTarget` });
+                    this.$router.push({ name: `AllChokColumnValue` });
                 }
             }
         },
     },
     computed: {
-        ...mapState(plan_setup_store, {
+        ...mapState(chok_value_store, {
             single_user: "single_data",
+            plan_details: "plan_details"
         }),
     },
 };
