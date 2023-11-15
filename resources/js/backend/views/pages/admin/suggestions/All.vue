@@ -223,7 +223,7 @@ export default {
         search_data: "",
     }),
     created: async function () {
-        await this.suggestion_get_all();
+        await this.suggestion_get_all("yearly-plan-suggestions");
     },
     methods: {
         ...mapActions(plan_setup_store, {
@@ -238,7 +238,7 @@ export default {
     },
     watch: {
         offset: async function (newOffset, oldOffset) {
-            await this.suggestion_get_all("suggestions");
+            await this.suggestion_get_all("yearly-plan-suggestions");
         },
         search_data: function (newSearchData, oldSearchData) {
             console.log(newSearchData);

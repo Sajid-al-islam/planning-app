@@ -229,7 +229,7 @@ export default {
         search_data: "",
     }),
     created: async function () {
-        await this.dofa_get_all();
+        await this.dofa_get_all("dofas");
     },
     methods: {
         ...mapActions(plan_setup_store, {

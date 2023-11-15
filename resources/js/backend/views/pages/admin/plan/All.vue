@@ -264,7 +264,7 @@ export default {
         search_data: "",
     }),
     created: async function () {
-        await this.plan_get_all();
+        await this.plan_get_all("yearly-plans");
     },
     methods: {
         ...mapActions(plan_setup_store, {
