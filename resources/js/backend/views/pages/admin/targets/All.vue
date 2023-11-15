@@ -4,11 +4,11 @@
             <div class="page-header my-2">
                 <div class="row align-items-center rounded-2">
                     <div class="col-lg-6">
-                        <h5 class="m-0">Dofa Management</h5>
+                        <h5 class="m-0">Target Management</h5>
                     </div>
                     <div class="col-lg-6 text-end">
                         <span>
-                            <router-link :to="{ name: `CreateDofa` }" class="btn rounded-pill btn-outline-info">
+                            <router-link :to="{ name: `CreateTarget` }" class="btn rounded-pill btn-outline-info">
                                 <i class="fa fa-pencil me-5px"></i>
                                 Create
                             </router-link>
@@ -20,12 +20,12 @@
                 <div class="card list_card">
                     <div class="card-header align-items-center">
                         <h6>
-                            All Dofas
+                            All Targets
                             <!---->
                         </h6>
                         <div class="search">
                             <form action="#">
-                                <input v-model.debounce:1000ms="search_data" placeholder="search..." type="search"
+                                <input v-model="search_data" placeholder="search..." type="search"
                                     class="form-control border border-info" />
                             </form>
                         </div>
@@ -71,22 +71,22 @@
                                     <th class="cursor_n_resize">
                                         Serial
                                     </th>
-                                    <!-- <th class="cursor_n_resize">
-                                        Plan details
-                                    </th> -->
+                                    
                                     <th class="cursor_n_resize">
                                         Title
                                     </th>
                                     <th class="cursor_n_resize">
+                                        Amount
+                                    </th>
+                                    <th class="cursor_n_resize">
                                         Status
-                                        <!---->
                                     </th>
                                     <th aria-label="actions">Actions</th>
                                 </tr>
                             </thead>
 
                             <tbody class="table-border-bottom-0">
-                                <tr v-for="(item, index) in all_dofas.data" :key="index">
+                                <tr v-for="(item, index) in all_targets.data" :key="index">
                                     <td>
                                         <input type="checkbox" class="form-check-input" />
                                     </td>
@@ -96,11 +96,7 @@
                                             {{ item.serial }}
                                         </span>
                                     </td>
-                                    <!-- <td>
-                                        <span v-if="item.plan_details" class="cursor_pointer text-warning">
-                                            {{ item.plan_details.plan_title }}
-                                        </span>
-                                    </td> -->
+
                                     <td>
                                         <span class="text-warning cursor_pointer">
                                             {{ item.title }}
@@ -108,8 +104,13 @@
                                     </td>
 
                                     <td>
+                                        <span class="text-warning cursor_pointer">
+                                            {{ item.amount }}
+                                        </span>
+                                    </td>
+
+                                    <td>
                                         <span class="badge bg-label-success me-1">{{ item.status }}</span>
-                                        <!---->
                                     </td>
                                     <td>
                                         <div class="table_actions">
@@ -141,7 +142,7 @@
                                                 <li>
                                                     <span>
                                                         <router-link :to="{
-                                                            name: 'CreateDofa',
+                                                            name: 'CreateTarget',
                                                             query: {
                                                                 id: item.id,
                                                             },
@@ -155,7 +156,7 @@
                                                 <li>
                                                     <span>
                                                         <a @click.prevent="
-                                                            dofa_delete(
+                                                            target_delete(
                                                                 item.id
                                                             )
                                                             " href="#" class="">
@@ -172,7 +173,7 @@
                         </table>
                     </div>
                     <div class="card-footer py-1 border-top-0 d-flex justify-content-between border border-1">
-                        <pagination :data="all_dofas" :method="dofa_get_all" />
+                        <pagination :data="all_targets" :method="target_get_all" />
                         <div class="float-right">
                             <div class="show-limit d-inline-block">
                                 <span>Limit:</span>
@@ -186,13 +187,12 @@
                             </div>
                             <div class="show-limit d-inline-block">
                                 <span>Total:</span>
-                                <span>{{ all_dofas.total }}</span>
+                                <span>{{ all_targets.total }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="canvas_backdrop">
-                    <!---->
                 </div>
                 <div class="canvas_backdrop">
                     <div class="content right">
@@ -222,33 +222,34 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import { plan_setup_store } from "./setup/store";
-
+import debounce from 'debounce';
 export default {
     data: () => ({
         offset: "5",
         search_data: "",
     }),
     created: async function () {
-        await this.dofa_get_all("dofas");
+        await this.target_get_all("yearly-plan-orjitobbo-targets");
     },
     methods: {
         ...mapActions(plan_setup_store, {
-            dofa_get_all: "all",
-            dofa_delete: "delete",
+            target_get_all: "all",
+            target_delete: "delete",
         }),
     },
     computed: {
         ...mapState(plan_setup_store, {
-            all_dofas: "all_data",
+            all_targets: "all_data",
         }),
     },
     watch: {
         offset: async function (newOffset, oldOffset) {
-            await this.dofa_get_all("dofas");
+            await this.target_get_all("yearly-plan-orjitobbo-targets");
         },
-        search_data: async function (newSearchData, oldSearchData) {
-            await this.dofa_get_all("dofas?search="+newSearchData);
-        },
+        search_data: debounce(async function (newSearchData, oldSearchData) {
+                
+            await this.target_get_all("yearly-plan-orjitobbo-targets?search="+newSearchData);
+        }, 500),
     },
 };
 </script>

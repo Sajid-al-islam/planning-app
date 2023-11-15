@@ -1,23 +1,27 @@
 
+
 export default [
-    {
-        name: "yearly_plan_id",
-        label: "Select plan",
-        type: "select",
-        value: "",
-    },
-    {
-        name: "user_id",
-        label: "Enter title",
-        type: "text",
-        value: "",
-    },
+    
     {
         name: "serial",
         label: "Enter serial",
         type: "number",
         value: "",
     },
+    {
+        name: "title",
+        label: "Enter title",
+        type: "text",
+        value: "",
+    },
+
+    {
+        name: "amount",
+        label: "Amount",
+        type: "number",
+        value: "",
+    },
+
     // {
     //     name: "password",
     //     label: "Enter your password",

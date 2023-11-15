@@ -307,8 +307,8 @@ export default {
         offset: async function (newOffset, oldOffset) {
             await this.user_get_all("users");
         },
-        search_data: function (newSearchData, oldSearchData) {
-            console.log(newSearchData);
+        search_data: async function (newSearchData, oldSearchData) {
+            await this.target_get_all("users?search="+newSearchData);
         },
     },
 };

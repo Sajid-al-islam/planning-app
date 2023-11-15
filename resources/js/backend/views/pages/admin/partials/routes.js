@@ -4,6 +4,7 @@ import user_routes from "../user/setup/routes"
 import plan_routes from "../plan/setup/routes"
 import dofa_routes from "../dofa/setup/routes"
 import suggestion_routes from "../suggestions/setup/routes"
+import target_routes from "../targets/setup/routes"
 
 const routes =
 {
@@ -18,7 +19,8 @@ const routes =
         user_routes,
         plan_routes,
         dofa_routes,
-        suggestion_routes
+        suggestion_routes,
+        target_routes
     ]
 };
 

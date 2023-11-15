@@ -12,7 +12,7 @@ class Store
     public static function execute(Validation $request)
     {
         try {
-            if (self::$model::query()->create($request->validated())) {
+            if (self::$model::query()->create($request->all())) {
                 return messageResponse('Item added successfully', 201);
             }
         } catch (\Exception $e) {

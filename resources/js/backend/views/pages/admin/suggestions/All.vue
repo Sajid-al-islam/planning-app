@@ -8,10 +8,10 @@
                     </div>
                     <div class="col-lg-6 text-end">
                         <span>
-                            <router-link :to="{ name: `CreateSuggestion` }" class="btn rounded-pill btn-outline-info">
+                            <!-- <router-link :to="{ name: `CreateSuggestion` }" class="btn rounded-pill btn-outline-info">
                                 <i class="fa fa-pencil me-5px"></i>
                                 Create
-                            </router-link>
+                            </router-link> -->
                         </span>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
 
                                                     </span>
                                                 </li> -->
-                                                <li>
+                                                <!-- <li>
                                                     <span>
                                                         <router-link :to="{
                                                             name: 'CreateSuggestion',
@@ -143,9 +143,8 @@
                                                             <i class="fa text-warning fa-pencil"></i>
                                                             Edit
                                                         </router-link>
-                                                        <!---->
                                                     </span>
-                                                </li>
+                                                </li> -->
                                                 <li>
                                                     <span>
                                                         <a @click.prevent="
@@ -240,8 +239,9 @@ export default {
         offset: async function (newOffset, oldOffset) {
             await this.suggestion_get_all("yearly-plan-suggestions");
         },
-        search_data: function (newSearchData, oldSearchData) {
-            console.log(newSearchData);
+
+        search_data: async function (newSearchData, oldSearchData) {
+            await this.suggestion_get_all("yearly-plan-suggestions?search="+newSearchData);
         },
     },
 };

@@ -281,8 +281,8 @@ export default {
         offset: async function (newOffset, oldOffset) {
             await this.plan_get_all("yearly-plans");
         },
-        search_data: function (newSearchData, oldSearchData) {
-            console.log(newSearchData);
+        search_data: async function (newSearchData, oldSearchData) {
+            await this.plan_get_all("yearly-plans?search="+newSearchData);
         },
     },
 };
