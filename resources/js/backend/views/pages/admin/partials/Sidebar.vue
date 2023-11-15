@@ -35,6 +35,11 @@
                 <i class="icon-target"></i>
                 <router-link :to="{ name: `AllTarget` }" class="d-flex align-items-center" href="javascript:void(0)">Orijitobbo Target</router-link>
             </li>
+
+            <li class="my-2 d-flex align-items-center gap-2">
+                <i class="icon-target"></i>
+                <router-link :to="{ name: `AllChok` }" class="d-flex align-items-center" href="javascript:void(0)">Chok</router-link>
+            </li>
         </div>
     </div>
 </template>
