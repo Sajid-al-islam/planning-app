@@ -1,3 +1,5 @@
+
+
 export default [
     {
         name: "title",
@@ -11,6 +13,7 @@ export default [
         type: "number",
         value: "",
     },
+
     // {
     //     name: "password",
     //     label: "Enter your password",

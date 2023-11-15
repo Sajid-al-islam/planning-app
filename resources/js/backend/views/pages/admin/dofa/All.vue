@@ -71,9 +71,9 @@
                                     <th class="cursor_n_resize">
                                         Serial
                                     </th>
-                                    <th class="cursor_n_resize">
+                                    <!-- <th class="cursor_n_resize">
                                         Plan details
-                                    </th>
+                                    </th> -->
                                     <th class="cursor_n_resize">
                                         Title
                                     </th>
@@ -96,11 +96,11 @@
                                             {{ item.serial }}
                                         </span>
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <span v-if="item.plan_details" class="cursor_pointer text-warning">
                                             {{ item.plan_details.plan_title }}
                                         </span>
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <span class="text-warning cursor_pointer">
                                             {{ item.title }}

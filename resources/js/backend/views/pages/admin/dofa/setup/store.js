@@ -39,7 +39,8 @@ export const plan_setup_store = defineStore("plan_setup_store", {
                 'Content-Type': 'application/x-www-form-urlencoded',
             };
             let formData = new FormData(form);
-            let response = await axios.post(`${this.url}/update/${id}`, formData);
+            formData.append('_method', 'PUT');
+            let response = await axios.post(`${this.url}/${id}`, formData);
             window.s_alert("Data successcully updated");
             console.log("res", response.data);
         },
