@@ -6,6 +6,8 @@ use App\Modules\Central\yearly_plan\Model as Yearly_planModel;
 use App\Modules\Central\yearly_plan_complete_by_divisions\Model as Yearly_plan_complete_by_divisionsModel;
 use App\Modules\Central\yearly_plan_details_completion_time\Model as Yearly_plan_details_completion_timeModel;
 use App\Modules\Central\yearly_plan_hide_for_users\Model as Yearly_plan_hide_for_usersModel;
+use App\Modules\Central\yearly_plan_orjitobbo_targets\Model as Yearly_plan_orjitobbo_targetsModel;
+use App\Modules\Dofa\Model as DofaModel;
 use App\Modules\Responsibles\Model as ResponsiblesModel;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
@@ -32,6 +34,14 @@ class Model extends EloquentModel
 
     public function plan() {
         return $this->belongsTo(Yearly_planModel::class, 'central_yearly_plan_id');
+    }
+
+    public function dofa() {
+        return $this->hasOne(DofaModel::class, 'id', 'dofa_id');
+    }
+
+    public function orjitobbo_target() {
+        return $this->hasOne(Yearly_plan_orjitobbo_targetsModel::class, 'id','orjitobbo_target_id');
     }
 
     public function hidden_plan() {

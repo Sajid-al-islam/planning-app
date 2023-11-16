@@ -17,8 +17,13 @@
             </li>
 
             <li class="my-2 d-flex align-items-center gap-2">
+                <i class="icon-calendar"></i>
+                <router-link :to="{ name: `AllPlan` }" class="d-flex align-items-center" href="">Plan Session</router-link>
+            </li>
+
+            <li class="my-2 d-flex align-items-center gap-2">
                 <i class="icon-light-bulb"></i>
-                <router-link :to="{ name: `AllPlan` }" class="d-flex align-items-center" href="">Plan</router-link>
+                <router-link :to="{ name: `AllPlanDetails` }" class="d-flex align-items-center" href="">Plan Details</router-link>
             </li>
 
             <li class="my-2 d-flex align-items-center gap-2">

@@ -120,12 +120,37 @@ class UserSeeder extends Seeder
         $user->permissions()->attach([1,2,3]);
 
         $user = new User();
-        $user->full_name = 'mr. user';
-        $user->user_name = 'user';
-        $user->telegram_id = '8129513';
+        $user->full_name = 'division one';
+        $user->user_name = 'division_one';
+        $user->telegram_id = '81295134';
         // $user->role_id = 3;
-        $user->phone = '016125';
-        $user->email = 'user@gmail.com';
+        $user->phone = '0161253';
+        $user->email = 'division1@gmail.com';
+        $user->password = Hash::make('12345678');
+        $user->save();
+        $user->roles()->attach([4]);
+        $user->permissions()->attach([1]);
+
+
+        $user = new User();
+        $user->full_name = 'division two';
+        $user->user_name = 'division_two';
+        $user->telegram_id = '81295135';
+        // $user->role_id = 3;
+        $user->phone = '0161252';
+        $user->email = 'division2@gmail.com';
+        $user->password = Hash::make('12345678');
+        $user->save();
+        $user->roles()->attach([4]);
+        $user->permissions()->attach([1]);
+
+        $user = new User();
+        $user->full_name = 'division three';
+        $user->user_name = 'division_three';
+        $user->telegram_id = '81295135';
+        // $user->role_id = 3;
+        $user->phone = '0161256';
+        $user->email = 'division3@gmail.com';
         $user->password = Hash::make('12345678');
         $user->save();
         $user->roles()->attach([4]);

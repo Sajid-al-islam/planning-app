@@ -14,6 +14,20 @@ class Seeder extends SeedersSeeder
         self::$model::truncate();
         self::$model::create([
             "user_id" => 4,
+            "yearly_plan_id" => 1,
+            "yearly_plan_details_id" => 1,
+        ]);
+
+        self::$model::create([
+            "user_id" => 5,
+            "yearly_plan_id" => 1,
+            "yearly_plan_details_id" => 1,
+        ]);
+
+        self::$model::create([
+            "user_id" => 6,
+            "yearly_plan_id" => 1,
+            "yearly_plan_details_id" => 1,
         ]);
     }
 }

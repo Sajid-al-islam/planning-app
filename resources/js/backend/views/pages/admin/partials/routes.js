@@ -2,6 +2,7 @@ import Layout from "./Layout.vue"
 import Dashboard from "../Dashboard.vue"
 import user_routes from "../user/setup/routes"
 import plan_routes from "../plan/setup/routes"
+import plan_details_routes from "../plandetails/setup/routes"
 import dofa_routes from "../dofa/setup/routes"
 import suggestion_routes from "../suggestions/setup/routes"
 import target_routes from "../targets/setup/routes"
@@ -26,7 +27,8 @@ const routes =
         target_routes,
         chok_routes,
         chok_column_routes,
-        chok_column_value_routes
+        chok_column_value_routes,
+        plan_details_routes
     ]
 };
 

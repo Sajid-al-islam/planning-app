@@ -2,6 +2,7 @@
 
 namespace App\Modules\Central\yearly_plan_complete_by_divisions;
 
+use App\Modules\User\Model as UserModel;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 
@@ -23,5 +24,10 @@ class Model extends EloquentModel
     public function scopeActive($q)
     {
         return $q->where('status', 'active');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(UserModel::class, 'user_id');
     }
 }
