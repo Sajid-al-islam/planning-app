@@ -221,7 +221,7 @@
 
 <script>
 import { mapActions, mapState } from "pinia";
-import { plan_setup_store } from "./setup/store";
+import { dofa_store } from "./setup/store";
 
 export default {
     data: () => ({
@@ -232,13 +232,13 @@ export default {
         await this.dofa_get_all("dofas");
     },
     methods: {
-        ...mapActions(plan_setup_store, {
+        ...mapActions(dofa_store, {
             dofa_get_all: "all",
             dofa_delete: "delete",
         }),
     },
     computed: {
-        ...mapState(plan_setup_store, {
+        ...mapState(dofa_store, {
             all_dofas: "all_data",
         }),
     },

@@ -221,7 +221,7 @@
 
 <script>
 import { mapActions, mapState } from "pinia";
-import { plan_setup_store } from "./setup/store";
+import { target_store } from "./setup/store";
 import debounce from 'debounce';
 export default {
     data: () => ({
@@ -232,13 +232,13 @@ export default {
         await this.target_get_all("yearly-plan-orjitobbo-targets");
     },
     methods: {
-        ...mapActions(plan_setup_store, {
+        ...mapActions(target_store, {
             target_get_all: "all",
             target_delete: "delete",
         }),
     },
     computed: {
-        ...mapState(plan_setup_store, {
+        ...mapState(target_store, {
             all_targets: "all_data",
         }),
     },

@@ -26,14 +26,74 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-12">
                                     <div class="admin_form form_1">
-                                        <template v-for="(
+                                        <!-- <template v-for="(
                                                 form_field, index
                                             ) in form_fields" :key="index">
                                             <common-input :label="form_field.label" :type="form_field.type"
                                                 :name="form_field.name" :multiple="form_field.multiple"
                                                 :value="form_field.value" :data_list="form_field.data_list
                                                     " />
-                                        </template>
+                                        </template> -->
+                                        <!-- <div class="form-group">
+                                            <label for="">Enter serial</label>
+                                            <div class="mt-1 mb-3"><input class="form-control" type="number" name="serial" id="serial" /></div>
+                                        </div> -->
+
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-border">
+                                            <thead>
+                                                <th style="min-width: auto;">#</th>
+                                                <th style="min-width: 50px;">sl</th>
+                                                <th style="min-width: 150px;">দফা</th>
+                                                <th style="min-width: 150px;">অর্জিতব্য টার্গেট</th>
+                                                <th style="min-width: 200px;">কর্মপরিকল্পনা</th>
+                                                <th style="min-width: 200px;">ছক</th>
+                                                <th style="min-width: 200px;">বাস্তবায়নকারী</th>
+                                                <th style="min-width: 250px;">বাস্তবায়নকারী বৃন্দ</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="(form, index) in form_array" :key="index">
+                                                    <td>
+                                                        <button @click="addRow()" class="btn btn-sm btn-primary ms-2">+</button>
+                                                        <button class="btn btn-sm btn-danger ms-2">-</button>
+                                                    </td>
+                                                    <td style="width: 80px;">
+                                                        <input type="text" class="form-control" v-model="form.serial">
+                                                    </td>
+                                                    <td>
+                                                        <select name="dofa_id" id="dofa_id" class="form-select" v-model="form.dofa">
+                                                            <option v-for="(dofa, index) in all_dofas" :key="index" :value="dofa.id">
+                                                                {{ dofa.title }}
+                                                            </option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select name="orjitobbot_target" id="orjitobbot_target" class="form-select" v-model="form.orjitobbo_target">
+                                                            <option v-for="(target, index) in all_targets" :key="index" :value="target.id">
+                                                                {{ target.title }}
+                                                            </option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" v-model="form.kormo_porikolpona">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" v-model="form.chok">
+                                                    </td>
+                                                    <td>
+                                                        <select name="orjitobbo_target" id="orjitobbo_target" class="form-select" v-model="form.bastobayonkari">
+                                                            <option value="1">1</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select name="orjitobbo_target" id="orjitobbo_target" class="form-select" v-model="form.bastobayonkari">
+                                                            <option value="1">1</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -55,10 +115,14 @@
 import { mapActions, mapState } from "pinia";
 import form_fields from "./setup/form_fields.js";
 import { plan_setup_store } from "./setup/store";
+import { dofa_store } from "../dofa/setup/store";
+import { target_store } from "../targets/setup/store";
+
 export default {
     data: () => ({
         form_fields,
         param_id: null,
+        form_array: []
     }),
 
     created: async function () {
@@ -80,6 +144,11 @@ export default {
                 item.value = "";
             });
         }
+        await this.get_all_dofas();
+        await this.get_all_targets();
+        await this.get_all_responsibles();   
+
+        this.addRow();
     },
 
     methods: {
@@ -88,6 +157,28 @@ export default {
             user_get: "get",
             user_store: "store",
         }),
+
+        ...mapActions(dofa_store, {
+            get_all_dofas: "get_all",
+        }),
+
+        ...mapActions(target_store, {
+            get_all_targets: "get_all",
+        }),
+
+        addRow: function () {
+            this.form_array.push(
+                {
+                    serial: this.form_array.length + 1,
+                    dofa: "",
+                    orjitobbo_target: "",
+                    kormo_porikolpona: "",
+                    chok: "",
+                    bastobayonkari: "",
+                    bastobayonkari_person: "",
+                }
+            )
+        },
 
         submitHandler: async function ($event) {
             if (this.param_id) {
@@ -104,6 +195,12 @@ export default {
     computed: {
         ...mapState(plan_setup_store, {
             single_user: "single_data",
+        }),
+        ...mapState(dofa_store, {
+            all_dofas: "all_data",
+        }),
+        ...mapState(target_store, {
+            all_targets: "all_data",
         }),
     },
 };

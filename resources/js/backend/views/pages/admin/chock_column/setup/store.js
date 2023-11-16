@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const plan_setup_store = defineStore("plan_setup_store", {
+export const plan_setup_store = defineStore("chok_column_store", {
     state: () => ({
         all_data: {},
         single_data: {},

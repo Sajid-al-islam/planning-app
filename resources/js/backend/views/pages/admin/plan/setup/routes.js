@@ -13,7 +13,7 @@ const routes = {
         },
         {
             path: 'create',
-            name: "Create",
+            name: "CreatePlan",
             component: Form
         },
     ]

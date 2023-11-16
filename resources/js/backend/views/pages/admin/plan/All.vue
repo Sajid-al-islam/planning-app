@@ -9,7 +9,7 @@
                     <div class="col-lg-6 text-end">
                         <span>
                             <router-link
-                                :to="{ name: `Create` }"
+                                :to="{ name: `CreatePlan` }"
                                 class="btn rounded-pill btn-outline-info"
                             >
                                 <i class="fa fa-pencil me-5px"></i>
