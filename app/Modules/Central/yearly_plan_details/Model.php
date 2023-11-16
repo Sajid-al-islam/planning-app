@@ -3,7 +3,7 @@
 namespace App\Modules\Central\yearly_plan_details;
 
 use App\Modules\Central\yearly_plan\Model as Yearly_planModel;
-use App\Modules\Central\yearly_plan_complete_by_divisions\Model as Yearly_plan_complete_by_divisionsModel;
+use App\Modules\Central\yearly_plan_complete_by_divisions\Model as YearlyPlanCompleteByDivisions;
 use App\Modules\Central\yearly_plan_details_completion_time\Model as Yearly_plan_details_completion_timeModel;
 use App\Modules\Central\yearly_plan_hide_for_users\Model as Yearly_plan_hide_for_usersModel;
 use App\Modules\Central\yearly_plan_orjitobbo_targets\Model as Yearly_plan_orjitobbo_targetsModel;
@@ -49,11 +49,22 @@ class Model extends EloquentModel
     }
 
     public function divisions() {
-        return $this->belongsToMany(Yearly_plan_complete_by_divisionsModel::class);
+        $class = YearlyPlanCompleteByDivisions::class;
+        /**
+            $related,
+            $table = null,
+            $foreignPivotKey = null,
+            $relatedPivotKey = null,
+            $parentKey = null,
+            $relatedKey = null,
+            $relation = null
+         */
+        return $this->belongsToMany($class, 'yearly_plan_detail_yearly_plan_complete_by_division','yearly_plan_details_id','yearly_plan_complete_by_divisions_id','id','id');
     }
 
     public function responsibles() {
-        return $this->belongsToMany(ResponsiblesModel::class);
+
+        return $this->belongsToMany(ResponsiblesModel::class, 'yearly_plan_detail_responsible', 'responsible_id', 'yearly_plan_details_id', 'id', 'id');
     }
 
     public function completion_time() {

@@ -31,12 +31,6 @@ export const plan_setup_store = defineStore("plan_setup_store", {
             let response = await axios.post("yearly-plans", formData);
             return response;
         },
-
-        store_plan_details: async function (form) {
-            let formData = form;
-            let response = await axios.post("yearly-plans", formData);
-            return response;
-        },
         update: async function (form, id) {
             const headers = {
                 'Content-Type': 'application/x-www-form-urlencoded',

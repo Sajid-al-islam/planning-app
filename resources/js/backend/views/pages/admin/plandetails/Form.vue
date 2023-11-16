@@ -211,7 +211,7 @@ export default {
                 let response = await this.user_store($event.target);
                 if (response.data.status === "success") {
                     window.s_alert("Data successcully created");
-                    this.$router.push({ name: `AllPlan` });
+                    this.$router.push({ name: `AllPlanDetails` });
                 }
             }
         },
