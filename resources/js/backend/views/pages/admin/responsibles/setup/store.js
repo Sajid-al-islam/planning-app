@@ -4,7 +4,8 @@ export const responsible_store = defineStore("responsible_store", {
     state: () => ({
         all_data: {},
         single_data: {},
-        url: "yearly-plan-complete-by-divisions"
+        url: "yearly-plan-complete-by-divisions",
+        division_users: {}
     }),
     getters: {
         doubleCount: (state) => state.count * 2,
@@ -28,7 +29,10 @@ export const responsible_store = defineStore("responsible_store", {
 
             this.all_data = response.data.data;
         },
-
+        get_all_responsible_users: async function(url="user/get-division-users") {
+            let response = await axios.get(url);
+            this.division_users = response.data;
+        },
         get_all: async function (url) {
             let response;
             // let page = `?page=${pageLimit}`;

@@ -10,6 +10,9 @@ class Model extends EloquentModel
 {
     protected $table = "users";
     protected $guarded = [];
+    protected $appends = [
+        'title'
+    ];
     protected static function booted()
     {
         static::created(function ($data) {
@@ -18,6 +21,12 @@ class Model extends EloquentModel
             $data->slug = Str::slug($slug); //use Illuminate\Support\Str;
             $data->save();
         });
+    }
+    
+
+    public function getTitleAttribute()
+    {
+        return $this->full_name;
     }
 
     public function scopeActive($q)

@@ -8,6 +8,7 @@ import { createPinia } from "pinia";
 import CommonInput from "./views/components/CommonInput.vue";
 import ImageComponent from "../backend/views/components/ImageComponent.vue";
 import Pagination from "../backend/views/components/Pagination.vue";
+import DynamicSelect from '../backend/views/components/DynamicSelect.vue';
 
 import App from "./views/App.vue";
 import admin_routes from "./views/pages/admin/partials/routes";
@@ -44,6 +45,7 @@ app.component("app", App);
 app.component("common-input", CommonInput);
 app.component("image-component", ImageComponent);
 app.component("pagination", Pagination);
+app.component('dynamicSelect', DynamicSelect);
 app.use(pinia);
 app.use(router);
 app.mount("#app");

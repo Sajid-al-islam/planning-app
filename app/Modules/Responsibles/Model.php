@@ -9,6 +9,7 @@ class Model extends EloquentModel
 {
     protected $table = "responsibles";
     protected $guarded = [];
+    
 
     protected static function booted()
     {

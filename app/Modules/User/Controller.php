@@ -20,6 +20,16 @@ class Controller extends ControllersController
         return $data;
     }
 
+    public function get_all_divisions() {
+        $divisions = Model::whereExists(
+            function($query) {  
+                $query->from('user_user_role')
+                    ->whereIn('user_user_role.user_role_id', [4])
+                    ->whereColumn('user_user_role.user_id', 'users.id');
+            })->get();
+        return response()->json($divisions);
+    }
+
     public function store(Validation $request)
     {
         $data = Store::execute($request);

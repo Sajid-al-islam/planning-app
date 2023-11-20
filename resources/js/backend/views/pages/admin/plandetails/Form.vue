@@ -86,11 +86,12 @@
                                                         <input type="text" class="form-control" name="chok" v-model="form.chok">
                                                     </td>
                                                     <td>
-                                                        <select name="bastobayonkari[]" id="bastobayonkari[]" multiple class="form-select" v-model="form.bastobayonkari">
+                                                        <!-- <select name="bastobayonkari[]" id="bastobayonkari[]" multiple class="form-select" v-model="form.bastobayonkari">
                                                             <option v-for="(responsible, index) in all_responsibles" :key="index" :value="responsible.id">
                                                                 {{ responsible.user.full_name }}
                                                             </option>
-                                                        </select>
+                                                        </select> -->
+                                                        <dynamicSelect :data="all_responsibles" :setValue="setTags"></dynamicSelect>
                                                     </td>
                                                     <td>
                                                         <select name="bastobayonkari_person[]" id="bastobayonkari_person[]" multiple class="form-select" v-model="form.bastobayonkari_person">
@@ -132,9 +133,15 @@ export default {
     data: () => ({
         form_fields,
         param_id: null,
-        form_array: []
+        form_array: [],
+        tags: [],
+        active_divisions: []
     }),
+    // watch: {
+    //     all_responsibles(newValue, oldValue) {
 
+    //     },
+    // },
     created: async function () {
         let id = this.$route.query.id;
         if (id) {
@@ -157,7 +164,9 @@ export default {
         await this.get_all_dofas();
         await this.get_all_targets();
         await this.get_all_responsibles();   
-        await this.get_all_responsible_persons();   
+        await this.get_all_responsible_persons();
+        
+        this.tags = this.all_responsibles;
 
         this.addRow();
     },
@@ -179,7 +188,7 @@ export default {
         }),
 
         ...mapActions(responsible_store, {
-            get_all_responsibles: "get_all",
+            get_all_responsibles: "get_all_responsible_users",
         }),
 
         ...mapActions(responsible_person_store, {
@@ -221,6 +230,9 @@ export default {
             if(response.data) {
                 window.s_alert("data updated!");
             }
+        },
+        setTags: function(tag) {
+            this.tags = tag;
         }
     },
     computed: {
@@ -235,12 +247,14 @@ export default {
         }),
 
         ...mapState(responsible_store, {
-            all_responsibles: "all_data",
+            all_responsibles: "division_users",
         }),
 
         ...mapState(responsible_person_store, {
             all_responsible_persons: "all_data",
         }),
+
+        
     },
 };
 </script>
