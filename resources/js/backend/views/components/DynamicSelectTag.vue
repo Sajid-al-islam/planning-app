@@ -5,23 +5,14 @@
                 v-for="(item, index) in component_data" :key="index">
                 <div class="d-flex gap-3 align-items-baseline px-1 justify-content-between">
                     <span @click="edit(item)">
+                        <!-- {{ item }} -->
                         {{ item.title }}
                     </span>
                     <i @click="remove(index)" class="icon-close text-danger"></i>
                 </div>
             </li>
         </ul>
-        <input v-on:keydown.enter="onEnter" ref="input_form" @click="show=!show" v-model="input_value" type="text" class="form-control">
-        <div v-if="select_type == 'checkbox'">
-            <ul class="select-tools" :class="show ? '' : 'd-none'">
-                <li role="button" v-for="(item, index) in sourceData" :key="index" @click="selectData(item)">
-                    <span class="mx-2">
-                        <input role="button" :id="'select' + index" type="checkbox">
-                    </span>
-                    <label role="button" :for="'select' + index" @click="selectData(item)">{{ item.title }}</label>
-                </li>
-            </ul>
-        </div>
+        <input v-on:keydown.enter="onEnter" ref="input_form" v-model="input_value" type="text" class="form-control">
     </div>
 </template>
 
@@ -32,25 +23,17 @@ export default {
         data: {
             type: Array,
             default: [],
-        },
-        sourceData: {
-            type: Array,
-            default: [],
-        },
-        select_type: {
-            type: String,
-            data: ''
-        },
+        }
     },
     data: () => ({
         input_value: '',
         selected: {},
         component_data: [],
-        show: false,
     }),
 
-    created: function () {
+    created: function(){
         this.component_data = this.data;
+        // console.log(this.component_data);
     },
 
     watch: {
@@ -95,18 +78,9 @@ export default {
             this.input_value = item.title;
             this.$refs.input_form.focus();
             this.selected = item;
-        },
-
-        selectData: function (i) {
-            let check = this.component_data.find(j => j.id == i.id);
-            if (check) {
-                this.component_data = this.component_data.filter(j => j.id != i.id);
-            } else {
-                this.component_data.push(i);
-            }
-
         }
 
     }
 }
 </script>
+

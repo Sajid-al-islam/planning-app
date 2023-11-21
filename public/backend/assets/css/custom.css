@@ -206,4 +206,18 @@ body[main-theme-layout="main-theme-layout-4"] .page-wrapper .page-main-header .m
     margin: auto;
   }
 }
+ul.select-tools {
+  width: 100%;
+  border: 2px solid rgba(31, 31, 31, 0.298);
+  background: rgba(36, 36, 36, 0.177);
+  line-height: 25px;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 5px;
+}
+
+ul.select-tools li {
+  border: 1px solid rgba(97, 97, 97, 0.345);
+  margin:2px;
+}
 /*# sourceMappingURL=./custom.css.map */

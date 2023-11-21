@@ -91,14 +91,15 @@
                                                                 {{ responsible.user.full_name }}
                                                             </option>
                                                         </select> -->
-                                                        <dynamicSelect :data="all_responsibles" :setValue="setTags"></dynamicSelect>
+                                                        <dynamicSelect :select_type="'checkbox'" :sourceData="all_responsibles"  :setValue="setResponsibles"></dynamicSelect>
                                                     </td>
                                                     <td>
-                                                        <select name="bastobayonkari_person[]" id="bastobayonkari_person[]" multiple class="form-select" v-model="form.bastobayonkari_person">
+                                                        <!-- <select name="bastobayonkari_person[]" id="bastobayonkari_person[]" multiple class="form-select" v-model="form.bastobayonkari_person">
                                                             <option v-for="(responsible_person, index) in all_responsible_persons" :key="index" :value="responsible_person.id">
                                                                 {{ responsible_person.title }}
                                                             </option>
-                                                        </select>
+                                                        </select> -->
+                                                        <dynamicSelect :select_type="'checkbox'" :sourceData="all_responsible_persons"  :setValue="setResponsiblePersons"></dynamicSelect>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -134,7 +135,8 @@ export default {
         form_fields,
         param_id: null,
         form_array: [],
-        tags: [],
+        responsibles: [],
+        responsible_persons: [],
         active_divisions: []
     }),
     // watch: {
@@ -166,7 +168,7 @@ export default {
         await this.get_all_responsibles();   
         await this.get_all_responsible_persons();
         
-        this.tags = this.all_responsibles;
+        this.responsibles = this.all_responsibles;
 
         this.addRow();
     },
@@ -214,25 +216,45 @@ export default {
         },
 
         submitHandler: async function ($event) {
-            if (this.param_id) {
-                this.user_update($event.target, this.param_id);
-            } else {
-                let response = await this.user_store($event.target);
-                if (response.data.status === "success") {
-                    window.s_alert("Data successcully created");
-                    this.$router.push({ name: `AllPlanDetails` });
-                }
+            let bastobayonkari_id = this.responsibles.map(item => item.id)
+            
+            
+            let form_data = new FormData($event.target);
+            form_data.append('bastobayonkari', bastobayonkari_id);
+            let response = await this.user_store(form_data);
+            if (response.data.status === "success") {
+                window.s_alert("Data successcully created");
+                this.$router.push({ name: All });
             }
+
+            // if (this.param_id) {
+            //     this.user_update($event.target, this.param_id);
+            // } else {
+            //     let response = await this.user_store($event.target);
+            //     if (response.data.status === "success") {
+            //         window.s_alert("Data successcully created");
+            //         this.$router.push({ name: `AllPlanDetails` });
+            //     }
+            // }
         },
         StorePlanSubmitHandler: async function() {
+            let bastobayonkari_id = this.responsibles.map(item => item.id)
+            let bastobayonkari_person = this.responsibles.map(item => item.id)
+            this.form_array.forEach(form_item => {
+                form_item.bastobayonkari = bastobayonkari_id;
+                form_item.bastobayonkari_person = bastobayonkari_id;
+            })
             let formData = JSON.stringify(this.form_array);
             let storeResponse = this.store_plan(formData);
             if(response.data) {
                 window.s_alert("data updated!");
             }
         },
-        setTags: function(tag) {
-            this.tags = tag;
+        setResponsibles: function(tag) {
+            this.responsibles = tag;
+        },
+        setResponsiblePersons: function(person) {
+            this.responsible_persons = person;
         }
     },
     computed: {
