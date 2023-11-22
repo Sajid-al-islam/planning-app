@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="my-1">
-                    <form @submit.prevent="submitHandler" class="user_create_form card">
+                    <form @submit.prevent="StorePlanSubmitHandler" class="user_create_form card">
                         <div class="card-body">
                             <div class="row justify-content-center">
                                 <div class="col-lg-12">
@@ -48,7 +48,7 @@
                                                 <th style="min-width: 150px;">দফা</th>
                                                 <th style="min-width: 150px;">অর্জিতব্য টার্গেট</th>
                                                 <th style="min-width: 200px;">কর্মপরিকল্পনা</th>
-                                                <th style="min-width: 200px;">ছক</th>
+                                                <!-- <th style="min-width: 200px;">ছক</th> -->
                                                 <th style="min-width: 200px;">বাস্তবায়নকারী</th>
                                                 <th style="min-width: 250px;">বাস্তবায়নকারী বৃন্দ</th>
                                             </thead>
@@ -82,16 +82,16 @@
                                                     <td>
                                                         <input type="text" class="form-control" name="kormo_porikolpona" v-model="form.kormo_porikolpona">
                                                     </td>
-                                                    <td>
+                                                    <!-- <td>
                                                         <input type="text" class="form-control" name="chok" v-model="form.chok">
-                                                    </td>
+                                                    </td> -->
                                                     <td>
                                                         <!-- <select name="bastobayonkari[]" id="bastobayonkari[]" multiple class="form-select" v-model="form.bastobayonkari">
                                                             <option v-for="(responsible, index) in all_responsibles" :key="index" :value="responsible.id">
                                                                 {{ responsible.user.full_name }}
                                                             </option>
                                                         </select> -->
-                                                        <dynamicSelect :select_type="'checkbox'" :sourceData="all_responsibles"  :setValue="setResponsibles"></dynamicSelect>
+                                                        <dynamicSelect :select_type="'checkbox'" :sourceData="all_responsibles" :setValue="setResponsibles"></dynamicSelect>
                                                     </td>
                                                     <td>
                                                         <!-- <select name="bastobayonkari_person[]" id="bastobayonkari_person[]" multiple class="form-select" v-model="form.bastobayonkari_person">
@@ -239,15 +239,16 @@ export default {
         },
         StorePlanSubmitHandler: async function() {
             let bastobayonkari_id = this.responsibles.map(item => item.id)
-            let bastobayonkari_person = this.responsibles.map(item => item.id)
+            let bastobayonkari_person_id = this.responsible_persons.map(item => item.id)
             this.form_array.forEach(form_item => {
                 form_item.bastobayonkari = bastobayonkari_id;
-                form_item.bastobayonkari_person = bastobayonkari_id;
+                form_item.bastobayonkari_person = bastobayonkari_person_id;
             })
-            let formData = JSON.stringify(this.form_array);
+            let formData = this.form_array;
             let storeResponse = this.store_plan(formData);
-            if(response.data) {
-                window.s_alert("data updated!");
+            if(storeResponse) {
+                // console.log(storeResponse.data);
+                window.s_alert("plan created!");
             }
         },
         setResponsibles: function(tag) {

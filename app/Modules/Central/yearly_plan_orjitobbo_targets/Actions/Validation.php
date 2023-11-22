@@ -34,6 +34,7 @@ class Validation extends FormRequest
     {
         return [
             'title' => 'required',
+            'serial' => 'unique:yearly_plan_orjitobbo_targets,serial,' . ($this->yearly_plan_orjitobbo_target ? $this->yearly_plan_orjitobbo_target->id : ''),
             'status' => ['sometimes', Rule::in(['active', 'inactive'])],
         ];
     }

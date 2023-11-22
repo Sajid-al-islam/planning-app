@@ -16,9 +16,9 @@
             <ul class="select-tools" :class="show ? '' : 'd-none'">
                 <li role="button" v-for="(item, index) in sourceData" :key="index" @click="selectData(item)">
                     <span class="mx-2">
-                        <input role="button" :id="'select' + index" type="checkbox">
+                        <input role="button" :id="'select' + index + unkey" type="checkbox">
                     </span>
-                    <label role="button" :for="'select' + index" @click="selectData(item)">{{ item.title }}</label>
+                    <label role="button" :for="'select' + index + unkey" @click="selectData(item)">{{ item.title }}</label>
                 </li>
             </ul>
         </div>
@@ -47,17 +47,18 @@ export default {
         selected: {},
         component_data: [],
         show: false,
+        unkey: Math.random(),
     }),
 
     created: function () {
-        this.component_data = this.data;
+        this.component_data = Array.from(this.data);
     },
 
     watch: {
         component_data: {
             handler: function (v) {
                 console.log(v)
-                this.setValue(v)
+                this.setValue(Array.from(v))
             },
             deep: true
         }

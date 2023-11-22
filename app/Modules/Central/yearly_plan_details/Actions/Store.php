@@ -13,15 +13,18 @@ class Store
     {
         try {
             // dd(request()->all());
-            $planDetails = new YearlyPlanDetails();
-            $planDetails->serial = $request->serial;
-            $planDetails->plan_title = $request->kormo_porikolpona;
-            $planDetails->orjitobbo_target_id = $request->orjitobbot_target;
-            $planDetails->dofa_id = $request->dofa_id;
-            $planDetails->save();
-
-            $planDetails->divisions()->attach(request()->bastobayonkari);
-            $planDetails->responsibles()->attach(request()->bastobayonkari_person);
+            foreach ($request->formData as $key => $plan_detail) {
+                $plan_detail = (object) $plan_detail;
+                $planDetails = new YearlyPlanDetails();
+                $planDetails->serial = $plan_detail->serial;
+                $planDetails->plan_title = $plan_detail->kormo_porikolpona;
+                $planDetails->orjitobbo_target_id = $plan_detail->orjitobbo_target;
+                $planDetails->dofa_id = $plan_detail->dofa;
+                $planDetails->save();
+    
+                $planDetails->divisions()->attach(request()->bastobayonkari);
+                $planDetails->responsibles()->attach(request()->bastobayonkari_person);
+            }
             // if (self::$model::query()->create($request->all())) {
             //     return messageResponse('Item added successfully', 201);
             // }

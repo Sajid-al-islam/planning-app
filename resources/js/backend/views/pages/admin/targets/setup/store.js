@@ -67,10 +67,18 @@ export const target_store = defineStore("target_store", {
         delete: async function (id) {
             var data = await window.s_confirm();
             if (data) {
-                let response = await axios.delete(this.url + "/" + id);
-                window.s_alert("Data deleted");
+                // let response = await axios.delete(this.url + "/" + id);
+                axios.delete(this.url + "/" + id)
+                .then(({ data }) => {
+                    window.s_alert("Data deleted");
+                })
+                .catch((e) => {
+                    console.log(e);
+                    if(e.response.status == 400) {
+                        window.s_alert('warning: '+e.response.data.message,'warning')
+                    }
+                });
                 this.all();
-                console.log(response.data);
             }
         },
     },
