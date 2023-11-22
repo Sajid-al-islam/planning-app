@@ -9,6 +9,7 @@ import target_routes from "../targets/setup/routes"
 import chok_routes from "../chock/setup/routes"
 import chok_column_routes from "../chock_column/setup/routes"
 import chok_column_value_routes from "../chock_column_values/setup/routes"
+import executive_plan_routes from "../executive_plan/setup/routes"
 
 const routes =
 {
@@ -28,7 +29,8 @@ const routes =
         chok_routes,
         chok_column_routes,
         chok_column_value_routes,
-        plan_details_routes
+        plan_details_routes,
+        executive_plan_routes
     ]
 };
 

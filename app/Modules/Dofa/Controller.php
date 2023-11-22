@@ -32,9 +32,9 @@ class Controller extends ControllersController
         return $data;
     }
 
-    public function update(Validation $request, $id)
+    public function update(Model $dofa,Validation $request)
     {
-        $data = Update::execute($request, $id);
+        $data = Update::execute($dofa, $request);
         return $data;
     }
 

@@ -8,14 +8,14 @@ class Update
 {
     static $model = \App\Modules\Dofa\Model::class;
 
-    public static function execute(Validation $request,$id)
+    public static function execute($dofa, Validation $request)
     {
         try {
-            if (!$data = self::$model::query()->where('id', $id)->first()) {
+            if (!$dofa) {
                 return messageResponse('Data not found...', 404, 'error');
             }
             // dd($request->all(), $request->validated());
-            $data->update($request->all());
+            $dofa->update($request->all());
             return messageResponse('Item updated successfully');
         } catch (\Exception $e) {
             return messageResponse($e->getMessage(), 500, 'server_error');

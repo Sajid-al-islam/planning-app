@@ -34,6 +34,7 @@ class Validation extends FormRequest
     {
         return [
             'title' => 'required',
+            'serial' => 'unique:dofas,serial,' . ($this->dofa ? $this->dofa->id : ''),
             'status' => ['sometimes', Rule::in(['active', 'inactive'])],
         ];
     }
