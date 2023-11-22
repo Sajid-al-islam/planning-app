@@ -2,6 +2,7 @@
 
 namespace App\Modules\Central\yearly_plan_details\Actions;
 
+use App\Modules\Central\yearly_plan_complete_by_divisions\Model;
 use App\Modules\Central\yearly_plan_details\Actions\Validation;
 use App\Modules\Central\yearly_plan_details\Model as YearlyPlanDetails;
 
@@ -14,6 +15,7 @@ class Store
         try {
             // dd(request()->all());
             foreach ($request->formData as $key => $plan_detail) {
+                
                 $plan_detail = (object) $plan_detail;
                 $planDetails = new YearlyPlanDetails();
                 $planDetails->serial = $plan_detail->serial;
@@ -22,7 +24,15 @@ class Store
                 $planDetails->dofa_id = $plan_detail->dofa;
                 $planDetails->save();
     
-                $planDetails->divisions()->attach(request()->bastobayonkari);
+                // $planDetails->divisions()->attach(request()->bastobayonkari);
+                // $div_check = Model::where('yearly_plan_details_id', $plan_detail->id)->first();
+                foreach (request()->bastobayonkari as $key => $item) {
+                    $plan_complete_div = new Model();
+                    $plan_complete_div->yearly_plan_details_id = $plan_detail->id;
+                    $plan_complete_div->user_id = $item;
+                    $plan_complete_div->plan_id = request()->plan_id;
+                    $plan_complete_div->save();
+                }
                 $planDetails->responsibles()->attach(request()->bastobayonkari_person);
             }
             // if (self::$model::query()->create($request->all())) {

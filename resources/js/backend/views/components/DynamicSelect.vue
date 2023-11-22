@@ -52,6 +52,7 @@ export default {
 
     created: function () {
         this.component_data = Array.from(this.data);
+        console.log(this.data);
     },
 
     watch: {

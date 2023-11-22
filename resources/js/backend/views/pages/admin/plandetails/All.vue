@@ -144,13 +144,13 @@
                                     </td>
 
                                     <td>
-                                        <span class="text-info cursor_pointer">
+                                        <span v-if="item.dofa" class="text-info cursor_pointer">
                                             {{ item.dofa.title }}
                                         </span>
                                     </td>
 
                                     <td>
-                                        <span class="text-info cursor_pointer">
+                                        <span v-if="item.orjitobbo_target" class="text-info cursor_pointer">
                                             {{ item.orjitobbo_target.title }}
                                         </span>
                                     </td>
@@ -204,8 +204,8 @@
                                                     <span>
                                                         <router-link
                                                             :to="{
-                                                                name: 'Create',
-                                                                query: {
+                                                                name: 'EditPlanDetails',
+                                                                params: {
                                                                     id: item.id,
                                                                 },
                                                             }"

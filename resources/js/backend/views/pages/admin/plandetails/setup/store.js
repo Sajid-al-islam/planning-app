@@ -42,8 +42,10 @@ export const plan_details_setup_store = defineStore("plan_details_setup_store", 
             const headers = {
                 'Content-Type': 'application/x-www-form-urlencoded',
             };
-            let formData = new FormData(form);
-            let response = await axios.post(`yearly-plan-details/update/${id}`, formData);
+            let formData = form;
+            formData.append('_method', 'PUT');
+            // let response = await axios.post(`yearly-plan-details/update/${id}`, formData);
+            let response = await axios.post(`yearly-plan-details/${id}`, formData);
             window.s_alert("Data successcully updated");
             console.log("res", response.data);
         },

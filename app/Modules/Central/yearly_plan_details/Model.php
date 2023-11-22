@@ -59,7 +59,7 @@ class Model extends EloquentModel
             $relatedKey = null,
             $relation = null
          */
-        return $this->belongsToMany($class, 'yearly_plan_detail_yearly_plan_complete_by_division','yearly_plan_details_id','yearly_plan_complete_by_divisions_id','id','id');
+        return $this->hasMany($class,'yearly_plan_details_id');
     }
 
     public function responsibles() {

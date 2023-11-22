@@ -12,8 +12,19 @@ class Show
     public static function execute($id)
     {
         try {
-            $with = [];
-            if (!$data = self::$model::query()->with($with)->where('id', $id)->first()) {
+            $with = [
+                'dofa',
+                'orjitobbo_target',
+                'plan',
+                'responsibles',
+                'divisions' => function ($q) {
+                    $q->with(['user']);
+                }
+            ];
+            $query = self::$model::query()->with($with)->where('id', $id);
+            $data = $query->first();
+            // dd($data->divisions()->toSql());
+            if (!$data) {
                 return messageResponse('Data not found...', 404, 'error');
             }
             return entityResponse($data);
