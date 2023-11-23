@@ -69,7 +69,7 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import form_fields from "./setup/form_fields.js";
-import { plan_setup_store as chokStore } from "./setup/store";
+import { chok_store as chokStore } from "./setup/store";
 export default {
     data: () => ({
         form_fields,
@@ -80,7 +80,25 @@ export default {
         },
         loaded: false
     }),
+    methods: {
+        ...mapActions(chokStore, {
+            user_update: "update",
+            user_get: "get",
+            user_store: "store",
+        }),
 
+        submitHandler: async function ($event) {
+            if (this.param_id) {
+                this.user_update($event.target, this.param_id);
+            } else {
+                let response = await this.user_store($event.target);
+                if (response.data.status === "success") {
+                    window.s_alert("Data successcully created");
+                    this.$router.push({ name: `AllChok` });
+                }
+            }
+        },
+    },
     created: async function () {
         let id = this.$route.params.chok_id;
         this.form_array.chok_id = id;

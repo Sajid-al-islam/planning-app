@@ -23,9 +23,9 @@ export const plan_details_setup_store = defineStore("plan_details_setup_store", 
         get: async function (id) {
             let response = await axios.get("yearly-plan-details/" + id);
             response = response.data.data;
-            // console.log("data", response);
             this.single_data = response;
         },
+        
         store: async function (form) {
             let formData = new FormData(form);
             let response = await axios.post("yearly-plan-details", formData);

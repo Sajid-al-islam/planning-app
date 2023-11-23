@@ -115,6 +115,7 @@
                                         Status
                                         <!---->
                                     </th>
+                                    <th aria-label="actions">Chok</th>
                                     <th aria-label="actions">Actions</th>
                                 </tr>
                             </thead>
@@ -168,6 +169,11 @@
                                         <span
                                             class="badge bg-label-success me-1">{{ item.status }}
                                         </span>
+                                    </td>
+                                    <td>
+                                        <router-link :to="{ name: `AddChokValues`, params: {chok_value_id: item.id} }" class="btn btn-sm btn-primary">
+                                            + Add chok values
+                                        </router-link>
                                     </td>
                                     <td>
                                         <div class="table_actions">

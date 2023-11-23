@@ -12,7 +12,9 @@ class All
             // dd(request()->all());
             $offset = request()->input('offset') ?? 10;
             $condition = [];
-            $with = [];
+            $with = ['columns' => function ($q) {
+                $q->with(['values']);
+            }];
             $data = self::$model::query();
             if (request()->has('status') && request()->input('status')) {
                 $condition['status'] = request()->input('status');

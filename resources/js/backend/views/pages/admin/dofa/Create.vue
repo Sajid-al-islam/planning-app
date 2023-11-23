@@ -34,9 +34,7 @@
                                                 :value="form_field.value" :data_list="form_field.data_list
                                                     " />
                                         </template>
-                                        
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>

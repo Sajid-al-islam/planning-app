@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const plan_setup_store = defineStore("chok_store", {
+export const chok_store = defineStore("chok_store", {
     state: () => ({
         all_data: {},
         single_data: {},
@@ -24,6 +24,21 @@ export const plan_setup_store = defineStore("chok_store", {
             }
             if(search != null) {
                 this.url += search;
+            }
+
+            this.all_data = response.data.data;
+        },
+        get_all: async function (url) {
+            let response;
+            // let page = `?page=${pageLimit}`;
+            // console.log(url);
+            
+            if (url != undefined) {
+                response = await axios.get(url);
+            } else {
+                let newurl = this.url;
+                newurl+= "?get_all=1"
+                response = await axios.get(newurl);
             }
 
             this.all_data = response.data.data;

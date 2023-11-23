@@ -227,7 +227,7 @@
 
 <script>
 import { mapActions, mapState } from "pinia";
-import { plan_setup_store } from "./setup/store";
+import { chok_store as chokStore } from "./setup/store";
 import debounce from 'debounce';
 export default {
     data: () => ({
@@ -238,13 +238,13 @@ export default {
         await this.choks_get_all("yearly-plan-choks");
     },
     methods: {
-        ...mapActions(plan_setup_store, {
+        ...mapActions(chokStore, {
             choks_get_all: "all",
             choks_delete: "delete",
         }),
     },
     computed: {
-        ...mapState(plan_setup_store, {
+        ...mapState(chokStore, {
             all_chokss: "all_data",
         }),
     },

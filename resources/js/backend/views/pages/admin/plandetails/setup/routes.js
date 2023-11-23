@@ -1,6 +1,7 @@
 import Layout from "./Layout.vue";
 import All from "../All.vue";
 import Form from "../Form.vue";
+import ChokValues from "../ChokValues.vue";
 import Edit from "../Edit.vue";
 
 const routes = {
@@ -16,6 +17,11 @@ const routes = {
             path: 'create',
             name: "CreatePlanDetails",
             component: Form
+        },
+        {
+            path: 'chok-values/:chok_value_id',
+            name: "AddChokValues",
+            component: ChokValues
         },
         {
             path: 'edit/:id',

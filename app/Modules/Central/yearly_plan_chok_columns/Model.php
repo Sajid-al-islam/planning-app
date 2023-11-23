@@ -2,6 +2,7 @@
 
 namespace App\Modules\Central\yearly_plan_chok_columns;
 
+use App\Modules\Central\yearly_plan_details_chok_values\Model as Yearly_plan_details_chok_valuesModel;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 
@@ -20,6 +21,10 @@ class Model extends EloquentModel
         });
     }
     
+    public function values() {
+        return $this->hasOne(Yearly_plan_details_chok_valuesModel::class, 'yearly_plan_details_chok_column_id');
+    }
+
     public function scopeActive($q)
     {
         return $q->where('status', 'active');

@@ -56,7 +56,7 @@
 <script>
 import { mapActions, mapState } from "pinia";
 import form_fields from "./setup/form_fields.js";
-import { plan_setup_store as chokStore } from "./setup/store";
+import { chok_store as chokStore } from "./setup/store";
 export default {
     data: () => ({
         form_fields,
