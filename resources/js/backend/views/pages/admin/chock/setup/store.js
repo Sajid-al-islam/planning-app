@@ -39,6 +39,11 @@ export const plan_setup_store = defineStore("chok_store", {
             let response = await axios.post(this.url, formData);
             return response;
         },
+        store_bulk: async function (data) {
+            let formData = data
+            let response = await axios.post("yearly-plan-chok-columns", {formData});
+            return response;
+        },
         update: async function (form, id) {
             const headers = {
                 'Content-Type': 'application/x-www-form-urlencoded',

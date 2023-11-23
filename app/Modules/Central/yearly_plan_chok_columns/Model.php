@@ -19,7 +19,7 @@ class Model extends EloquentModel
             $data->save();
         });
     }
-
+    
     public function scopeActive($q)
     {
         return $q->where('status', 'active');

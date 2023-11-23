@@ -2,6 +2,7 @@
 
 namespace App\Modules\Central\yearly_plan_chok;
 
+use App\Modules\Central\yearly_plan_chok_columns\Model as Yearly_plan_chok_columnsModel;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 
@@ -19,6 +20,11 @@ class Model extends EloquentModel
             $data->save();
         });
     }
+
+    public function columns() {
+        return $this->hasMany(Yearly_plan_chok_columnsModel::class, 'chok_id');
+    }
+
 
     public function scopeActive($q)
     {
