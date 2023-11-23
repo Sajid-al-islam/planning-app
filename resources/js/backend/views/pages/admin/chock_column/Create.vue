@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <h6>
-                                {{ param_id ? "Update" : "Create new" }} user
+                                {{ param_id ? "Update" : "Create new" }} chok column
                             </h6>
                         </div>
                         <div class="col-lg-6 text-end">

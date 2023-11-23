@@ -8,7 +8,7 @@
                     </div>
                     <div class="col-lg-6 text-end">
                         <span>
-                            <router-link :to="{ name: `AllChokColumnValues` }" class="btn rounded-pill btn-outline-info me-2">
+                            <router-link :to="{ name: `AllChokColumnValue` }" class="btn rounded-pill btn-outline-info me-2">
                                 <i class="fa fa-list me-5px"></i>
                                 Chok Values
                             </router-link>

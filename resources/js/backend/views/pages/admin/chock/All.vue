@@ -83,9 +83,12 @@
                                     <th class="cursor_n_resize">
                                         Title
                                     </th>
-                                    
                                     <th class="cursor_n_resize">
                                         Status
+                                    </th>
+
+                                    <th class="cursor_n_resize">
+                                        Chok columns
                                     </th>
                                     <th aria-label="actions">Actions</th>
                                 </tr>
@@ -108,6 +111,12 @@
 
                                     <td>
                                         <span class="badge bg-label-success me-1">{{ item.status }}</span>
+                                    </td>
+
+                                    <td>
+                                        <router-link router-link :to="{ name: `CreateBulkChokColumn`, params: {chok_id: item.id} }" class="btn rounded-pill btn-outline-primary">
+                                            + Add Chok columns
+                                        </router-link>
                                     </td>
                                     <td>
                                         <div class="table_actions">

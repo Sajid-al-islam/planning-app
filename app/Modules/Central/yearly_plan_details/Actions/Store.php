@@ -26,11 +26,11 @@ class Store
     
                 // $planDetails->divisions()->attach(request()->bastobayonkari);
                 // $div_check = Model::where('yearly_plan_details_id', $plan_detail->id)->first();
-                foreach (request()->bastobayonkari as $key => $item) {
+                foreach ($plan_detail->bastobayonkari as $key => $item) {
                     $plan_complete_div = new Model();
-                    $plan_complete_div->yearly_plan_details_id = $plan_detail->id;
+                    $plan_complete_div->yearly_plan_details_id = $planDetails->id;
                     $plan_complete_div->user_id = $item;
-                    $plan_complete_div->plan_id = request()->plan_id;
+                    $plan_complete_div->yearly_plan_id = request()->plan_id;
                     $plan_complete_div->save();
                 }
                 $planDetails->responsibles()->attach(request()->bastobayonkari_person);

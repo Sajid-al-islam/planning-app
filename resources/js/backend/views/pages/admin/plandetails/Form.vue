@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-lg-6 text-end">
                             <div class="btns">
-                                <router-link :to="{ name: `All` }"
+                                <router-link :to="{ name: `AllPlanDetails` }"
                                     class="btn rounded-pill btn-outline-warning router-link-active"><i
                                         class="fa fa-arrow-left me-5px"></i>
                                     Back
@@ -40,6 +40,7 @@
                                         </div> -->
 
                                     </div>
+                                    
                                     <div class="table-responsive">
                                         <table class="table table-border">
                                             <thead>
