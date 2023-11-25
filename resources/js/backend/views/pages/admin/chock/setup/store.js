@@ -59,6 +59,11 @@ export const chok_store = defineStore("chok_store", {
             let response = await axios.post("yearly-plan-chok-columns", {formData});
             return response;
         },
+        chok_column_value_store: async function (data) {
+            let formData = data
+            let response = await axios.post("yearly-plan-chok-columns", {formData});
+            return response;
+        },
         update: async function (form, id) {
             const headers = {
                 'Content-Type': 'application/x-www-form-urlencoded',

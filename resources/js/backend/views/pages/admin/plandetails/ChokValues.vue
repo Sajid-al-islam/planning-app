@@ -166,7 +166,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="submit" class="btn btn-outline-info">
+                            <button type="button" @click="submitHandler()"  class="btn btn-outline-info">
                                 <i class="fa fa-upload"></i>
                                 Submit
                             </button>
@@ -239,15 +239,22 @@ export default {
             chok_update: "update",
             chok_get: "get_all",
             chok_store: "store",
+            chok_value_store: "chok_column_value_store"
         }),
 
         submitHandler: async function () {
-            
-            // let response = await this.user_store();
-            // if (response.data.status === "success") {
-            //     window.s_alert("Data successcully created");
-            //     // this.$router.push({ name: `AllChok` });
-            // }
+            if(this.chok_id == null) {
+                return window.s_alert("please select the chock first", 'warning');
+            }
+            let data = {
+                chok_id: this.chok_id,
+                data: this.matrix
+            }
+            let response = await this.chok_value_store(data);
+            if (response.data.status === "success") {
+                window.s_alert("Data successcully created");
+            }
+            // let formData =
         },
 
         getChokColumns: function (event) {
@@ -284,9 +291,12 @@ export default {
                 this.matrix.push(Array.from(row_data));
             }
         },
-        reset: function () {
-            this.matrix = [];
-            this.make_table();
+        reset: async function () {
+            var data = await window.s_confirm();
+            if(data) {
+                this.matrix = [];
+                this.make_table();
+            }
         },
         select: function (item) {
             this.selected.isselected = false;
