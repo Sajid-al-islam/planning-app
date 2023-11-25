@@ -13,8 +13,25 @@ return new class extends Migration
     {
         Schema::create('yearly_plan_chok_columns', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->nullable();
+            
             $table->bigInteger('chok_id')->nullable();
+            $table->string('key')->nullable();
+            $table->string('value')->nullable();
+            $table->bigInteger('colspan')->nullable();
+            $table->bigInteger('rowspan')->nullable();
+            $table->bigInteger('ishide')->default(0)->nullable();
+            $table->tinyInteger('isselected')->default(0)->nullable();
+            $table->tinyInteger('isheading')->default(0)->nullable();
+            $table->integer('width')->nullable();
+            $table->integer('width')->nullable();
+            $table->string('background_color', 10)->nullable();
+            $table->string('border', 10)->nullable();
+            $table->tinyInteger('text_rotate')->default(0)->nullable();
+            $table->integer('rotate')->default(0)->nullable();
+            $table->integer('top')->default(0)->nullable();
+            $table->integer('left')->default(0)->nullable();
+            $table->integer('font_size')->default(14)->nullable();
+
             
             $table->bigInteger('creator')->unsigned()->nullable();
             $table->string('slug', 50)->nullable();
