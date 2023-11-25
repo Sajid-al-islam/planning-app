@@ -49,6 +49,8 @@
                                                 <th style="min-width: 150px;">দফা</th>
                                                 <th style="min-width: 150px;">অর্জিতব্য টার্গেট</th>
                                                 <th style="min-width: 200px;">কর্মপরিকল্পনা</th>
+                                                <th style="min-width: 200px;">অবাস্তবায়িত অংশ</th>
+                                                <th style="min-width: 200px;">রেটিং</th>
                                                 <!-- <th style="min-width: 200px;">ছক</th> -->
                                                 <th style="min-width: 200px;">বাস্তবায়নকারী</th>
                                                 <th style="min-width: 250px;">বাস্তবায়নকারী বৃন্দ</th>
@@ -63,8 +65,8 @@
                                                             <i class="icon-trash"></i>
                                                         </button>
                                                     </td>
-                                                    <td style="width: 80px;">
-                                                        <input type="text" class="form-control" name="serial" v-model="form.serial">
+                                                    <td style="width: 150px;">
+                                                        <input type="number" class="form-control" name="serial" v-model="form.serial">
                                                     </td>
                                                     <td>
                                                         <select name="dofa_id" id="dofa_id" class="form-select" v-model="form.dofa">
@@ -82,6 +84,12 @@
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control" name="kormo_porikolpona" v-model="form.kormo_porikolpona">
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control" name="incomplete_part" v-model="form.incomplete_part">
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" class="form-control" name="rating" v-model="form.rating">
                                                     </td>
                                                     <!-- <td>
                                                         <input type="text" class="form-control" name="chok" v-model="form.chok">
@@ -206,6 +214,8 @@ export default {
                     orjitobbo_target: "",
                     kormo_porikolpona: "",
                     chok: "",
+                    incomplete_part: "",
+                    rating: "",
                     bastobayonkari: "",
                     bastobayonkari_person: "",
                 }

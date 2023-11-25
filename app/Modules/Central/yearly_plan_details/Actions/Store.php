@@ -20,6 +20,8 @@ class Store
                 $planDetails = new YearlyPlanDetails();
                 $planDetails->serial = $plan_detail->serial;
                 $planDetails->plan_title = $plan_detail->kormo_porikolpona;
+                $planDetails->how_much_was_incomplete = $plan_detail->incomplete_part;
+                $planDetails->ratings = $plan_detail->rating;
                 $planDetails->orjitobbo_target_id = $plan_detail->orjitobbo_target;
                 $planDetails->dofa_id = $plan_detail->dofa;
                 $planDetails->save();
