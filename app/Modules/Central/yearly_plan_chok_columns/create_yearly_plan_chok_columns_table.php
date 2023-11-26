@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('yearly_plan_chok_columns', function (Blueprint $table) {
             $table->id();
-
+            $table->bigInteger('table_chok_no_col_id')->nullable();
             $table->string('unique_id', 200)->nullable();
             $table->bigInteger('chok_id')->nullable();
             $table->bigInteger('row_no')->nullable();

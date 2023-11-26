@@ -25,11 +25,13 @@ class Store
                 }
                 
                 $row_no = 1;
+                $table_chok_no_col_id = 1;
                 foreach ($validation['formData']['data'] as $key => $form_items) {
                     $form_items = (object) $form_items;
                     foreach ($form_items as $key => $form_item) {
                         $form_item = (object) $form_item;
                         $chok_column = new Model();
+                        $chok_column->table_chok_no_col_id = $table_chok_no_col_id++;
                         $chok_column->colspan = $form_item->colspan;
                         $chok_column->rowspan = $form_item->rowspan;
                         $chok_column->row_no = $row_no;
@@ -54,8 +56,13 @@ class Store
                     $row_no++;
                 }
 
+                $chok_column_table_no = Model::where('chok_id', $validation['formData']['chok_id'])
+                ->orderBy('table_chok_no', 'DESC')
+                ->first();
+
                 $chok_columns = Model::select('*')
                 ->where('chok_id', $validation['formData']['chok_id'])
+                ->where('table_chok_no', $chok_column_table_no->table_chok_no)
                 ->get();
 
                 $groupedData = $chok_columns->groupBy('row_no')->values()->toArray();
