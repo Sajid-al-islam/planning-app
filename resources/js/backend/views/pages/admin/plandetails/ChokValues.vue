@@ -252,6 +252,13 @@ export default {
             }
             let response = await this.chok_value_store(data);
             if (response.data.status === "success") {
+                this.matrix = response.data.data;
+                console.log("matrix =>",this.matrix);
+                console.log("table =>",response.data);
+                localStorage.removeItem('table');
+                // let matrix_data = [];
+                let matrix_data = Object.entries(response.data.data);
+                localStorage.setItem('table', JSON.stringify(matrix_data));
                 window.s_alert("Data successcully created");
             }
             // let formData =

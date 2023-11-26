@@ -53,7 +53,14 @@ class Store
                     }
                     $row_no++;
                 }
-                return messageResponse('Item added successfully', 201);
+
+                $chok_columns = Model::select('*')
+                ->where('chok_id', $validation['formData']['chok_id'])
+                ->get();
+
+                $groupedData = $chok_columns->groupBy('row_no')->values()->toArray();
+
+                return entityResponse($groupedData, 201);
             }
         } catch (\Exception $e) {
             return messageResponse($e->getMessage(), 500, 'server_error');
