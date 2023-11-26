@@ -44,6 +44,11 @@ export const chok_store = defineStore("chok_store", {
             this.all_data = response.data.data;
         },
         get: async function (id) {
+            let response = await axios.get("yearly-plan-details/" + id);
+            response = response.data.data;
+            this.single_data = response;
+        },
+        get: async function (id) {
             let response = await axios.get(this.url + '/' + id);
             response = response.data.data;
             // console.log("data", response);
@@ -63,6 +68,17 @@ export const chok_store = defineStore("chok_store", {
             let formData = data
             let response = await axios.post("yearly-plan-chok-columns", {formData});
             return response;
+        },
+        chok_column_value_update: async function (data) {
+            let formData = data
+            let response = await axios.post("yearly-plan-chok-columns/update", {formData});
+            return response;
+        },
+        chok_column_edit_data: async function (chok_id, table_chok_no) {
+            let response = await axios.get("yearly-plan-chok-columns" + '/' + chok_id + '/' + table_chok_no);
+            let return_response = response.data;
+            
+            return return_response;
         },
         update: async function (form, id) {
             const headers = {
