@@ -71,7 +71,11 @@ class Update
                             $chok_column->ishide = $form_item->ishide;
                             $chok_column->value = $form_item->value;
                             $chok_column->isselected = $form_item->isselected;
-                            $chok_column->isheading = $form_item->isheading;
+                            if($form_item->value) {
+                                $chok_column->isheading = 1;
+                            }else {
+                                $chok_column->isheading = 0;
+                            }
                             $chok_column->width = $form_item->width;
                             $chok_column->background_color = $form_item->background_color;
                             $chok_column->border = $form_item->border;

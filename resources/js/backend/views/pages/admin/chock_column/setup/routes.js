@@ -11,9 +11,14 @@ const routes = {
             name: "AllChokColumn",
             component: AllChokColumn
         },
+        // {
+        //     path: 'create',
+        //     name: "CreateChokColumn",
+        //     component: CreateChokColumn
+        // },
         {
-            path: 'create',
-            name: "CreateChokColumn",
+            path: 'chock-column-create/:chok_id',
+            name: "CreateBulkChokColumn",
             component: CreateChokColumn
         },
     ]

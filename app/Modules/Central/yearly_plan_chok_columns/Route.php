@@ -7,5 +7,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::apiResource('yearly-plan-chok-columns', Controller::class);
     Route::get('yearly-plan-chok-columns/{chok_id}/{table_chok_no}', [Controller::class, 'get_chok_columns_single']);
+    Route::get('yearly-plan-chok-columns-by-chok/{chok_id}', [Controller::class, 'get_chok_columns_single_by_chok']);
     Route::post('yearly-plan-chok-columns/update', [Controller::class, 'update']);
 });

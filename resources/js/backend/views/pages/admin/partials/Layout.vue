@@ -25,6 +25,9 @@ export default {
         search_data: "",
     }),
     created: async function () {
+        setTimeout(() => {
+            document.querySelector('.page-body-wrapper').classList.add('sidebar-close');
+        }, 300);
     },
     methods: {
         

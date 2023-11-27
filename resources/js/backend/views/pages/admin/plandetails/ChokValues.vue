@@ -39,63 +39,44 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="table-responsive">
-                                            <div id="dtable">
-                                            <!-- <div>
-                                                selected: {{ selected }}
-                                            </div> -->
-                                            <!-- <div>
-                                                <label for="">rows</label>
-                                                <input type="number" v-model="row">
-                                            </div>
-                                            <div>
-                                                <label for="">col</label>
-                                                <input type="number" v-model="col">
-                                            </div> -->
-                                            
+                                    <div v-if="this.chok_id" class="col-lg-12">
+                                        
+                                        <div id="dtable">
                                             <div class="row">
-                                                <div class="col-md-9 col-sm-8 col-12">
+                                                <div class="col-md-12 col-sm-12 col-12">
                                                     <div class="mb-2">
                                                         <label class="form-label" for="">value</label>
                                                         <input type="text" class="form-control" id="cell_value" v-model="selected.value">
                                                     </div>
-                                                    <table class="table table-bordered">
-                                                        <tr>
-                                                            <td v-for="c in matrix[0].length+1" :key="c">
-                                                                <div>{{ c }}</div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr v-for="(row, index) in matrix" :key="index">
-                                                            <td>{{ index + 1 }}</td>
-                                                            <template v-for="(col, cl_index) in row">
-                                                                <td v-if="!col.ishide" :key="cl_index" :rowspan="col.rowspan || 1" :colspan="col.colspan || 1">
-                                                                    <div @click="select(col)"
-                                                                        :style="`background-color: ${col.background_color}; transform: rotate(${col.rotate}deg);top: ${col.top}px;left: ${col.left}px; font-size: ${col.font_size}px;`"
-                                                                        class="table_cell" :class="{active: col.isselected, text_rotate: col.text_rotate}">
-                                                                        {{col.value}}
-                                                                    </div>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered">
+                                                            <tr>
+                                                                <td v-for="c in matrix[0].length+1" :key="c">
+                                                                    <div>{{ c }}</div>
                                                                 </td>
-                                                            </template>
-                                                        </tr>
-                                                    </table>
+                                                            </tr>
+                                                            <tr v-for="(row, index) in matrix" :key="index">
+                                                                <td>{{ index + 1 }}</td>
+                                                                <template v-for="(col, cl_index) in row">
+                                                                    <td v-if="!col.ishide" :key="cl_index" :rowspan="col.rowspan || 1" :colspan="col.colspan || 1">
+                                                                        <div v-if="col.isheading == 1"
+                                                                            :style="`background-color: ${col.background_color}; transform: rotate(${col.rotate}deg);top: ${col.top}px;left: ${col.left}px; font-size: ${col.font_size}px;cursor: not-allowed;`"
+                                                                            class="table_cell" :class="{active: col.isselected, text_rotate: col.text_rotate}">
+                                                                            {{col.value}}
+                                                                        </div>
+                                                                        <div v-else @click="select(col)"
+                                                                            :style="`background-color: ${col.background_color}; transform: rotate(${col.rotate}deg);top: ${col.top}px;left: ${col.left}px; font-size: ${col.font_size}px;`"
+                                                                            class="table_cell" :class="{active: col.isselected, text_rotate: col.text_rotate}">
+                                                                            {{col.value}}
+                                                                        </div>
+                                                                    </td>
+                                                                </template>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
                                                     <br>
-                                                    <table>
-                                                        <tr v-for="(trow, trow_index) in matrix" :key="trow_index">
-                                                            <template v-for="(tcol, cl_index) in trow" :key="cl_index">
-                                                                <td>
-                                                                    <div :style="`background-color: ${tcol.background_color}`">
-                                                                        {{tcol.value || ''}}
-                                                                        <br>
-                                                                        <button @click="unhide(trow_index, cl_index)" v-if="tcol.ishide"
-                                                                            type="button">unhide</button>
-                                                                    </div>
-                                                                </td>
-                                                            </template>
-                                                        </tr>
-                                                    </table>
                                                 </div>
-                                                <div class="col-md-3 col-sm-4 col-12">
+                                                <!-- <div class="col-md-3 col-sm-4 col-12">
                                                     <div>
                                                         <button class="btn btn-primary" @click="reset()">reset</button>
                                                     </div>
@@ -154,12 +135,12 @@
                                                             <button class="btn btn-outline-primary" @click="add_cols">add col</button>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
 
                                         <div id="matrix"></div>
-                                        </div>
+                                        
                                         
                                     </div>
                                 </div>
@@ -239,7 +220,8 @@ export default {
             chok_update: "update",
             chok_get: "get_all",
             chok_store: "store",
-            chok_value_store: "chok_column_value_store"
+            chok_value_store: "chok_column_value_store",
+            get_column_by_chok: "chok_column_data_by_chok"
         }),
 
         submitHandler: async function () {
@@ -264,28 +246,12 @@ export default {
             // let formData =
         },
 
-        getChokColumns: function (event) {
+        getChokColumns: async function (event) {
             let id = event.target.value;
-
-            this.choks.forEach(element => {
-                if(element.id == id) {
-                    // let temp_obj = {};
-                    // this.chok_columns = element.columns;
-                    let chok_columns = element.columns;
-                    let chok_columns_value = chok_columns.map((item) => {
-                        let temp_obj = {};
-                        temp_obj.id = item.id
-                        temp_obj.chok_id = item.chok_id;
-                        temp_obj.key = item.key;
-                        temp_obj.chok_value = '';
-                        return temp_obj;
-                    });
-
-                    this.chok_columns = chok_columns_value;
-                }
-            });
-
-            console.log(this.chok_columns);
+            let chok_response = await this.get_column_by_chok(id);
+            // console.log(chok_response.data);
+            this.matrix = chok_response;
+            console.log(chok_response);
         },
 
         make_table: function () {
