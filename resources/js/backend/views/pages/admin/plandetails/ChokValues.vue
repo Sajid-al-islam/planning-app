@@ -44,11 +44,11 @@
                                         <div id="dtable">
                                             <div class="row">
                                                 <div class="col-md-12 col-sm-12 col-12">
-                                                    <div class="mb-2">
+                                                    <!-- <div class="mb-2">
                                                         <label class="form-label" for="">value</label>
                                                         <input type="text" class="form-control" id="cell_value" v-model="selected.value">
-                                                    </div>
-                                                    <div class="table-responsive">
+                                                    </div> -->
+                                                    <!-- <div class="table-responsive">
                                                         <table class="table table-bordered">
                                                             <tr>
                                                                 <td v-for="c in matrix[0].length+1" :key="c">
@@ -73,8 +73,47 @@
                                                                 </template>
                                                             </tr>
                                                         </table>
+                                                    </div> -->
+                                                    
+                                                    <div class="sheet_table table-responsive">
+                                                        <table class="w-100 sheet_input">
+                                                            <tr>
+                                                                <td style="width: 50px; color:black;">
+                                                                    <div>
+                                                                        {{(selected.row_no +1 || 0)}}:
+                                                                        {{(selected.col_no +1 || 0)}}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <input id="cell_value" v-model="selected.value" type="text" class="w-100 border-0">
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <table>
+                                                            <tr>
+                                                                <td v-for="c in matrix[0].length+1" :class="{highlight: c-1 == selected.col_no +1}">
+                                                                    <div v-if="c-1 > 0">{{ c - 1 }}</div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr v-for="(row, index) in matrix" :key="index">
+                                                                <td :class="{highlight: index == selected.row_no}">{{ index + 1 }}</td>
+                                                                <template v-for="(col, cl_index) in row">
+                                                                    <td v-if="!col.ishide" :key="cl_index" @click="select(col)" :rowspan="col.rowspan || 1"
+                                                                        :style="`border-width:${col.border!='#000000'?2:1}px;border-color: ${col.border};background-color: ${col.background_color};width: ${col.width}px;height: ${col.height}px;text-wrap: ${col.text_wrap?'wrap':'nowrap'};`"
+                                                                        :class="{active: col.isselected}" :colspan="col.colspan || 1">
+                                                                        <div v-if="col.isheading == 1" :style="`transform: rotate(${col.rotate}deg);top: ${col.top}px;left: ${col.left}px; font-size: ${col.font_size}px;width: ${ col.text_wrap?col.width+'px': 'unset'};cursor: not-allowed;`"
+                                                                            class="table_cell" :class="{text_rotate: col.text_rotate}">
+                                                                            {{col.value}}
+                                                                        </div>
+                                                                        <div v-else :style="`transform: rotate(${col.rotate}deg);top: ${col.top}px;left: ${col.left}px; font-size: ${col.font_size}px;width: ${ col.text_wrap?col.width+'px': 'unset'};`"
+                                                                            class="table_cell" :class="{text_rotate: col.text_rotate}">
+                                                                            {{col.value}}
+                                                                        </div>
+                                                                    </td>
+                                                                </template>
+                                                            </tr>
+                                                        </table>
                                                     </div>
-                                                    <br>
                                                 </div>
                                                 <!-- <div class="col-md-3 col-sm-4 col-12">
                                                     <div>
@@ -174,25 +213,29 @@ export default {
         chok_columns: [],
         
         matrix: [],
-        row: 10,
-        col: 10,
+        row: 20,
+        col: 20,
         selected: {},
         table_manipulating: false,
         col_data: {
             colspan: 1,
             rowspan: 1,
+            row_no: 0,
+            col_no: 0,
             ishide: 0,
             value: '',
-            isselected: false,
             isheading: 0,
-            width: 100,
-            background_color: '',
-            border: '',
+            isselected: false,
+            background_color: '#ffffff',
+            border: '#000000',
             text_rotate: 0,
             rotate: 0,
+            width: 50,
+            height: 24,
             top: 0,
             left: 0,
             font_size: 14,
+            text_wrap: false,
         },
     }),
     created: async function () {
@@ -203,6 +246,7 @@ export default {
         } else {
             this.make_table();
         }
+        this.set_cols();
     },
     watch: {
         matrix: {

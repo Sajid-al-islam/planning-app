@@ -1,10 +1,12 @@
 import { defineStore } from "pinia";
+// import { resolveBaseUrl } from "vite";
 
 export const chok_store = defineStore("chok_store", {
     state: () => ({
         all_data: {},
         single_data: {},
-        url: "yearly-plan-choks"
+        url: "yearly-plan-choks",
+        processing_status: 0,
     }),
     getters: {
         doubleCount: (state) => state.count * 2,
@@ -65,8 +67,28 @@ export const chok_store = defineStore("chok_store", {
             return response;
         },
         chok_column_value_store: async function (data) {
-            let formData = data
-            let response = await axios.post("yearly-plan-chok-columns", {formData});
+            console.log(data);
+            let total_row = data.data.length;
+            let process_row = 0;
+            let that = this;
+            async function save_data(process_row) {
+                console.log('processing: '+ process_row);
+                let formData = {
+                    chok_id: data.chok_id,
+                    data: [data.data[process_row]],
+                }
+                await axios.post("yearly-plan-chok-columns", {formData});
+                if(process_row < total_row){
+                    process_row = process_row + 1;
+                    that.processing_status = Math.round(100 * process_row / total_row);
+                    await save_data(process_row);
+                }
+            }
+            await save_data(process_row);
+            that.processing_status = 0;
+            console.log('finised');
+
+            let response = await this.chok_column_data_by_chok(data.chok_id);
             return response;
         },
         chok_column_value_update: async function (data) {

@@ -52,199 +52,129 @@
                                             <label for="">col</label>
                                             <input type="number" v-model="col">
                                         </div> -->
-                                        
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-12">
-                                                <div class="mb-2">
-                                                    <div class="tools">
-                                                        <div class="item">
-                                                            <label for="">colspan</label>
-                                                            <input type="number" @change="col_span" @keyup="col_span" v-model="selected.colspan">
-                                                        </div>
-                                                        <div class="item">
-                                                            <label for="">rowspan</label>
-                                                            <input type="number" @change="row_span" @keyup="row_span" v-model="selected.rowspan">
-                                                        </div>
-                                                        <div class="item">
-                                                            <label for="">rotate</label>
-                                                            <input type="checkbox" class="form-check-input" v-model="selected.text_rotate">
-                                                        </div>
-                                                        <div class="item">
-                                                            <label for="">rotate deg</label>
-                                                            <input type="number" v-model="selected.rotate">
-                                                        </div>
-                                                        <div class="item">
-                                                            <label for="">Text wrap</label>
-                                                            <input type="checkbox" class="form-check-input" v-model="selected.text_wrap">
-                                                        </div>
-                                                        <div class="item">
-                                                            <label for="">background color</label>
-                                                            <input type="color" v-model="selected.background_color">
-                                                        </div>
-                                                        <div class="item">
-                                                            <label for="">border color</label>
-                                                            <input type="color" v-model="selected.border">
-                                                        </div>
+                                        <div class="tools">
+                                            <div class="item">
+                                                <label for="">colspan</label>
+                                                <input type="number" @change="col_span" @keyup="col_span" v-model="selected.colspan">
+                                            </div>
+                                            <div class="item">
+                                                <label for="">rowspan</label>
+                                                <input type="number" @change="row_span" @keyup="row_span" v-model="selected.rowspan">
+                                            </div>
+                                            <div class="item">
+                                                <label for="">rotate</label>
+                                                <input type="checkbox" class="form-check-input" v-model="selected.text_rotate">
+                                            </div>
+                                            <div class="item">
+                                                <label for="">rotate deg</label>
+                                                <input type="number" v-model="selected.rotate">
+                                            </div>
+                                            <div class="item">
+                                                <label for="">Text wrap</label>
+                                                <input type="checkbox" class="form-check-input" v-model="selected.text_wrap">
+                                            </div>
+                                            <div class="item">
+                                                <label for="">background color</label>
+                                                <input type="color" v-model="selected.background_color">
+                                            </div>
+                                            <div class="item">
+                                                <label for="">border color</label>
+                                                <input type="color" v-model="selected.border">
+                                            </div>
 
-                                                        <div class="item">
-                                                            <label for="">top</label>
-                                                            <input type="number" v-model="selected.top">
-                                                        </div>
-                                                        <div class="item">
-                                                            <label for="">left</label>
-                                                            <input type="number" v-model="selected.left">
-                                                        </div>
-                                                        <div class="item">
-                                                            <label for="">font size</label>
-                                                            <input type="number" v-model="selected.font_size">
-                                                        </div>
-                                                        <div class="item">
-                                                            <label for="">width</label>
-                                                            <input type="number" v-model="selected.width">
-                                                        </div>
-                                                        <div class="item">
-                                                            <label for="">height</label>
-                                                            <input type="number" v-model="selected.height">
-                                                        </div>
-                                                        <div class="item">
-                                                            <button @click="add_row">add row</button>
-                                                            <button @click="add_cols">add col</button>
-                                                            <button @click="reset()">reset</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="sheet_table table-responsive">
-                                                    <table class="w-100 sheet_input">
-                                                        <tr>
-                                                            <td style="width: 50px; color:black;">
-                                                                <div>
-                                                                    {{(selected.row_no +1 || 0)}}:
-                                                                    {{(selected.col_no +1 || 0)}}
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <input id="cell_value" v-model="selected.value" type="text" class="w-100 border-0">
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    <table>
-                                                        <tr>
-                                                            <td v-for="c in matrix[0].length+1" :class="{highlight: c-1 == selected.col_no +1}">
-                                                                <div v-if="c-1 > 0">{{ c - 1 }}</div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr v-for="(row, index) in matrix" :key="index">
-                                                            <td :class="{highlight: index == selected.row_no}">{{ index + 1 }}</td>
-                                                            <template v-for="(col, cl_index) in row">
-                                                                <td v-if="!col.ishide" :key="cl_index" @click="select(col)" :rowspan="col.rowspan || 1"
-                                                                    :style="`border-width:${col.border!='#000000'?2:1}px;border-color: ${col.border};background-color: ${col.background_color};width: ${col.width}px;height: ${col.height}px;text-wrap: ${col.text_wrap?'wrap':'nowrap'};`"
-                                                                    :class="{active: col.isselected}" :colspan="col.colspan || 1">
-                                                                    <div :style="`transform: rotate(${col.rotate}deg);top: ${col.top}px;left: ${col.left}px; font-size: ${col.font_size}px;width: ${ col.text_wrap?col.width+'px': 'unset'};`"
-                                                                        class="table_cell" :class="{text_rotate: col.text_rotate}">
-                                                                        {{col.value}}
-                                                                    </div>
-                                                                </td>
-                                                            </template>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <br>
-                                                <table class="d-none">
-                                                    <tr v-for="(trow, trow_index) in matrix" :key="trow_index">
-                                                        <template v-for="(tcol, cl_index) in trow" :key="cl_index">
-                                                            <td>
-                                                                <div :style="`background-color: ${tcol.background_color}`">
-                                                                    {{tcol.value || ''}}
-                                                                    <br>
-                                                                    <button @click="unhide(trow_index, cl_index)" v-if="tcol.ishide"
-                                                                        type="button">unhide</button>
-                                                                </div>
-                                                            </td>
-                                                        </template>
-                                                    </tr>
-                                                </table>
+                                            <div class="item">
+                                                <label for="">top</label>
+                                                <input type="number" v-model="selected.top">
                                             </div>
-                                            <div id="matrix" class="d-none"></div>
+                                            <div class="item">
+                                                <label for="">left</label>
+                                                <input type="number" v-model="selected.left">
                                             </div>
-                                            <!-- <div class="col-md-2 col-sm-2 col-12">
-                                                <div>
-                                                    <button class="btn btn-primary" @click="reset()">reset</button>
-                                                </div>
-                                                <div>
-                                                    <div class="form-group mt-2">
-                                                        <label class="form-label" for="">colspan</label>
-                                                        <input type="number" id="" class="form-control" v-model="selected.colspan">
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="form-group mt-2">
-                                                        <label class="form-label" for="">rowspan</label>
-                                                        <input type="number" class="form-control" v-model="selected.rowspan">
-                                                    </div>
-                                                </div>
-                                                
-                                                <div>
-                                                    <div class="form-group form-check mt-2">
-                                                        <input type="checkbox" class="form-check-input" v-model="selected.text_rotate" id="exampleCheck1">
-                                                        <label class="form-check-label" for="exampleCheck1">Rotate</label>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="form-group mt-2">
-                                                        <label class="form-label" for="">background_color</label>
-                                                        <input type="color" class="form-control form-control-color" v-model="selected.background_color">
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="form-group mt-2">
-                                                        <label class="form-label" for="">rotate deg</label>
-                                                        <input type="number" class="form-control" v-model="selected.rotate">
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="form-group mt-2">
-                                                        <label class="form-label" for="">top</label>
-                                                        <input type="number" class="form-control" v-model="selected.top">
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="form-group mt-2">
-                                                        <label class="form-label" for="">left</label>
-                                                        <input type="number" class="form-control" v-model="selected.left">
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="form-group mt-2">
-                                                        <label class="form-label" for="">width</label>
-                                                        <input type="number" class="form-control" v-model="selected.width">
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="form-group mt-2">
-                                                        <label class="form-label" for="">font_size</label>
-                                                        <input type="number" class="form-control" v-model="selected.font_size">
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="form-group mt-2">
-                                                        <button class="btn btn-outline-primary me-2" @click="add_row">add row</button>
-                                                        <button class="btn btn-outline-primary" @click="add_cols">add col</button>
-                                                    </div>
-                                                </div>
-                                            </div> -->
+                                            <div class="item">
+                                                <label for="">font size</label>
+                                                <input type="number" v-model="selected.font_size">
+                                            </div>
+                                            <div class="item">
+                                                <label for="">width</label>
+                                                <input type="number" v-model="selected.width">
+                                            </div>
+                                            <div class="item">
+                                                <label for="">height</label>
+                                                <input type="number" v-model="selected.height">
+                                            </div>
+                                            <div class="item">
+                                                <button @click="add_row">add row</button>
+                                                <button @click="add_cols">add col</button>
+                                                <button @click="reset()">reset</button>
+                                            </div>
                                         </div>
-                                    
 
-                                        <div id="matrix"></div>
+                                        <div class="sheet_table table-responsive">
+                                            <table class="w-100 sheet_input">
+                                                <tr>
+                                                    <td style="width: 50px;">
+                                                        <div class="text-dark">
+                                                            {{(selected.row_no +1 || 0)}}:
+                                                            {{(selected.col_no +1 || 0)}}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <input id="cell_value" v-model="selected.value" type="text" class="w-100 border-0">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <table>
+                                                <tr>
+                                                    <td v-for="c in matrix[0].length+1" :class="{highlight: c-1 == selected.col_no +1}">
+                                                        <div v-if="c-1 > 0">{{ c - 1 }}</div>
+                                                    </td>
+                                                </tr>
+                                                <tr v-for="(row, index) in matrix" :key="index">
+                                                    <td :class="{highlight: index == selected.row_no}">{{ index + 1 }}</td>
+                                                    <template v-for="(col, cl_index) in row">
+                                                        <td v-if="!col.ishide" :key="cl_index" @click="select(col)" :rowspan="col.rowspan || 1"
+                                                            :style="`border-width:${col.border!='#000000'?2:1}px;border-color: ${col.border};background-color: ${col.background_color};width: ${col.width}px;height: ${col.height}px;text-wrap: ${col.text_wrap?'wrap':'nowrap'};`"
+                                                            :class="{active: col.isselected}" :colspan="col.colspan || 1">
+                                                            <div :style="`transform: rotate(${col.rotate}deg);top: ${col.top}px;left: ${col.left}px; font-size: ${col.font_size}px;width: ${ col.text_wrap?col.width+'px': 'unset'};`"
+                                                                class="table_cell" :class="{text_rotate: col.text_rotate}">
+                                                                {{col.value}}
+                                                            </div>
+                                                        </td>
+                                                    </template>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <br>
+                                        <table class="d-none">
+                                            <tr v-for="(trow, trow_index) in matrix" :key="trow_index">
+                                                <template v-for="(tcol, cl_index) in trow" :key="cl_index">
+                                                    <td>
+                                                        <div :style="`background-color: ${tcol.background_color}`">
+                                                            {{tcol.value || ''}}
+                                                            <br>
+                                                            <button @click="unhide(trow_index, cl_index)" v-if="tcol.ishide"
+                                                                type="button">unhide</button>
+                                                        </div>
+                                                    </td>
+                                                </template>
+                                            </tr>
+                                        </table>
                                     </div>
+                                    <div id="matrix" class="d-none"></div>
                                     
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="button" @click="submitHandler()"  class="btn btn-outline-info">
+                            <button v-if="processing_status == 0" type="button" @click="submitHandler()" class="btn btn-outline-info">
                                 <i class="fa fa-upload"></i>
                                 Submit
+                                
+                            </button>
+                            <button v-else class="btn btn-outline-warning" disabled>
+                                <i class="fa fa-upload"></i>
+                                Submitting
+                                <span v-if="processing_status"> {{ processing_status }}%</span>
                             </button>
                         </div>
                     </div>
@@ -252,6 +182,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
@@ -268,8 +199,8 @@ export default {
         chok_columns: [],
         
         matrix: [],
-        row: 10,
-        col: 10,
+        row: 20,
+        col: 20,
         selected: {},
         table_manipulating: false,
         col_data: {
@@ -291,6 +222,7 @@ export default {
             left: 0,
             font_size: 14,
             text_wrap: false,
+            submitting: false,
         },
     }),
     created: async function () {
@@ -334,25 +266,23 @@ export default {
                 data: this.matrix
             }
             let response = await this.chok_value_store(data);
-            if (response.data.status === "success") {
-                this.matrix = response.data.data;
+            if (response.data) {
+                
+                this.matrix = response.data;
                 console.log("matrix =>",this.matrix);
                 console.log("table =>",response.data);
                 localStorage.removeItem('table');
-                // let matrix_data = [];
-                // let matrix_data = Object.entries(response.data.data);
-                localStorage.setItem('table', JSON.stringify(response.data.data));
+                localStorage.setItem('table', JSON.stringify(response.data));
                 window.s_alert("Data successcully created");
             }
-            // let formData =
         },
         update_store: function (matrix = this.matrix) {
             localStorage.setItem('table', JSON.stringify(matrix));
         },
         make_table: function () {
-            for (let row = 0; row < this.row; row++) {
+            for (let row = 0; row <= this.row; row++) {
                 let row_data = []
-                for (let col = 0; col < this.col; col++) {
+                for (let col = 0; col <= this.col; col++) {
                     let col_data = this.col_data;
                     col_data.row_no = row;
                     col_data.col_no = col;
@@ -392,23 +322,27 @@ export default {
         },
         add_row: function () {
             let row_data = []
+            this.row = this.row+1;
             for (let col = 0; col < this.matrix[0].length; col++) {
-                let col_data = this.col_data;
+                let col_data = {...this.col_data};
+                col_data.row_no = this.row;
+                col_data.col_no = col;
                 row_data.push({ ...col_data });
             }
             this.matrix.push(Array.from(row_data));
-            this.row++;
             this.update_store();
             this.set_cols();
         },
         add_cols: function () {
             this.table_manipulating = true;
-            let col_data = this.col_data;
+            let col_data = {...this.col_data};
+            this.col = this.col+1;
             for (let i = 0; i < this.matrix.length; i++) {
-                this.matrix[i]?.push({ ...col_data })
+                col_data.col_no = this.col;
+                col_data.row_no = this.row;
+                this.matrix[i]?.push({...col_data })
             }
             this.table_manipulating = false;
-            this.col++;
             this.update_store();
             this.set_cols();
         },
@@ -495,6 +429,7 @@ export default {
     computed: {
         ...mapState(chok_store, {
             choks: "all_data",
+            processing_status: "processing_status",
         }),
     },
 };

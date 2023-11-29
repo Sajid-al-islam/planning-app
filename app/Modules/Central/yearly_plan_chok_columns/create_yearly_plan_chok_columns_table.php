@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('unique_id', 200)->nullable();
             $table->bigInteger('chok_id')->nullable();
             $table->bigInteger('row_no')->nullable();
+            $table->bigInteger('col_no')->nullable();
             $table->bigInteger('table_chok_no')->default(1);
             $table->string('key')->nullable();
             $table->string('value')->nullable();
@@ -25,14 +26,16 @@ return new class extends Migration
             $table->bigInteger('ishide')->default(0)->nullable();
             $table->tinyInteger('isselected')->default(0)->nullable();
             $table->tinyInteger('isheading')->default(0)->nullable();
-            $table->integer('width')->nullable();
             $table->string('background_color', 10)->nullable();
             $table->string('border', 10)->nullable();
             $table->tinyInteger('text_rotate')->default(0)->nullable();
             $table->integer('rotate')->default(0)->nullable();
+            $table->integer('width')->default(50)->nullable();
+            $table->integer('height')->default(24)->nullable();
             $table->integer('top')->default(0)->nullable();
             $table->integer('left')->default(0)->nullable();
             $table->integer('font_size')->default(14)->nullable();
+            $table->tinyInteger('text_wrap')->default(0)->nullable();
 
             
             $table->bigInteger('creator')->unsigned()->nullable();

@@ -285,12 +285,6 @@ td div {
   writing-mode: tb-rl;
 }
 
-.active {
-  border-width: 2px !important;
-  border-style: solid;
-  border-color: tomato !important;
-}
-
 .sheet_input {
   position: sticky;
   left: 0;

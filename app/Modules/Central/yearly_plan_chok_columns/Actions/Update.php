@@ -26,7 +26,6 @@ class Update
                     $table_chok_no = $check_chok->table_chok_no + 1;
                 }
 
-                $row_no = 1;
                 $table_chok_no_col_id = 1;
                 $previous_ids = [];
                 foreach ($validation['formData']['data'] as $key => $form_items) {
@@ -46,7 +45,8 @@ class Update
                                 $check_previous_choks->table_chok_no_col_id = $table_chok_no_col_id++;
                                 $check_previous_choks->colspan = $form_item->colspan;
                                 $check_previous_choks->rowspan = $form_item->rowspan;
-                                $check_previous_choks->row_no = $row_no;
+                                $check_previous_choks->row_no = $form_item->row_no;
+                                $check_previous_choks->col_no = $form_item->col_no;
                                 $check_previous_choks->ishide = $form_item->ishide;
                                 $check_previous_choks->value = $form_item->value;
                                 $check_previous_choks->isselected = $form_item->isselected;
@@ -66,7 +66,8 @@ class Update
                             $chok_column->table_chok_no_col_id = $table_chok_no_col_id++;
                             $chok_column->colspan = $form_item->colspan;
                             $chok_column->rowspan = $form_item->rowspan;
-                            $chok_column->row_no = $row_no;
+                            $chok_column->row_no = $form_item->row_no;
+                            $chok_column->col_no = $form_item->col_no;
                             $chok_column->table_chok_no = $table_chok_no;
                             $chok_column->ishide = $form_item->ishide;
                             $chok_column->value = $form_item->value;
@@ -91,7 +92,7 @@ class Update
                         }
 
                     }
-                    $row_no++;
+                    
                 }
 
                 // $check_previous_choks = Model::where('chok_id', $validation['formData']['chok_id'])

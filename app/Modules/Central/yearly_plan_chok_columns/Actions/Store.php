@@ -24,7 +24,7 @@ class Store
                     $table_chok_no = $check_chok->table_chok_no+1;
                 }
                 
-                $row_no = 1;
+                
                 $table_chok_no_col_id = 1;
                 foreach ($validation['formData']['data'] as $key => $form_items) {
                     $form_items = (object) $form_items;
@@ -34,7 +34,8 @@ class Store
                         $chok_column->table_chok_no_col_id = $table_chok_no_col_id++;
                         $chok_column->colspan = $form_item->colspan;
                         $chok_column->rowspan = $form_item->rowspan;
-                        $chok_column->row_no = $row_no;
+                        $chok_column->row_no = $form_item->row_no;
+                        $chok_column->col_no = $form_item->col_no;
                         $chok_column->table_chok_no = $table_chok_no;
                         $chok_column->ishide = $form_item->ishide;
                         $chok_column->value = $form_item->value;
@@ -57,21 +58,24 @@ class Store
                         $chok_column->unique_id = uniqid() . $chok_column->id;
                         $chok_column->save();
                     }
-                    $row_no++;
+                    
                 }
 
-                $chok_column_table_no = Model::where('chok_id', $validation['formData']['chok_id'])
-                ->orderBy('table_chok_no', 'DESC')
-                ->first();
+                return messageResponse("success");
+                
+                // $chok_column_table_no = Model::where('chok_id', $validation['formData']['chok_id'])
+                // ->orderBy('table_chok_no', 'DESC')
+                // ->first();
 
-                $chok_columns = Model::select('*')
-                ->where('chok_id', $validation['formData']['chok_id'])
-                ->where('table_chok_no', $chok_column_table_no->table_chok_no)
-                ->get();
+                // $chok_columns = Model::select('*')
+                // ->where('chok_id', $validation['formData']['chok_id'])
+                // ->where('table_chok_no', $chok_column_table_no->table_chok_no)
+                // ->get();
 
-                $groupedData = $chok_columns->groupBy('row_no')->values()->toArray();
+                // $groupedData = $chok_columns->groupBy('row_no')->values()->toArray();
 
-                return entityResponse($groupedData, 201);
+                // return entityResponse($groupedData, 201);
+
             }
         } catch (\Exception $e) {
             return messageResponse($e->getMessage(), 500, 'server_error');
