@@ -5,4 +5,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::apiResource('yearly-plan-details-chok-values', Controller::class);
+    Route::post('yearly-plan-details-chok-values/store', [Controller::class, 'store']);
 });

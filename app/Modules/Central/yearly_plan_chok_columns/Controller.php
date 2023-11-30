@@ -35,6 +35,8 @@ class Controller extends ControllersController
             array_push($data_array, $chok_column); 
         }
         // dd($chok_columns_single);
+        // vai lunch kore ashtesi
+        
         return response()->json($data_array);
     }
 

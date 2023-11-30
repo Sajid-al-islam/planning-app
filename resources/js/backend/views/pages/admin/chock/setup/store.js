@@ -93,7 +93,7 @@ export const chok_store = defineStore("chok_store", {
         },
         chok_column_value_update: async function (data) {
             let formData = data
-            let response = await axios.post("yearly-plan-chok-columns/update", {formData});
+            let response = await axios.post("yearly-plan-details-chok-values/store", {formData});
             return response;
         },
         chok_column_edit_data: async function (chok_id, table_chok_no) {

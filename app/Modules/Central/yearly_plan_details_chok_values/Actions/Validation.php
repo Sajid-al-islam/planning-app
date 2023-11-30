@@ -32,10 +32,10 @@ class Validation extends FormRequest
      */
     public function rules()
     {
-        // return [
-        //     'value' => 'required',
-        //     'status' => ['sometimes', Rule::in(['active', 'inactive'])],
-        // ];
+        return [
+            'formData' => ['required'],
+            'status' => ['sometimes', Rule::in(['active', 'inactive'])],
+        ];
     }
 
     protected function failedValidation(Validator $validator)

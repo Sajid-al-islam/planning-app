@@ -21,21 +21,12 @@
                     </div>
                 </div>
                 <div class="my-1">
-                    <div class="form-group">
-                        <label for="select_plan">Select Chok</label>
-                        <div class="mt-1 mb-3">
-                            <select name="yearly_plan_details_id" class="form-control" @change.prevent="getChokColumns($event)" id="select_plan" v-model="chok_id">
-                                <option v-for="(chok, index) in choks" :key="index"
-                                    :value="chok.id">
-                                    {{ chok.chok_title }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
+                    
                     <!-- <form @submit.prevent="StorePlanSubmitHandler" class="chok_create_form card"> -->
                     <div class="card-body" v-if="matrix.length">
                         <div class="row justify-content-center">
-                                <!-- <div class="admin_form form_1">
+                            <div class="col-lg-12">
+                                <div class="admin_form form_1">
                                     <div class="form-group">
                                         <label for="select_plan">Select Chok</label>
                                         <div class="mt-1 mb-3">
@@ -47,77 +38,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div> -->
-                            <div class="col-lg-12">
-                                
+                                </div>
                                 <div id="dtable">
-                                    <!-- <div>
-                                        selected: {{ selected }}
-                                    </div> -->
-                                    <!-- <div>
-                                        <label for="">rows</label>
-                                        <input type="number" v-model="row">
-                                    </div>
-                                    <div>
-                                        <label for="">col</label>
-                                        <input type="number" v-model="col">
-                                    </div> -->
-                                    <div class="tools">
-                                        <div class="item">
-                                            <label for="">colspan</label>
-                                            <input type="number" @change="col_span" @keyup="col_span" v-model="selected.colspan">
-                                        </div>
-                                        <div class="item">
-                                            <label for="">rowspan</label>
-                                            <input type="number" @change="row_span" @keyup="row_span" v-model="selected.rowspan">
-                                        </div>
-                                        <div class="item">
-                                            <label for="">rotate</label>
-                                            <input type="checkbox" class="form-check-input" v-model="selected.text_rotate">
-                                        </div>
-                                        <div class="item">
-                                            <label for="">rotate deg</label>
-                                            <input type="number" v-model="selected.rotate">
-                                        </div>
-                                        <div class="item">
-                                            <label for="">Text wrap</label>
-                                            <input type="checkbox" class="form-check-input" v-model="selected.text_wrap">
-                                        </div>
-                                        <div class="item">
-                                            <label for="">background color</label>
-                                            <input type="color" v-model="selected.background_color">
-                                        </div>
-                                        <div class="item">
-                                            <label for="">border color</label>
-                                            <input type="color" v-model="selected.border">
-                                        </div>
-
-                                        <div class="item">
-                                            <label for="">top</label>
-                                            <input type="number" v-model="selected.top">
-                                        </div>
-                                        <div class="item">
-                                            <label for="">left</label>
-                                            <input type="number" v-model="selected.left">
-                                        </div>
-                                        <div class="item">
-                                            <label for="">font size</label>
-                                            <input type="number" v-model="selected.font_size">
-                                        </div>
-                                        <div class="item">
-                                            <label for="">width</label>
-                                            <input type="number" v-model="selected.width">
-                                        </div>
-                                        <div class="item">
-                                            <label for="">height</label>
-                                            <input type="number" v-model="selected.height">
-                                        </div>
-                                        <div class="item">
-                                            <button @click="add_row">add row</button>
-                                            <button @click="add_cols">add col</button>
-                                            <button @click="reset()">reset</button>
-                                        </div>
-                                    </div>
 
                                     <div class="sheet_table table-responsive">
                                         <table class="w-100 sheet_input">
@@ -129,7 +51,8 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input id="cell_value" v-model="selected.value" type="text" class="w-100 border-0">
+                                                    <input v-if="selected.isheading == 0" id="cell_value" v-model="selected.value" type="text" class="w-100 border-0">
+                                                    <input v-else disabled id="cell_value" v-model="selected.value" type="text" class="w-100 border-0">
                                                 </td>
                                             </tr>
                                         </table>
@@ -145,7 +68,11 @@
                                                     <td v-if="!col.ishide" :key="cl_index" @click="select(col)" :rowspan="col.rowspan || 1"
                                                         :style="`border-width:${col.border!='#000000'?2:1}px;border-color: ${col.border};background-color: ${col.background_color};width: ${col.width}px;height: ${col.height}px;text-wrap: ${col.text_wrap?'wrap':'nowrap'};`"
                                                         :class="{active: col.isselected}" :colspan="col.colspan || 1">
-                                                        <div :style="`transform: rotate(${col.rotate}deg);top: ${col.top}px;left: ${col.left}px; font-size: ${col.font_size}px;width: ${ col.text_wrap?col.width+'px': 'unset'};`"
+                                                        <div v-if="col.isheading == 1" :style="`transform: rotate(${col.rotate}deg);top: ${col.top}px;left: ${col.left}px; font-size: ${col.font_size}px;width: ${ col.text_wrap?col.width+'px': 'unset'};cursor: not-allowed;`"
+                                                            class="table_cell" :class="{text_rotate: col.text_rotate}">
+                                                            {{col.value}}
+                                                        </div>
+                                                        <div v-else :style="`transform: rotate(${col.rotate}deg);top: ${col.top}px;left: ${col.left}px; font-size: ${col.font_size}px;width: ${ col.text_wrap?col.width+'px': 'unset'};`"
                                                             class="table_cell" :class="{text_rotate: col.text_rotate}">
                                                             {{col.value}}
                                                         </div>
@@ -175,7 +102,12 @@
                             </div>
                         </div>
                     </div>
-                
+                    <div class="card-footer text-center">
+                        <button type="button" @click="submitHandler()"  class="btn btn-outline-info">
+                            <i class="fa fa-upload"></i>
+                            Submit
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -251,7 +183,7 @@ export default {
             chok_update: "update",
             chok_get: "get_all",
             chok_store: "store",
-            chok_value_store: "chok_column_value_store",
+            chok_value_update: "chok_column_value_update",
             get_column_by_chok: "chok_column_data_by_chok"
         }),
 
@@ -263,7 +195,7 @@ export default {
                 chok_id: this.chok_id,
                 data: this.matrix
             }
-            let response = await this.chok_value_store(data);
+            let response = await this.chok_value_update(data);
             if (response.data.status === "success") {
                 this.matrix = response.data.data;
                 console.log("matrix =>",this.matrix);
@@ -274,6 +206,15 @@ export default {
                 localStorage.setItem('table', JSON.stringify(matrix_data));
                 window.s_alert("Data successcully created");
             }
+            // if (response.data) {
+                
+            //     // this.matrix = response.data;
+            //     // console.log("matrix =>",this.matrix);
+            //     // console.log("table =>",response.data);
+            //     // localStorage.removeItem('table');
+            //     // localStorage.setItem('table', JSON.stringify(response.data));
+            //     window.s_alert("Data updated successcully!");
+            // }
             // let formData =
         },
 
@@ -349,7 +290,7 @@ export default {
             this.col = this.col+1;
             for (let i = 0; i < this.matrix.length; i++) {
                 col_data.col_no = this.col;
-                col_data.row_no = this.row;
+                col_data.row_no = i;
                 this.matrix[i]?.push({...col_data })
             }
             this.table_manipulating = false;
@@ -360,24 +301,25 @@ export default {
             // let matrix = JSON.parse(JSON.stringify(this.matrix));
             let matrix = this.matrix;
             const table = document.createElement('table');
-            let rows = this.row;
-            let columns = this.col;
+            let rows = matrix.length;
+            let columns = matrix[0].length;
 
             for (let i = 0; i < rows; i++) {
                 for (let j = 0; j < columns; j++) {
                     const col = matrix[i][j];
-                    col.row_no = i;
                     col.col_no = j;
+                    col.row_no = i;
                     col.ishide = false;
                 }
             }
 
+            // console.log(matrix);
+
             for (let i = 0; i < rows; i++) {
                 const row = table.insertRow();
                 for (let j = 0; j < columns; j++) {
-                    
                     const col = matrix[i][j];
-                    
+                   
                     const textContent = col.value;
                     let colspan = col.colspan;
                     let rowspan = col.rowspan;
@@ -434,9 +376,9 @@ export default {
                 }
             }
 
-            console.log(matrix);
             this.matrix = matrix;
             this.update_store();
+            
             // document.getElementById('matrix').innerHTML = '';
             // document.getElementById('matrix').appendChild(table);
         },
