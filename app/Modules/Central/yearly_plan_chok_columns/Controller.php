@@ -29,9 +29,13 @@ class Controller extends ControllersController
 
     public function get_chok_columns_single_by_chok($chok_id)  {
         $chok_columns_single = Model::where('chok_id', $chok_id)->get();
+        $data_array = [];
         $chok_columns_data = $chok_columns_single->groupBy('row_no')->values()->toArray();
+        foreach ($chok_columns_data as $key => $chok_column) {
+            array_push($data_array, $chok_column); 
+        }
         // dd($chok_columns_single);
-        return response()->json($chok_columns_data);
+        return response()->json($data_array);
     }
 
     public function store(Validation $request)

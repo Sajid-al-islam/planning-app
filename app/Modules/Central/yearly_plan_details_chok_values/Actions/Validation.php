@@ -30,12 +30,12 @@ class Validation extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules()
     {
-        return [
-            'value' => 'required',
-            'status' => ['sometimes', Rule::in(['active', 'inactive'])],
-        ];
+        // return [
+        //     'value' => 'required',
+        //     'status' => ['sometimes', Rule::in(['active', 'inactive'])],
+        // ];
     }
 
     protected function failedValidation(Validator $validator)

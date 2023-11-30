@@ -108,7 +108,7 @@ export const chok_store = defineStore("chok_store", {
             let chok_response = await axios.get("yearly-plan-chok-columns-by-chok" + '/' + chok_id);
             let return_chok_response = chok_response.data;
             
-            // console.log(return_chok_response);
+            console.log(chok_response.data);
             return return_chok_response;
         },
         update: async function (form, id) {

@@ -24,7 +24,6 @@ class Store
                     $table_chok_no = $check_chok->table_chok_no+1;
                 }
                 
-                
                 $table_chok_no_col_id = 1;
                 foreach ($validation['formData']['data'] as $key => $form_items) {
                     $form_items = (object) $form_items;

@@ -13,9 +13,7 @@ class All
             $offset = request()->input('offset') ?? 10;
             $condition = [];
             
-            $with = ['columns' => function ($q) {
-                $q->with(['values']);
-            }];
+            $with = ['columns'];
 
             $data = self::$model::query();
             if (request()->has('status') && request()->input('status')) {

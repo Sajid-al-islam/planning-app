@@ -339,7 +339,7 @@ export default {
             this.col = this.col+1;
             for (let i = 0; i < this.matrix.length; i++) {
                 col_data.col_no = this.col;
-                col_data.row_no = this.row;
+                col_data.row_no = i;
                 this.matrix[i]?.push({...col_data })
             }
             this.table_manipulating = false;
@@ -350,20 +350,25 @@ export default {
             // let matrix = JSON.parse(JSON.stringify(this.matrix));
             let matrix = this.matrix;
             const table = document.createElement('table');
-            let rows = this.row;
-            let columns = this.col;
+            let rows = matrix.length;
+            let columns = matrix[0].length;
 
             for (let i = 0; i < rows; i++) {
                 for (let j = 0; j < columns; j++) {
                     const col = matrix[i][j];
+                    col.col_no = j;
+                    col.row_no = i;
                     col.ishide = false;
                 }
             }
+
+            // console.log(matrix);
 
             for (let i = 0; i < rows; i++) {
                 const row = table.insertRow();
                 for (let j = 0; j < columns; j++) {
                     const col = matrix[i][j];
+                   
                     const textContent = col.value;
                     let colspan = col.colspan;
                     let rowspan = col.rowspan;
@@ -422,8 +427,9 @@ export default {
 
             this.matrix = matrix;
             this.update_store();
-            document.getElementById('matrix').innerHTML = '';
-            document.getElementById('matrix').appendChild(table);
+            
+            // document.getElementById('matrix').innerHTML = '';
+            // document.getElementById('matrix').appendChild(table);
         },
     },
     computed: {

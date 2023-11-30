@@ -22,7 +22,7 @@ class Model extends EloquentModel
     }
 
     public function columns() {
-        return $this->hasMany(Yearly_plan_chok_columnsModel::class, 'chok_id');
+        return $this->hasMany(Yearly_plan_chok_columnsModel::class, 'chok_id', 'id');
     }
 
 
