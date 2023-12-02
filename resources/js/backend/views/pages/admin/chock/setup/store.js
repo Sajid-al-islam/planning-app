@@ -88,7 +88,7 @@ export const chok_store = defineStore("chok_store", {
             that.processing_status = 0;
             console.log('finised');
 
-            let response = await this.chok_column_data_by_chok(data.chok_id);
+            let response = await this.chok_column_value_by_chok(data.chok_id);
             return response;
         },
         chok_column_value_update: async function (data) {
@@ -103,8 +103,7 @@ export const chok_store = defineStore("chok_store", {
             return return_response;
         },
 
-        chok_column_data_by_chok: async function (chok_id) {
-            // console.log(chok_id);
+        chok_column_value_by_chok: async function (chok_id) {
             let chok_response = await axios.get("yearly-plan-chok-columns-by-chok" + '/' + chok_id);
             let return_chok_response = chok_response.data;
             

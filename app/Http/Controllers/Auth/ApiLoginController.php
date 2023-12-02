@@ -76,7 +76,7 @@ class ApiLoginController extends Controller
             // $req_data = request()->only('email', 'password');
             $check_auth_user = User::where('email', $request->email)->orWhere('user_name', $request->email)->first();
             if ($check_auth_user && Hash::check($request->password, $check_auth_user->password)) {
-
+                
                 if (env('EMAIL_VERIFICATION') == false) {
                     auth()->login($check_auth_user, $request->remember);
                     $user = User::where('id', Auth::user()->id)->with('roles')->first();

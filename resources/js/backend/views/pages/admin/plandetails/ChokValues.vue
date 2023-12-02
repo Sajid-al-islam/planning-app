@@ -51,7 +51,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input v-if="selected.isheading == 0" id="cell_value" v-model="selected.value" type="text" class="w-100 border-0">
+                                                    <input v-if="selected.isheading == 0" id="cell_value" @change="submitChokValue(selected)" v-model="selected.column_value" type="text" class="w-100 border-0">
                                                     <input v-else disabled id="cell_value" v-model="selected.value" type="text" class="w-100 border-0">
                                                 </td>
                                             </tr>
@@ -70,11 +70,13 @@
                                                         :class="{active: col.isselected}" :colspan="col.colspan || 1">
                                                         <div v-if="col.isheading == 1" :style="`transform: rotate(${col.rotate}deg);top: ${col.top}px;left: ${col.left}px; font-size: ${col.font_size}px;width: ${ col.text_wrap?col.width+'px': 'unset'};cursor: not-allowed;`"
                                                             class="table_cell" :class="{text_rotate: col.text_rotate}">
-                                                            {{col.value}}
+                                                            <span v-if="col.value != null">{{col.value}}</span>
+                                                            <span v-else>{{col.column_value}}</span>
                                                         </div>
                                                         <div v-else :style="`transform: rotate(${col.rotate}deg);top: ${col.top}px;left: ${col.left}px; font-size: ${col.font_size}px;width: ${ col.text_wrap?col.width+'px': 'unset'};`"
                                                             class="table_cell" :class="{text_rotate: col.text_rotate}">
-                                                            {{col.value}}
+                                                            <span v-if="col.value != null">{{ col.value }}</span>
+                                                            <span v-else>{{ col.column_value }}</span>
                                                         </div>
                                                     </td>
                                                 </template>
@@ -139,6 +141,7 @@ export default {
             col_no: 0,
             ishide: 0,
             value: '',
+            column_value: '',
             isheading: 0,
             isselected: false,
             background_color: '#ffffff',
@@ -184,28 +187,32 @@ export default {
             chok_get: "get_all",
             chok_store: "store",
             chok_value_update: "chok_column_value_update",
-            get_column_by_chok: "chok_column_data_by_chok"
+            get_chok_column_value_by_chok: "chok_column_value_by_chok"
         }),
-
-        submitHandler: async function () {
+        submitChokValue: async function(chok_value) {
             if(this.chok_id == null) {
                 return window.s_alert("please select the chock first", 'warning');
             }
             let data = {
                 chok_id: this.chok_id,
-                data: this.matrix
+                data: chok_value
             }
             let response = await this.chok_value_update(data);
             if (response.data.status === "success") {
-                this.matrix = response.data.data;
-                console.log("matrix =>",this.matrix);
-                console.log("table =>",response.data);
-                localStorage.removeItem('table');
-                // let matrix_data = [];
-                let matrix_data = Object.entries(response.data.data);
-                localStorage.setItem('table', JSON.stringify(matrix_data));
-                window.s_alert("Data successcully created");
+                console.log('data_uodated');
+                await this.get_chok_column_value_by_chok(this.chok_id);
+                // this.matrix = response.data.data;
+                // console.log("matrix =>",this.matrix);
+                // console.log("table =>",response.data);
+                // localStorage.removeItem('table');
+                // // let matrix_data = [];
+                // let matrix_data = Object.entries(response.data.data);
+                // localStorage.setItem('table', JSON.stringify(matrix_data));
+                // window.s_alert("Data successcully created");
             }
+        },
+        submitHandler: async function () {
+            
             // if (response.data) {
                 
             //     // this.matrix = response.data;
@@ -220,7 +227,8 @@ export default {
 
         getChokColumns: async function (event) {
             let id = event.target.value;
-            let chok_response = await this.get_column_by_chok(id);
+            this.chok_id = id;
+            let chok_response = await this.get_chok_column_value_by_chok(id);
             console.log(chok_response);
             this.matrix = chok_response;
             this.set_cols();
