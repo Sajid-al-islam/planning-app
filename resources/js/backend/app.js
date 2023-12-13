@@ -16,6 +16,7 @@ import admin_routes from "./views/pages/admin/partials/routes";
 import user_panel_routes from "./views/pages/user_panel/partials/routes";
 import cp_panel_routes from "./views/pages/cp_panel/partials/routes";
 import sg_panel_routes from "./views/pages/sg_panel/partials/routes";
+import division_panel_routes from "./views/pages/division_panel/partials/routes";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -27,7 +28,8 @@ const router = createRouter({
                 admin_routes,
                 user_panel_routes,
                 cp_panel_routes,
-                sg_panel_routes
+                sg_panel_routes,
+                division_panel_routes
             ],
 
         },

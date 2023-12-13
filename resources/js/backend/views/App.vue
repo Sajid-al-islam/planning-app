@@ -18,7 +18,7 @@ export default {
             if(!token) {
                 location.href = '/login'
             }
-        }
+        },
     },
     computed: {
     },

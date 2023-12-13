@@ -35,7 +35,7 @@ export default {
             let roles = JSON.parse(localStorage.getItem('user_roles'));
             roles.forEach(element => {
                 
-                if(element.name != 'cp') {
+                if(element.name != 'division') {
                     location.href = '/login'
                     localStorage.removeItem('token');
                 }

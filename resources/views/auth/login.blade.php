@@ -103,7 +103,7 @@
                     if (res.status === 200) {
                         localStorage.setItem('token', res.data.access_token);
                         localStorage.setItem('auth_user', JSON.stringify(res.data.user));
-
+                        localStorage.setItem('user_roles', JSON.stringify(res.data.user.roles))
                         let user_roles = res.data.user.roles
                         user_roles.forEach(element => {
                             if(element.name == 'admin') {
@@ -114,6 +114,9 @@
                             }
                             if(element.name == 'visitor') {
                                 location.href = '/dashboard#/visitor'
+                            }
+                            if(element.name == 'division') {
+                                location.href = '/dashboard#/division'
                             }
                             if(element.name == 'cp') {
                                 location.href = '/dashboard#/cp-admin'

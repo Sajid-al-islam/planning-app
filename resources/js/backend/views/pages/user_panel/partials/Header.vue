@@ -19,8 +19,8 @@
             </div>
             <div class="main-header-right row" header-bg-color="bg-default-light-colo">
                 <div class="mobile-sidebar col-1 ps-0">
-                    <div class="text-start switch-sm"><label class="switch"><input type="checkbox" id="sidebar-toggle"
-                                checked="checked"><span class="switch-state"></span></label>
+                    <div class="text-start switch-sm"><label class="switch"><input @click="toggleSidebar()" type="checkbox" id="sidebar-toggle"
+                                ><span class="switch-state"></span></label>
                     </div>
                 </div>
                 <div class="nav-right col">
@@ -51,7 +51,25 @@
 
 <script>
 export default {
-
+    data: () => ({
+        offset: "",
+        search_data: "",
+    }),
+    created: async function () {
+        // setTimeout(() => {
+        //     document.querySelector('.page-body-wrapper').classList.add('sidebar-close');
+        // }, 300);
+    },
+    methods: {
+        toggleSidebar: function() {
+            document.querySelector('.page-body-wrapper').classList.toggle('sidebar-close');
+        }
+    },
+    computed: {
+    },
+    watch: {
+        
+    },
 }
 </script>
 
