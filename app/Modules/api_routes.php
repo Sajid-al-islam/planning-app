@@ -27,3 +27,5 @@ include_once  base_path("app/Modules/Responsibles/Route.php");
 
 
 include_once  base_path("app/Modules/Department/Department_plan/Route.php");
+
+include_once  base_path("app/Modules/PlanCategory/Route.php");

@@ -54,7 +54,7 @@
                                     </li>
                                     <!---->
                                     <li>
-                                        <a href="#/user/import" class="">
+                                        <a href="#/division/import" class="">
                                             <i
                                                 class="fa-regular fa-hand-point-right"
                                             ></i>
@@ -88,32 +88,35 @@
                                         />
                                     </th>
                                     <th aria-label="id" class="cursor_n_resize">
-                                        ID
+                                        Serial
                                         <!---->
                                     </th>
                                     <th class="cursor_n_resize">
-                                        Photo
+                                        Plan details
                                         <!---->
                                     </th>
                                     <th class="cursor_n_resize">
-                                        Name
+                                        section
                                         <!---->
                                     </th>
                                     <th class="cursor_n_resize">
-                                        Email
+                                        sub_section
                                         <!---->
                                     </th>
                                     <th class="cursor_n_resize">
-                                        Mobile NO
-                                        <span
-                                            ><i
-                                                class="fa-solid fa-arrow-up-z-a text-warning"
-                                            ></i
-                                        ></span>
+                                        Dofa
+                                    </th>
+                                    <th class="cursor_n_resize">
+                                        Plan Category
+                                    </th>
+                                    <th class="cursor_n_resize">
+                                        Numeric value
+                                    </th>
+                                    <th class="cursor_n_resize">
+                                        Deadline
                                     </th>
                                     <th class="cursor_n_resize">
                                         Status
-                                        <!---->
                                     </th>
                                     <th aria-label="actions">Actions</th>
                                 </tr>
@@ -121,7 +124,7 @@
 
                             <tbody class="table-border-bottom-0">
                                 <tr
-                                    v-for="(item, index) in all_users.data"
+                                    v-for="(item, index) in all_divisions.data"
                                     :key="item.id"
                                 >
                                     <td>
@@ -130,24 +133,22 @@
                                             class="form-check-input"
                                         />
                                     </td>
-                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ item.serial }}</td>
                                     <td>
-                                        <img
-                                            :src="item.image"
-                                            alt="Avatar"
-                                            class="rounded-circle"
-                                            style="height: 30px"
-                                        />
-                                    </td>
-                                    <td>
-                                        <span
-                                            class="text-warning cursor_pointer"
-                                        >
-                                            {{ item.full_name }}
+                                        <span class="text-warning cursor_pointer">
+                                            {{ item.plan_details }}
                                         </span>
                                     </td>
-                                    <td>{{ item.email }}</td>
-                                    <td>{{ item.phone ?? "N/A" }}</td>
+                                    <td>
+                                        <span>
+                                            {{ item.section }}
+                                        </span>
+                                    </td>
+                                    <td>{{ item.sub_section }}</td>
+                                    <td>{{ item.dofa_id ?? "N/A" }}</td>
+                                    <td>{{ item.plan_category_id }}</td>
+                                    <td>{{ item.numeric_value }}</td>
+                                    <td>{{ item.deadline }}</td>
                                     <td>
                                         <span
                                             class="badge bg-label-success me-1"
@@ -160,8 +161,7 @@
                                             <a
                                                 @click.prevent=""
                                                 href="#"
-                                                class="btn btn-sm btn-outline-secondary"
-                                                ><i class="fa fa-gears"></i
+                                                class="btn btn-sm btn-outline-secondary"><i class="fa fa-gears"></i
                                             ></a>
                                             <ul>
                                                 <!-- <li>
@@ -175,7 +175,7 @@
                                                 <!-- <li>
                                                     <span>
                                                         <a
-                                                            href="#/user/details/43"
+                                                            href="#/division/details/43"
                                                             class=""
                                                         >
                                                             <i
@@ -209,7 +209,7 @@
                                                     <span>
                                                         <a
                                                             @click.prevent="
-                                                                user_delete(
+                                                                division_delete(
                                                                     item.id
                                                                 )
                                                             "
@@ -233,7 +233,7 @@
                     <div
                         class="card-footer py-1 border-top-0 d-flex justify-content-between border border-1"
                     >
-                        <pagination :data="all_users" :method="user_get_all" />
+                        <pagination :data="all_divisions" :method="division_get_all" />
                         <div class="float-right">
                             <div class="show-limit d-inline-block">
                                 <span>Limit:</span>
@@ -247,7 +247,7 @@
                             </div>
                             <div class="show-limit d-inline-block">
                                 <span>Total:</span>
-                                <span>{{ all_users.total }}</span>
+                                <span>{{ all_divisions.total }}</span>
                             </div>
                         </div>
                     </div>
@@ -282,7 +282,7 @@
 
 <script>
 import { mapActions, mapState } from "pinia";
-import { user_setup_store } from "./setup/store";
+import { division_setup_store } from "./setup/store";
 
 export default {
     data: () => ({
@@ -290,22 +290,22 @@ export default {
         search_data: "",
     }),
     created: async function () {
-        await this.user_get_all();
+        await this.division_get_all();
     },
     methods: {
-        ...mapActions(user_setup_store, {
-            user_get_all: "all",
-            user_delete: "delete",
+        ...mapActions(division_setup_store, {
+            division_get_all: "all",
+            division_delete: "delete",
         }),
     },
     computed: {
-        ...mapState(user_setup_store, {
-            all_users: "all_data",
+        ...mapState(division_setup_store, {
+            all_divisions: "all_data",
         }),
     },
     watch: {
         offset: async function (newOffset, oldOffset) {
-            await this.user_get_all("users");
+            await this.division_get_all("divisions");
         },
         search_data: function (newSearchData, oldSearchData) {
             console.log(newSearchData);

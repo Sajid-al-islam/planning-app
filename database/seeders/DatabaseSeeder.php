@@ -12,6 +12,7 @@ use App\Modules\Central\yearly_plan_suggestions\Seeder as Yearly_plan_suggestion
 use App\Modules\Department\Department_plan\Seeder as Department_planSeeder;
 use App\Modules\Department\Seeder as DepartmentSeeder;
 use App\Modules\Dofa\Seeder as DofaSeeder;
+use App\Modules\PlanCategory\Seeder as PlanCategorySeeder;
 use App\Modules\Responsibles\Seeder as ResponsiblesSeeder;
 use App\Modules\User\UserSeeder;
 use Illuminate\Database\Seeder;
@@ -39,7 +40,8 @@ class DatabaseSeeder extends Seeder
             Yearly_plan_suggestionsSeeder::class,
             ResponsiblesSeeder::class,
             Yearly_plan_complete_by_divisionsSeeder::class,
-            Department_planSeeder::class
+            Department_planSeeder::class,
+            PlanCategorySeeder::class
         ]);
     }
 }
