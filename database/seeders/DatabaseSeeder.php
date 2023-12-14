@@ -9,6 +9,8 @@ use App\Modules\Central\yearly_plan_complete_by_divisions\Seeder as Yearly_plan_
 use App\Modules\Central\yearly_plan_details\Seeder as Yearly_plan_detailsSeeder;
 use App\Modules\Central\yearly_plan_orjitobbo_targets\Seeder as Yearly_plan_orjitobbo_targetsSeeder;
 use App\Modules\Central\yearly_plan_suggestions\Seeder as Yearly_plan_suggestionsSeeder;
+use App\Modules\Department\Department_plan\Seeder as Department_planSeeder;
+use App\Modules\Department\Seeder as DepartmentSeeder;
 use App\Modules\Dofa\Seeder as DofaSeeder;
 use App\Modules\Responsibles\Seeder as ResponsiblesSeeder;
 use App\Modules\User\UserSeeder;
@@ -36,7 +38,8 @@ class DatabaseSeeder extends Seeder
             Yearly_plan_orjitobbo_targetsSeeder::class,
             Yearly_plan_suggestionsSeeder::class,
             ResponsiblesSeeder::class,
-            Yearly_plan_complete_by_divisionsSeeder::class
+            Yearly_plan_complete_by_divisionsSeeder::class,
+            Department_planSeeder::class
         ]);
     }
 }

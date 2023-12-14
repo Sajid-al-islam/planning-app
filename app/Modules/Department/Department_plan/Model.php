@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Department;
+namespace App\Modules\Department\Department_plan;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;

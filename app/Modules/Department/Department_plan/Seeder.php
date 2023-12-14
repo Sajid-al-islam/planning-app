@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Department;
+namespace App\Modules\Department\Department_plan;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder as SeedersSeeder;
@@ -9,7 +9,7 @@ class Seeder extends SeedersSeeder
     /**
      * Run the database seeds.
      */
-    static $model = \App\Modules\Department\Model::class;
+    static $model = \App\Modules\Department\Department_plan\Model::class;
     public function run(): void
     {
         self::$model::truncate();

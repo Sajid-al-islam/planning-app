@@ -24,3 +24,6 @@ include_once  base_path("app/Modules/Central/yearly_plan_suggestions/Route.php")
 
 include_once  base_path("app/Modules/Dofa/Route.php");
 include_once  base_path("app/Modules/Responsibles/Route.php");
+
+
+include_once  base_path("app/Modules/Department/Department_plan/Route.php");

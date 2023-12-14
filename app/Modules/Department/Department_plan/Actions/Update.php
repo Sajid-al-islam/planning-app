@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Modules\Department\Actions;
+namespace App\Modules\Department\Department_plan\Actions;
 
-use App\Modules\Department\Actions\Validation;
+use App\Modules\Department\Department_plan\Actions\Validation;
 
 class Update
 {
-    static $model = \App\Modules\Department\Model::class;
+    static $model = \App\Modules\Department\Department_plan\Model::class;
 
     public static function execute(Validation $request,$id)
     {

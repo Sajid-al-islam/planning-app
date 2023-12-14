@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Modules\Department;
+namespace App\Modules\Department\Department_plan;
 
-use App\Modules\Department\Actions\All;
-use App\Modules\Department\Actions\Delete;
-use App\Modules\Department\Actions\Show;
-use App\Modules\Department\Actions\Store;
-use App\Modules\Department\Actions\Update;
-use App\Modules\Department\Actions\Validation;
+use App\Modules\Department\Department_plan\Actions\All;
+use App\Modules\Department\Department_plan\Actions\Delete;
+use App\Modules\Department\Department_plan\Actions\Show;
+use App\Modules\Department\Department_plan\Actions\Store;
+use App\Modules\Department\Department_plan\Actions\Update;
+use App\Modules\Department\Department_plan\Actions\Validation;
 use App\Http\Controllers\Controller as ControllersController;
 
 

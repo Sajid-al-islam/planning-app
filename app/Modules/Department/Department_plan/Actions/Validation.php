@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Department\Actions;
+namespace App\Modules\Department\Department_plan\Actions;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;

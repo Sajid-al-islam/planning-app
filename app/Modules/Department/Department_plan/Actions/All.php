@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Department\Actions;
+namespace App\Modules\Department\Department_plan\Actions;
 
 class All
 {
-    static $model = \App\Modules\Department\Model::class;
+    static $model = \App\Modules\Department\Department_plan\Model::class;
 
     public static function execute()
     {
