@@ -31,35 +31,29 @@
                                 <div class="col-lg-12">
                                     <div class="admin_form form_1">
                                         <div class="form-group">
-                                            <label for="serial">serial</label>
                                             <div class="mt-1 mb-3">
                                                 <input type="number" class="form-control" name="serial" id="serial">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="plan_details">Plan Details</label>
-
                                             <div class="mt-1 mb-3">
                                                 <input type="text" class="form-control" name="plan_details" id="plan_details">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="section">Section</label>
                                             <div class="mt-1 mb-3">
                                                 <input type="text" class="form-control" name="section" id="section">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="sub_section">Sub Section</label>
                                             <div class="mt-1 mb-3">
                                                 <input type="text" class="form-control" name="sub_section" id="sub_section">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="dofa_id">Dofa</label>
                                             <div class="mt-1 mb-3">
-                                                <select name="dofa_id" id="dofa_id" class="form-select">
+                                                <select name="dofa_id" id="dofa_id" class="form-select" v-model="form.dofa">
                                                     <option v-for="(dofa, index) in all_dofas" :key="index" :value="dofa.id">
                                                         {{ dofa.title }}
                                                     </option>
@@ -68,78 +62,16 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="plan_category">Plan Category</label>
                                             <div class="mt-1 mb-3">
-                                                <select name="plan_category" id="plan_category" class="form-select">
-                                                    <option v-for="(plan_category, index) in all_plan_categories" :key="index" :value="plan_category.id">
-                                                        {{ plan_category.title }}
+                                                <select name="dofa_id" id="dofa_id" class="form-select" v-model="form.dofa">
+                                                    <option v-for="(dofa, index) in all_dofas" :key="index" :value="dofa.id">
+                                                        {{ dofa.title }}
                                                     </option>
                                                 </select>
                                             </div>
                                         </div>
                                         
-                                        <div class="form-group">
-                                            <label for="numeric_value">Numeric Value</label>
-                                            <div class="mt-1 mb-3">
-                                                <input type="number" class="form-control" name="numeric_value" id="numeric_value">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="deadline">Deadline</label>
-                                            <div class="mt-1 mb-3">
-                                                <input type="date" class="form-control" name="deadline" id="deadline">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="complete_month">Complete Month</label>
-                                            <div class="mt-1 mb-3">
-                                                <input type="text" class="form-control" name="complete_month" id="complete_month">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="incomplete_perchantage">Incomple Perchantage</label>
-                                            <div class="mt-1 mb-3">
-                                                <input type="text" class="form-control" name="incomplete_perchantage" id="incomplete_perchantage">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="comment">Comment</label>
-                                            <div class="mt-1 mb-3">
-                                                <input type="text" class="form-control" name="comment" id="comment">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="comment">Budget</label>
-                                            <div class="mt-1 mb-3">
-                                                <input type="text" class="form-control" name="budget_id" id="budget_id">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="is_archive">Archived</label>
-                                            <div class="mt-1 mb-3">
-                                                <select name="is_archive" id="is_archive" class="form-select">
-                                                    <option value="1">
-                                                        Yes
-                                                    </option>
-                                                    <option value="0">
-                                                        No
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="umbrella">Umbrella</label>
-                                            <div class="mt-1 mb-3">
-                                                <input type="text" class="form-control" name="umbrella" id="umbrella">
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +93,7 @@
 import { mapActions, mapState } from "pinia";
 import form_fields from "./setup/form_fields.js";
 import { division_setup_store } from "./setup/store";
-import { plan_category_store } from '../plan_category/setup/store';
+// import { plan_category_store } from '../responsibles/setup/store';
 export default {
     data: () => ({
         form_fields,
@@ -187,7 +119,6 @@ export default {
                 item.value = "";
             });
         }
-        await this.plan_category_get();
     },
 
     methods: {
@@ -195,10 +126,6 @@ export default {
             user_update: "update",
             user_get: "get",
             user_store: "store",
-        }),
-
-        ...mapActions(plan_category_store, {
-            plan_category_get: "get",
         }),
 
         submitHandler: async function ($event) {
@@ -216,9 +143,6 @@ export default {
     computed: {
         ...mapState(division_setup_store, {
             single_user: "single_data",
-        }),
-        ...mapState(plan_category_store, {
-            all_plan_categories: "all_data",
         }),
     },
 };

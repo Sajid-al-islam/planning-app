@@ -29,3 +29,4 @@ class Seeder extends SeedersSeeder
         ]);
     }
 }
+
