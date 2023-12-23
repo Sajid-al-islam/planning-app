@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <h6>
-                                {{ param_id ? "Update" : "Create new" }} user
+                                {{ param_id ? "Update" : "Create new" }} division plan
                             </h6>
                         </div>
                         <div class="col-lg-6 text-end">
@@ -68,9 +68,9 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="plan_category">Plan Category</label>
+                                            <label for="plan_category_id">Plan Category</label>
                                             <div class="mt-1 mb-3">
-                                                <select name="plan_category" id="plan_category" class="form-select">
+                                                <select name="plan_category_id" id="plan_category_id" class="form-select">
                                                     <option v-for="(plan_category, index) in all_plan_categories" :key="index" :value="plan_category.id">
                                                         {{ plan_category.title }}
                                                     </option>
@@ -102,7 +102,7 @@
                                         <div class="form-group">
                                             <label for="incomplete_perchantage">Incomple Perchantage</label>
                                             <div class="mt-1 mb-3">
-                                                <input type="text" class="form-control" name="incomplete_perchantage" id="incomplete_perchantage">
+                                                <input type="number" class="form-control" name="how_much_was_incomplete" id="incomplete_perchantage">
                                             </div>
                                         </div>
 
@@ -116,7 +116,7 @@
                                         <div class="form-group">
                                             <label for="comment">Budget</label>
                                             <div class="mt-1 mb-3">
-                                                <input type="text" class="form-control" name="budget_id" id="budget_id">
+                                                <input type="number" class="form-control" name="budget_id" id="budget_id">
                                             </div>
                                         </div>
 
@@ -135,9 +135,9 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="umbrella">Umbrella</label>
+                                            <label for="umbrella_id">Umbrella</label>
                                             <div class="mt-1 mb-3">
-                                                <input type="text" class="form-control" name="umbrella" id="umbrella">
+                                                <input type="number" class="form-control" name="umbrella_id" id="umbrella_id">
                                             </div>
                                         </div>
                                     </div>
@@ -162,6 +162,7 @@ import { mapActions, mapState } from "pinia";
 import form_fields from "./setup/form_fields.js";
 import { division_setup_store } from "./setup/store";
 import { plan_category_store } from '../plan_category/setup/store';
+import { dofa_store } from '../../admin/dofa/setup/store';
 export default {
     data: () => ({
         form_fields,
@@ -188,6 +189,7 @@ export default {
             });
         }
         await this.plan_category_get();
+        await this.get_dofas();
     },
 
     methods: {
@@ -198,8 +200,13 @@ export default {
         }),
 
         ...mapActions(plan_category_store, {
-            plan_category_get: "get",
+            plan_category_get: "get_all",
         }),
+
+        ...mapActions(dofa_store, {
+            get_dofas: "get_all",
+        }),
+        
 
         submitHandler: async function ($event) {
             if (this.param_id) {
@@ -208,7 +215,7 @@ export default {
                 let response = await this.user_store($event.target);
                 if (response.data.status === "success") {
                     window.s_alert("Data successcully created");
-                    this.$router.push({ name: `All` });
+                    this.$router.push({ name: `AllDivisionPlan` });
                 }
             }
         },
@@ -216,6 +223,9 @@ export default {
     computed: {
         ...mapState(division_setup_store, {
             single_user: "single_data",
+        }),
+        ...mapState(dofa_store, {
+            all_dofas: "all_data",
         }),
         ...mapState(plan_category_store, {
             all_plan_categories: "all_data",

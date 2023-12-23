@@ -190,7 +190,7 @@
                                                     <span>
                                                         <router-link
                                                             :to="{
-                                                                name: 'Create',
+                                                                name: 'CreateDivisionPlan',
                                                                 query: {
                                                                     id: item.id,
                                                                 },

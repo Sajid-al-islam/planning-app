@@ -33,7 +33,19 @@ class Validation extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
+            'plan_details' => 'required',
+            'section' => ['required', 'string'],
+            'sub_section' => ['string'],
+            'numeric_value' => ['numeric'],
+            'deadline' => ['date'],
+            'complete_month' => ['string'],
+            'how_much_was_incomplete' => ['numeric'],
+            'comment' => ['string'],
+            'budget_id' => ['nullable'],
+            'is_archive' => ['nullable'],
+            'umbrella_id' => ['nullable'],
+            'dofa_id' => 'required',
+            'plan_category_id' => 'required',
             'status' => ['sometimes', Rule::in(['active', 'inactive'])],
         ];
     }

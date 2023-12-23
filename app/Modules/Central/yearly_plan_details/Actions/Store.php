@@ -2,6 +2,7 @@
 
 namespace App\Modules\Central\yearly_plan_details\Actions;
 
+use App\Models\CommonPlan;
 use App\Modules\Central\yearly_plan_complete_by_divisions\Model;
 use App\Modules\Central\yearly_plan_details\Actions\Validation;
 use App\Modules\Central\yearly_plan_details\Model as YearlyPlanDetails;
@@ -37,6 +38,15 @@ class Store
                 }
                 $planDetails->responsibles()->attach(request()->bastobayonkari_person);
             }
+
+            $common_plan = new CommonPlan();
+            $common_plan->central_plan_id = $planDetails->id;
+            $common_plan->plan_title = $planDetails->plan_title;
+            $common_plan->dofa_id = $planDetails->dofa_id;
+            $common_plan->how_much_was_incomplete = $planDetails->how_much_was_incomplete;
+            $common_plan->is_archive = $planDetails->is_archive;
+            $common_plan->is_department = 0;
+            $common_plan->save();
             // if (self::$model::query()->create($request->all())) {
             //     return messageResponse('Item added successfully', 201);
             // }
