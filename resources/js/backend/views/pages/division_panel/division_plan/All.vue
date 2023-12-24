@@ -7,6 +7,16 @@
                         <h5 class="m-0">All Division Management</h5>
                     </div>
                     <div class="col-lg-6 text-end">
+                        <span class="me-2">
+                            <a
+                                @click="gotoPlan()"
+                                class="btn rounded-pill btn-outline-info"
+                            >
+                                <i class="fa fa-eye me-5px"></i>
+                                View plans
+                            </a>
+                        </span>
+
                         <span>
                             <router-link
                                 :to="{ name: `CreateDivisionPlan` }"
@@ -297,6 +307,10 @@ export default {
             division_get_all: "all",
             division_delete: "delete",
         }),
+        gotoPlan: function () {
+            location.href = '/dept-plans';
+        },
+
     },
     computed: {
         ...mapState(division_setup_store, {

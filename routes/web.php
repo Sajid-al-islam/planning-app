@@ -18,6 +18,7 @@ Route::get('/dashboard', function () {
     return view('backend.dashboard');
 });
 
+Route::get('/dept-plans',[App\Http\Controllers\HomeController::class, 'getPlans'])->name('get_plans');
 
 Auth::routes();
 

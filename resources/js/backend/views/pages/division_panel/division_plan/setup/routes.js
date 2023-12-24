@@ -15,7 +15,7 @@ const routes = {
             path: 'create',
             name: "CreateDivisionPlan",
             component: Form
-        },
+        }
     ]
 }
 

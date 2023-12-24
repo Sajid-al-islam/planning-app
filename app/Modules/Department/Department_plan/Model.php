@@ -2,6 +2,8 @@
 
 namespace App\Modules\Department\Department_plan;
 
+use App\Modules\Central\yearly_plan_orjitobbo_targets\Model as Yearly_plan_orjitobbo_targetsModel;
+use App\Modules\Dofa\Model as DofaModel;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 
@@ -18,6 +20,14 @@ class Model extends EloquentModel
             $data->slug = Str::slug($slug);
             $data->save();
         });
+    }
+
+    public function dofa() {
+        return $this->hasOne(DofaModel::class, 'id', 'dofa_id');
+    }
+
+    public function orjitobbo_target() {
+        return $this->hasOne(Yearly_plan_orjitobbo_targetsModel::class, 'id','orjitobbo_target_id');
     }
 
     public function scopeActive($q)

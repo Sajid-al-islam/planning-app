@@ -23,6 +23,7 @@ return new class extends Migration
             $table->bigInteger('how_much_was_incomplete')->unsigned()->nullable();
             $table->string('comment')->nullable();
             $table->bigInteger('is_archive')->unsigned()->default(0);
+            $table->bigInteger('is_complete')->unsigned()->default(0);
 
             $table->bigInteger('assign_to_id')->unsigned()->nullable();
             $table->bigInteger('is_department')->unsigned()->nullable();
